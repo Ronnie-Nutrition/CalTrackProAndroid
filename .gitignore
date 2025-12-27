@@ -1,0 +1,66 @@
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+.gradle/
+local.properties
+
+# Build outputs
+build/
+app/build/
+*/build/
+
+# Generated files
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Signing
+*.jks
+*.keystore
+keystore.properties
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Kotlin
+*.kotlin_module
+
+# Proguard
+proguard/
+
+# Crashlytics
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Google Services (contains API keys)
+google-services.json
+
+# Local configuration
+secrets.properties
+api-keys.properties
+
+# Test outputs
+/captures
+.externalNativeBuild
+
+# NDK
+obj/
+
+# IntelliJ
+out/
+
+# Gradle
+.gradle
+gradle-app.setting
+!gradle-wrapper.jar
+
+# Cache
+.cache/

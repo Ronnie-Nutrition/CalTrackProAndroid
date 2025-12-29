@@ -69,14 +69,14 @@
 
 ## Tasks
 
-- [ ] 1.0 Set up project dependencies and infrastructure (Room, Hilt, Navigation)
-  - [ ] 1.1 Update `gradle/libs.versions.toml` with Room, Hilt, Navigation, and KSP versions
-  - [ ] 1.2 Update project-level `build.gradle.kts` to add Hilt and KSP plugins
-  - [ ] 1.3 Update `app/build.gradle.kts` to apply plugins and add all dependencies
-  - [ ] 1.4 Create `CalTrackProApp.kt` Application class with `@HiltAndroidApp` annotation
-  - [ ] 1.5 Update `AndroidManifest.xml` to register the Application class
-  - [ ] 1.6 Add `@AndroidEntryPoint` to `MainActivity.kt`
-  - [ ] 1.7 Sync Gradle and verify project builds successfully
+- [x] 1.0 Set up project dependencies and infrastructure (Room, Hilt, Navigation)
+  - [x] 1.1 Update `gradle/libs.versions.toml` with Room, Hilt, Navigation, and KSP versions
+  - [x] 1.2 Update project-level `build.gradle.kts` to add Hilt and KSP plugins
+  - [x] 1.3 Update `app/build.gradle.kts` to apply plugins and add all dependencies
+  - [x] 1.4 Create `CalTrackProApp.kt` Application class with `@HiltAndroidApp` annotation
+  - [x] 1.5 Update `AndroidManifest.xml` to register the Application class
+  - [x] 1.6 Add `@AndroidEntryPoint` to `MainActivity.kt`
+  - [x] 1.7 Sync Gradle and verify project builds successfully
 
 - [ ] 2.0 Create data layer (entities, DAOs, database, repository)
   - [ ] 2.1 Create `MealType.kt` enum in domain/model (BREAKFAST, LUNCH, DINNER, SNACK)

@@ -78,16 +78,16 @@
   - [x] 1.6 Add `@AndroidEntryPoint` to `MainActivity.kt`
   - [x] 1.7 Sync Gradle and verify project builds successfully
 
-- [ ] 2.0 Create data layer (entities, DAOs, database, repository)
-  - [ ] 2.1 Create `MealType.kt` enum in domain/model (BREAKFAST, LUNCH, DINNER, SNACK)
-  - [ ] 2.2 Create `FoodEntryEntity.kt` Room entity with all fields from PRD
-  - [ ] 2.3 Create `Converters.kt` for Room type converters (ByteArray, etc.)
-  - [ ] 2.4 Create `FoodEntryDao.kt` with insert, update, delete, and query methods
-  - [ ] 2.5 Create `CalTrackDatabase.kt` Room database with FoodEntryEntity
-  - [ ] 2.6 Create `FoodEntryRepository.kt` interface defining repository contract
-  - [ ] 2.7 Create `FoodEntryRepositoryImpl.kt` implementing the repository with DAO
-  - [ ] 2.8 Create `DatabaseModule.kt` Hilt module providing Database and DAO
-  - [ ] 2.9 Create `RepositoryModule.kt` Hilt module binding repository implementation
+- [x] 2.0 Create data layer (entities, DAOs, database, repository)
+  - [x] 2.1 Create `MealType.kt` enum in domain/model (BREAKFAST, LUNCH, DINNER, SNACK)
+  - [x] 2.2 Create `FoodEntryEntity.kt` Room entity with all fields from PRD
+  - [x] 2.3 Create `Converters.kt` for Room type converters (ByteArray, etc.)
+  - [x] 2.4 Create `FoodEntryDao.kt` with insert, update, delete, and query methods
+  - [x] 2.5 Create `CalTrackDatabase.kt` Room database with FoodEntryEntity
+  - [x] 2.6 Create `FoodEntryRepository.kt` interface defining repository contract
+  - [x] 2.7 Create `FoodEntryRepositoryImpl.kt` implementing the repository with DAO
+  - [x] 2.8 Create `DatabaseModule.kt` Hilt module providing Database and DAO
+  - [x] 2.9 Create `RepositoryModule.kt` Hilt module binding repository implementation
 
 - [ ] 3.0 Create domain layer (models and mappers)
   - [ ] 3.1 Create `FoodEntry.kt` domain model with computed properties (totalCalories, etc.)

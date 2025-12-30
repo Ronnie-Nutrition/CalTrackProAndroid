@@ -1,6 +1,7 @@
 package com.easyaiflows.caltrackpro.di
 
 import com.easyaiflows.caltrackpro.BuildConfig
+import com.easyaiflows.caltrackpro.data.remote.EdamamApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -87,5 +88,11 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEdamamApiService(retrofit: Retrofit): EdamamApiService {
+        return retrofit.create(EdamamApiService::class.java)
     }
 }

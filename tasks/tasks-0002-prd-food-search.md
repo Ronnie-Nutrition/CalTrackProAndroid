@@ -70,25 +70,25 @@
 
 ## Tasks
 
-- [ ] 1.0 Set up networking infrastructure (Retrofit, OkHttp, Hilt modules)
+- [x] 1.0 Set up networking infrastructure (Retrofit, OkHttp, Hilt modules)
   - [x] 1.1 Add Retrofit, OkHttp, and Moshi dependencies to `libs.versions.toml`
   - [x] 1.2 Update `app/build.gradle.kts` to include networking dependencies
   - [x] 1.3 Create `NetworkModule.kt` Hilt module providing OkHttpClient, Moshi, and Retrofit
   - [x] 1.4 Configure API key storage in `local.properties` with BuildConfig access
   - [x] 1.5 Set up Retrofit with Edamam base URL (`https://api.edamam.com/api/food-database/v2/`)
 
-- [ ] 2.0 Create Edamam API service and data models (DTOs, domain models, repository)
-  - [ ] 2.1 Create `NutrientsDto.kt` with Edamam nutrient field mappings (ENERC_KCAL, PROCNT, FAT, CHOCDF, FIBTG, SUGAR, NA)
-  - [ ] 2.2 Create `MeasureDto.kt` for serving measure data (uri, label, weight)
-  - [ ] 2.3 Create `FoodDto.kt` for food item data (foodId, label, brand, nutrients, image)
-  - [ ] 2.4 Create `FoodSearchResponseDto.kt` with hints list and parsed list
-  - [ ] 2.5 Create `EdamamApiService.kt` Retrofit interface with `parser` endpoint
-  - [ ] 2.6 Create `SearchedFood.kt` domain model with computed nutrition values
-  - [ ] 2.7 Create `ServingMeasure.kt` domain model for serving options
-  - [ ] 2.8 Add DTO-to-domain mapping extension functions
-  - [ ] 2.9 Create `FoodSearchRepository.kt` interface with search method signature
-  - [ ] 2.10 Create `FoodSearchRepositoryImpl.kt` implementing API search
-  - [ ] 2.11 Add `FoodSearchRepository` binding to `RepositoryModule.kt`
+- [x] 2.0 Create Edamam API service and data models (DTOs, domain models, repository)
+  - [x] 2.1 Create `NutrientsDto.kt` with Edamam nutrient field mappings (ENERC_KCAL, PROCNT, FAT, CHOCDF, FIBTG, SUGAR, NA)
+  - [x] 2.2 Create `MeasureDto.kt` for serving measure data (uri, label, weight)
+  - [x] 2.3 Create `FoodDto.kt` for food item data (foodId, label, brand, nutrients, image)
+  - [x] 2.4 Create `FoodSearchResponseDto.kt` with hints list and parsed list
+  - [x] 2.5 Create `EdamamApiService.kt` Retrofit interface with `parser` endpoint
+  - [x] 2.6 Create `SearchedFood.kt` domain model with computed nutrition values
+  - [x] 2.7 Create `ServingMeasure.kt` domain model for serving options
+  - [x] 2.8 Add DTO-to-domain mapping extension functions
+  - [x] 2.9 Create `FoodSearchRepository.kt` interface with search method signature
+  - [x] 2.10 Create `FoodSearchRepositoryImpl.kt` implementing API search
+  - [x] 2.11 Add `FoodSearchRepository` binding to `RepositoryModule.kt`
 
 - [ ] 3.0 Implement Food Search screen with search bar and results list
   - [ ] 3.1 Create `FoodSearchUiState.kt` with query, results, loading, and error states

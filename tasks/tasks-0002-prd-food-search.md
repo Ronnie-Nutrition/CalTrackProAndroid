@@ -113,17 +113,17 @@
   - [x] 4.9 Implement add-to-diary logic: create FoodEntryEntity and save via FoodEntryRepository
   - [x] 4.10 Add success snackbar and navigate back to diary after adding
 
-- [ ] 5.0 Implement Recent Searches and Favorites with local persistence
-  - [ ] 5.1 Create `RecentSearchEntity.kt` Room entity with food data and timestamp
-  - [ ] 5.2 Create `FavoriteFoodEntity.kt` Room entity with full food data
-  - [ ] 5.3 Create `RecentSearchDao.kt` with insert, getAll, delete, and deleteOldest operations
-  - [ ] 5.4 Create `FavoriteFoodDao.kt` with insert, getAll, delete, and exists check
-  - [ ] 5.5 Update `CalTrackDatabase.kt` to include new entities and DAOs (increment version)
-  - [ ] 5.6 Add recent search and favorites methods to `FoodSearchRepository` interface
-  - [ ] 5.7 Implement recent/favorites persistence in `FoodSearchRepositoryImpl.kt`
-  - [ ] 5.8 Add "Recent" and "Favorites" tabs to `FoodSearchScreen.kt`
-  - [ ] 5.9 Implement favorite toggle (heart icon) in `FoodSearchResultItem.kt` and `FoodDetailScreen.kt`
-  - [ ] 5.10 Implement automatic cleanup to limit recent searches to 20 items
+- [x] 5.0 Implement Recent Searches and Favorites with local persistence
+  - [x] 5.1 Create `RecentSearchEntity.kt` Room entity with food data and timestamp
+  - [x] 5.2 Create `FavoriteFoodEntity.kt` Room entity with full food data
+  - [x] 5.3 Create `RecentSearchDao.kt` with insert, getAll, delete, and deleteOldest operations
+  - [x] 5.4 Create `FavoriteFoodDao.kt` with insert, getAll, delete, and exists check
+  - [x] 5.5 Update `CalTrackDatabase.kt` to include new entities and DAOs (increment version)
+  - [x] 5.6 Add recent search and favorites methods to `FoodSearchRepository` interface
+  - [x] 5.7 Implement recent/favorites persistence in `FoodSearchRepositoryImpl.kt`
+  - [x] 5.8 Add "Recent" and "Favorites" tabs to `FoodSearchScreen.kt`
+  - [x] 5.9 Implement favorite toggle (heart icon) in `FoodSearchResultItem.kt` and `FoodDetailScreen.kt`
+  - [x] 5.10 Implement automatic cleanup to limit recent searches to 20 items
 
 - [ ] 6.0 Add offline support, error handling, and connectivity monitoring
   - [ ] 6.1 Create `NetworkMonitor.kt` utility using ConnectivityManager for network state

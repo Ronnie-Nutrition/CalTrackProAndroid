@@ -15,7 +15,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -73,54 +75,196 @@ fun FoodSearchScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             )
 
-            // Content based on state
-            when {
-                uiState.isLoading -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
-                }
-
-                uiState.error != null -> {
-                    ErrorContent(
-                        message = uiState.error!!,
-                        onRetry = viewModel::retry,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                uiState.isEmpty -> {
-                    EmptyContent(
-                        query = uiState.query,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                uiState.isInitial -> {
-                    InitialContent(
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-
-                uiState.hasResults -> {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(
-                            items = uiState.results,
-                            key = { it.foodId }
-                        ) { food ->
-                            FoodSearchResultItem(
-                                food = food,
-                                onClick = { onFoodSelected(food) }
-                            )
-                        }
-                    }
-                }
+            // Tab row
+            PrimaryTabRow(
+                selectedTabIndex = uiState.selectedTab.ordinal
+            ) {
+                Tab(
+                    selected = uiState.selectedTab == SearchTab.SEARCH,
+                    onClick = { viewModel.selectTab(SearchTab.SEARCH) },
+                    text = { Text("Search") }
+                )
+                Tab(
+                    selected = uiState.selectedTab == SearchTab.RECENT,
+                    onClick = { viewModel.selectTab(SearchTab.RECENT) },
+                    text = { Text("Recent") }
+                )
+                Tab(
+                    selected = uiState.selectedTab == SearchTab.FAVORITES,
+                    onClick = { viewModel.selectTab(SearchTab.FAVORITES) },
+                    text = { Text("Favorites") }
+                )
             }
+
+            // Content based on tab and state
+            when (uiState.selectedTab) {
+                SearchTab.SEARCH -> SearchContent(
+                    uiState = uiState,
+                    onFoodSelected = { food ->
+                        viewModel.onFoodSelected(food)
+                        onFoodSelected(food)
+                    },
+                    onToggleFavorite = viewModel::toggleFavorite,
+                    onRetry = viewModel::retry
+                )
+
+                SearchTab.RECENT -> RecentContent(
+                    recentSearches = uiState.recentSearches,
+                    onFoodSelected = { food ->
+                        viewModel.onFoodSelected(food)
+                        onFoodSelected(food)
+                    },
+                    onToggleFavorite = viewModel::toggleFavorite,
+                    onClearRecent = viewModel::clearRecentSearches
+                )
+
+                SearchTab.FAVORITES -> FavoritesContent(
+                    favorites = uiState.favorites,
+                    onFoodSelected = { food ->
+                        viewModel.onFoodSelected(food)
+                        onFoodSelected(food)
+                    },
+                    onToggleFavorite = viewModel::toggleFavorite
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchContent(
+    uiState: FoodSearchUiState,
+    onFoodSelected: (SearchedFood) -> Unit,
+    onToggleFavorite: (SearchedFood) -> Unit,
+    onRetry: () -> Unit
+) {
+    when {
+        uiState.isLoading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        uiState.error != null -> {
+            ErrorContent(
+                message = uiState.error!!,
+                onRetry = onRetry,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        uiState.isEmpty -> {
+            EmptyContent(
+                query = uiState.query,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        uiState.isInitial -> {
+            InitialContent(
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        uiState.hasResults -> {
+            FoodList(
+                foods = uiState.results,
+                favorites = uiState.favorites,
+                onFoodSelected = onFoodSelected,
+                onToggleFavorite = onToggleFavorite
+            )
+        }
+    }
+}
+
+@Composable
+private fun RecentContent(
+    recentSearches: List<SearchedFood>,
+    onFoodSelected: (SearchedFood) -> Unit,
+    onToggleFavorite: (SearchedFood) -> Unit,
+    onClearRecent: () -> Unit
+) {
+    if (recentSearches.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(32.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "No recent searches",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+        }
+    } else {
+        Column(modifier = Modifier.fillMaxSize()) {
+            FoodList(
+                foods = recentSearches,
+                favorites = emptyList(),
+                onFoodSelected = onFoodSelected,
+                onToggleFavorite = onToggleFavorite,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun FavoritesContent(
+    favorites: List<SearchedFood>,
+    onFoodSelected: (SearchedFood) -> Unit,
+    onToggleFavorite: (SearchedFood) -> Unit
+) {
+    if (favorites.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(32.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "No favorite foods yet\nTap the heart icon to add favorites",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+        }
+    } else {
+        FoodList(
+            foods = favorites,
+            favorites = favorites,
+            onFoodSelected = onFoodSelected,
+            onToggleFavorite = onToggleFavorite
+        )
+    }
+}
+
+@Composable
+private fun FoodList(
+    foods: List<SearchedFood>,
+    favorites: List<SearchedFood>,
+    onFoodSelected: (SearchedFood) -> Unit,
+    onToggleFavorite: (SearchedFood) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val favoriteIds = favorites.map { it.foodId }.toSet()
+
+    LazyColumn(modifier = modifier.fillMaxSize()) {
+        items(
+            items = foods,
+            key = { it.foodId }
+        ) { food ->
+            FoodSearchResultItem(
+                food = food,
+                isFavorite = favoriteIds.contains(food.foodId),
+                onClick = { onFoodSelected(food) },
+                onToggleFavorite = { onToggleFavorite(food) }
+            )
         }
     }
 }

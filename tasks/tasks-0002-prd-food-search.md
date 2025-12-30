@@ -1,0 +1,137 @@
+# Task List: Food Search (Edamam API Integration)
+
+**PRD:** [0002-prd-food-search.md](./0002-prd-food-search.md)
+**Status:** In Progress
+**Created:** 2025-12-29
+
+---
+
+## Relevant Files
+
+### New Files to Create
+
+**Networking & API:**
+- `app/src/main/java/com/easyaiflows/caltrackpro/di/NetworkModule.kt` - Hilt module providing Retrofit, OkHttp, Moshi
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/remote/EdamamApiService.kt` - Retrofit interface for Edamam API
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/remote/dto/FoodSearchResponseDto.kt` - API response DTOs
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/remote/dto/FoodDto.kt` - Food data transfer object
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/remote/dto/MeasureDto.kt` - Serving measure DTO
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/remote/dto/NutrientsDto.kt` - Nutrients DTO
+
+**Domain Models:**
+- `app/src/main/java/com/easyaiflows/caltrackpro/domain/model/SearchedFood.kt` - Domain model for search results
+- `app/src/main/java/com/easyaiflows/caltrackpro/domain/model/ServingMeasure.kt` - Serving measure domain model
+
+**Repository:**
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/repository/FoodSearchRepository.kt` - Repository interface
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/repository/FoodSearchRepositoryImpl.kt` - Repository implementation
+
+**Local Storage (Recent/Favorites):**
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/local/entity/RecentSearchEntity.kt` - Recent search Room entity
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/local/entity/FavoriteFoodEntity.kt` - Favorite food Room entity
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/local/dao/RecentSearchDao.kt` - Recent search DAO
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/local/dao/FavoriteFoodDao.kt` - Favorite food DAO
+
+**UI - Search Screen:**
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/FoodSearchScreen.kt` - Main search screen composable
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/FoodSearchViewModel.kt` - Search screen ViewModel
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/FoodSearchUiState.kt` - UI state for search screen
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/components/SearchBar.kt` - Reusable search input
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/components/FoodSearchResultItem.kt` - Search result list item
+
+**UI - Food Detail Screen:**
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/FoodDetailScreen.kt` - Food detail screen composable
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/FoodDetailViewModel.kt` - Detail screen ViewModel
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/FoodDetailUiState.kt` - UI state for detail screen
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/components/ServingSelector.kt` - Measure dropdown + quantity controls
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/components/NutritionSummaryCard.kt` - Macro breakdown card
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/search/components/MealTypeSelector.kt` - Meal type chip group
+
+**Utilities:**
+- `app/src/main/java/com/easyaiflows/caltrackpro/util/NetworkMonitor.kt` - Connectivity state observer
+
+### Existing Files to Modify
+
+- `gradle/libs.versions.toml` - Add Retrofit, OkHttp, Moshi dependencies
+- `app/build.gradle.kts` - Add networking dependencies
+- `app/src/main/java/com/easyaiflows/caltrackpro/data/local/CalTrackDatabase.kt` - Add new entities and DAOs
+- `app/src/main/java/com/easyaiflows/caltrackpro/di/RepositoryModule.kt` - Bind FoodSearchRepository
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/navigation/NavRoutes.kt` - Add FoodSearch and FoodDetail routes
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/navigation/CalTrackNavHost.kt` - Add new screen destinations
+- `app/src/main/java/com/easyaiflows/caltrackpro/ui/diary/components/AddFoodOptionsSheet.kt` - Add "Search Foods" option
+
+### Notes
+
+- Follow existing patterns: Repository interface + Impl, StateFlow in ViewModels, Hilt injection
+- Use `libs.versions.toml` for dependency version management (existing pattern)
+- API keys should be stored in `local.properties` and accessed via BuildConfig
+
+---
+
+## Tasks
+
+- [ ] 1.0 Set up networking infrastructure (Retrofit, OkHttp, Hilt modules)
+  - [x] 1.1 Add Retrofit, OkHttp, and Moshi dependencies to `libs.versions.toml`
+  - [x] 1.2 Update `app/build.gradle.kts` to include networking dependencies
+  - [x] 1.3 Create `NetworkModule.kt` Hilt module providing OkHttpClient, Moshi, and Retrofit
+  - [x] 1.4 Configure API key storage in `local.properties` with BuildConfig access
+  - [x] 1.5 Set up Retrofit with Edamam base URL (`https://api.edamam.com/api/food-database/v2/`)
+
+- [ ] 2.0 Create Edamam API service and data models (DTOs, domain models, repository)
+  - [ ] 2.1 Create `NutrientsDto.kt` with Edamam nutrient field mappings (ENERC_KCAL, PROCNT, FAT, CHOCDF, FIBTG, SUGAR, NA)
+  - [ ] 2.2 Create `MeasureDto.kt` for serving measure data (uri, label, weight)
+  - [ ] 2.3 Create `FoodDto.kt` for food item data (foodId, label, brand, nutrients, image)
+  - [ ] 2.4 Create `FoodSearchResponseDto.kt` with hints list and parsed list
+  - [ ] 2.5 Create `EdamamApiService.kt` Retrofit interface with `parser` endpoint
+  - [ ] 2.6 Create `SearchedFood.kt` domain model with computed nutrition values
+  - [ ] 2.7 Create `ServingMeasure.kt` domain model for serving options
+  - [ ] 2.8 Add DTO-to-domain mapping extension functions
+  - [ ] 2.9 Create `FoodSearchRepository.kt` interface with search method signature
+  - [ ] 2.10 Create `FoodSearchRepositoryImpl.kt` implementing API search
+  - [ ] 2.11 Add `FoodSearchRepository` binding to `RepositoryModule.kt`
+
+- [ ] 3.0 Implement Food Search screen with search bar and results list
+  - [ ] 3.1 Create `FoodSearchUiState.kt` with query, results, loading, and error states
+  - [ ] 3.2 Create `FoodSearchViewModel.kt` with Hilt injection and StateFlow
+  - [ ] 3.3 Implement debounced search using `debounce()` and `flatMapLatest()` operators
+  - [ ] 3.4 Create `SearchBar.kt` composable with text field and clear button
+  - [ ] 3.5 Create `FoodSearchResultItem.kt` displaying name, brand, serving, and macros
+  - [ ] 3.6 Create `FoodSearchScreen.kt` with Scaffold, search bar, and LazyColumn results
+  - [ ] 3.7 Add `FoodSearch` route to `NavRoutes.kt` with mealType and date parameters
+  - [ ] 3.8 Add `FoodSearchScreen` composable to `CalTrackNavHost.kt`
+  - [ ] 3.9 Update `AddFoodOptionsSheet.kt` to include "Search Foods" navigation option
+
+- [ ] 4.0 Implement Food Detail screen with serving selection and add-to-diary flow
+  - [ ] 4.1 Create `FoodDetailUiState.kt` with food, selected measure, quantity, and calculated nutrition
+  - [ ] 4.2 Create `FoodDetailViewModel.kt` with serving calculation logic
+  - [ ] 4.3 Create `ServingSelector.kt` composable with measure dropdown and quantity stepper (+/- buttons)
+  - [ ] 4.4 Create `NutritionSummaryCard.kt` displaying calories, protein, carbs, fat, fiber, sugar, sodium
+  - [ ] 4.5 Create `MealTypeSelector.kt` composable with horizontal chip group
+  - [ ] 4.6 Create `FoodDetailScreen.kt` with full layout and "Add to Diary" button
+  - [ ] 4.7 Add `FoodDetail` route to `NavRoutes.kt` with foodId parameter
+  - [ ] 4.8 Add `FoodDetailScreen` composable to `CalTrackNavHost.kt`
+  - [ ] 4.9 Implement add-to-diary logic: create FoodEntryEntity and save via FoodEntryRepository
+  - [ ] 4.10 Add success snackbar and navigate back to diary after adding
+
+- [ ] 5.0 Implement Recent Searches and Favorites with local persistence
+  - [ ] 5.1 Create `RecentSearchEntity.kt` Room entity with food data and timestamp
+  - [ ] 5.2 Create `FavoriteFoodEntity.kt` Room entity with full food data
+  - [ ] 5.3 Create `RecentSearchDao.kt` with insert, getAll, delete, and deleteOldest operations
+  - [ ] 5.4 Create `FavoriteFoodDao.kt` with insert, getAll, delete, and exists check
+  - [ ] 5.5 Update `CalTrackDatabase.kt` to include new entities and DAOs (increment version)
+  - [ ] 5.6 Add recent search and favorites methods to `FoodSearchRepository` interface
+  - [ ] 5.7 Implement recent/favorites persistence in `FoodSearchRepositoryImpl.kt`
+  - [ ] 5.8 Add "Recent" and "Favorites" tabs to `FoodSearchScreen.kt`
+  - [ ] 5.9 Implement favorite toggle (heart icon) in `FoodSearchResultItem.kt` and `FoodDetailScreen.kt`
+  - [ ] 5.10 Implement automatic cleanup to limit recent searches to 20 items
+
+- [ ] 6.0 Add offline support, error handling, and connectivity monitoring
+  - [ ] 6.1 Create `NetworkMonitor.kt` utility using ConnectivityManager for network state
+  - [ ] 6.2 Add network state observation to `FoodSearchViewModel`
+  - [ ] 6.3 Cache recent search API results in Room for offline access
+  - [ ] 6.4 Display offline indicator banner when no network connectivity
+  - [ ] 6.5 Show cached results when offline with "Offline - showing cached results" message
+  - [ ] 6.6 Implement user-friendly error messages for API failures
+  - [ ] 6.7 Handle API rate limits with "Too many requests, please try again later" message
+  - [ ] 6.8 Add retry button for failed searches
+

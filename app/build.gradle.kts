@@ -1,9 +1,18 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+}
+
+// Load local.properties for API keys
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
 }
 
 android {
@@ -18,6 +27,18 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Edamam API credentials from local.properties
+        buildConfigField(
+            "String",
+            "EDAMAM_APP_ID",
+            "\"${localProperties.getProperty("EDAMAM_APP_ID", "")}\""
+        )
+        buildConfigField(
+            "String",
+            "EDAMAM_APP_KEY",
+            "\"${localProperties.getProperty("EDAMAM_APP_KEY", "")}\""
+        )
     }
 
     buildTypes {
@@ -38,6 +59,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -69,6 +91,19 @@ dependencies {
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Networking - Retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.moshi)
+
+    // Networking - OkHttp
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging)
+
+    // Networking - Moshi
+    implementation(libs.moshi.core)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
 
     // Testing
     testImplementation(libs.junit)

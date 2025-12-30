@@ -1,7 +1,7 @@
 # Task List: Food Diary Core Functionality
 
 **PRD Reference:** `0001-prd-food-diary.md`
-**Status:** In Progress
+**Status:** Complete
 **Created:** 2024-12-29
 
 ---
@@ -122,10 +122,10 @@
   - [x] 6.5 Wire up navigation from FoodEntryItem tap → EditEntryScreen with entryId argument
   - [x] 6.6 Handle back navigation and save/cancel flows
 
-- [ ] 7.0 Implement entry actions (duplicate, delete with confirmation)
-  - [ ] 7.1 Add long-press context menu to FoodEntryItem (Edit, Duplicate, Delete options)
-  - [ ] 7.2 Implement duplicate action in DiaryViewModel - copy entry with new ID and timestamp
-  - [ ] 7.3 Create delete confirmation dialog composable
-  - [ ] 7.4 Implement delete action in DiaryViewModel with confirmation flow
-  - [ ] 7.5 Add visual feedback (snackbar) for successful duplicate/delete actions
-  - [ ] 7.6 Test all entry actions work correctly and data persists
+- [x] 7.0 Implement entry actions (duplicate, delete with confirmation)
+  - [x] 7.1 Add long-press context menu to FoodEntryItem (Edit, Duplicate, Delete options)
+  - [x] 7.2 Implement duplicate action in DiaryViewModel - copy entry with new ID and timestamp
+  - [x] 7.3 Create delete confirmation dialog composable
+  - [x] 7.4 Implement delete action in DiaryViewModel with confirmation flow
+  - [x] 7.5 Add visual feedback (snackbar) for successful duplicate/delete actions
+  - [x] 7.6 Test all entry actions work correctly and data persists

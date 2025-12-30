@@ -106,13 +106,13 @@
   - [x] 4.8 Add FAB to DiaryScreen that triggers AddFoodOptionsSheet
   - [x] 4.9 Create `AddFoodOptionsSheet.kt` bottom sheet with Search/Scan/Manual options
 
-- [ ] 5.0 Implement Manual Entry / Edit Entry screens
-  - [ ] 5.1 Create `ManualEntryViewModel.kt` with form state and validation logic
-  - [ ] 5.2 Create `ManualEntryScreen.kt` with input fields for all required nutrition data
-  - [ ] 5.3 Add serving unit picker (g, oz, cup, piece, ml, tbsp, tsp)
-  - [ ] 5.4 Implement form validation - disable Save button until all required fields valid
-  - [ ] 5.5 Create `EditEntryScreen.kt` reusing ManualEntry components with pre-populated data
-  - [ ] 5.6 Handle save action in ViewModel - insert new or update existing entry
+- [x] 5.0 Implement Manual Entry / Edit Entry screens
+  - [x] 5.1 Create `ManualEntryViewModel.kt` with form state and validation logic
+  - [x] 5.2 Create `ManualEntryScreen.kt` with input fields for all required nutrition data
+  - [x] 5.3 Add serving unit picker (g, oz, cup, piece, ml, tbsp, tsp)
+  - [x] 5.4 Implement form validation - disable Save button until all required fields valid
+  - [x] 5.5 Create `EditEntryScreen.kt` reusing ManualEntry components with pre-populated data
+  - [x] 5.6 Handle save action in ViewModel - insert new or update existing entry
 
 - [ ] 6.0 Set up navigation and integrate all screens
   - [ ] 6.1 Create `NavRoutes.kt` sealed class defining all routes (Diary, ManualEntry, EditEntry)

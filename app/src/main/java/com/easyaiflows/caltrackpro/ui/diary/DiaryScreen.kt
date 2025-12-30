@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.easyaiflows.caltrackpro.domain.model.FoodEntry
 import com.easyaiflows.caltrackpro.domain.model.MealType
+import java.time.LocalDate
 import com.easyaiflows.caltrackpro.ui.diary.components.AddFoodOptionsSheet
 import com.easyaiflows.caltrackpro.ui.diary.components.DailySummaryCard
 import com.easyaiflows.caltrackpro.ui.diary.components.DateSelector
@@ -44,6 +45,7 @@ import kotlinx.coroutines.launch
 fun DiaryScreen(
     onNavigateToManualEntry: (MealType) -> Unit,
     onNavigateToEditEntry: (String) -> Unit,
+    onNavigateToSearch: (MealType, LocalDate) -> Unit,
     viewModel: DiaryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -165,7 +167,7 @@ fun DiaryScreen(
                 mealType = selectedMealType,
                 onSearchClick = {
                     showAddFoodSheet = false
-                    // TODO: Navigate to search screen
+                    onNavigateToSearch(selectedMealType ?: MealType.SNACK, uiState.selectedDate)
                 },
                 onScanClick = {
                     showAddFoodSheet = false

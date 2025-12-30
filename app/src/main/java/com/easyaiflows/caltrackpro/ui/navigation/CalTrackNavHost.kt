@@ -11,6 +11,8 @@ import androidx.navigation.navArgument
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.ui.diary.DiaryScreen
 import com.easyaiflows.caltrackpro.ui.entry.ManualEntryScreen
+import com.easyaiflows.caltrackpro.ui.search.FoodSearchScreen
+import java.time.LocalDate
 
 @Composable
 fun CalTrackNavHost(
@@ -31,6 +33,9 @@ fun CalTrackNavHost(
                 },
                 onNavigateToEditEntry = { entryId ->
                     navController.navigate(NavRoutes.EditEntry.createRoute(entryId))
+                },
+                onNavigateToSearch = { mealType, date ->
+                    navController.navigate(NavRoutes.FoodSearch.createRoute(mealType, date.toString()))
                 }
             )
         }
@@ -64,6 +69,37 @@ fun CalTrackNavHost(
             ManualEntryScreen(
                 onNavigateBack = {
                     navController.popBackStack()
+                }
+            )
+        }
+
+        // Food Search Screen
+        composable(
+            route = NavRoutes.FoodSearch.route,
+            arguments = listOf(
+                navArgument(NavRoutes.FoodSearch.ARG_MEAL_TYPE) {
+                    type = NavType.StringType
+                    defaultValue = MealType.SNACK.name
+                },
+                navArgument(NavRoutes.FoodSearch.ARG_DATE) {
+                    type = NavType.StringType
+                    defaultValue = LocalDate.now().toString()
+                }
+            )
+        ) { backStackEntry ->
+            val mealType = backStackEntry.arguments?.getString(NavRoutes.FoodSearch.ARG_MEAL_TYPE)
+                ?.let { MealType.valueOf(it) } ?: MealType.SNACK
+            val date = backStackEntry.arguments?.getString(NavRoutes.FoodSearch.ARG_DATE)
+                ?.let { LocalDate.parse(it) } ?: LocalDate.now()
+
+            FoodSearchScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onFoodSelected = { food ->
+                    navController.navigate(
+                        NavRoutes.FoodDetail.createRoute(food.foodId, mealType, date.toString())
+                    )
                 }
             )
         }

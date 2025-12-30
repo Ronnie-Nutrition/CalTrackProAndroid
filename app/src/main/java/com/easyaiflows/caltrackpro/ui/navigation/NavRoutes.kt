@@ -35,4 +35,34 @@ sealed class NavRoutes(val route: String) {
             return "edit_entry/$entryId"
         }
     }
+
+    /**
+     * Food Search screen for searching and adding foods from Edamam API
+     * @param mealType The meal type to add the food to
+     * @param date The date to add the food entry for (ISO format)
+     */
+    data object FoodSearch : NavRoutes("food_search/{mealType}/{date}") {
+        const val ARG_MEAL_TYPE = "mealType"
+        const val ARG_DATE = "date"
+
+        fun createRoute(mealType: MealType, date: String): String {
+            return "food_search/${mealType.name}/$date"
+        }
+    }
+
+    /**
+     * Food Detail screen for viewing and adding a specific food
+     * @param foodId The Edamam food ID
+     * @param mealType The meal type to add the food to
+     * @param date The date to add the food entry for (ISO format)
+     */
+    data object FoodDetail : NavRoutes("food_detail/{foodId}/{mealType}/{date}") {
+        const val ARG_FOOD_ID = "foodId"
+        const val ARG_MEAL_TYPE = "mealType"
+        const val ARG_DATE = "date"
+
+        fun createRoute(foodId: String, mealType: MealType, date: String): String {
+            return "food_detail/$foodId/${mealType.name}/$date"
+        }
+    }
 }

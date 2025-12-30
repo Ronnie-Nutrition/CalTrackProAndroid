@@ -90,16 +90,16 @@
   - [x] 2.10 Create `FoodSearchRepositoryImpl.kt` implementing API search
   - [x] 2.11 Add `FoodSearchRepository` binding to `RepositoryModule.kt`
 
-- [ ] 3.0 Implement Food Search screen with search bar and results list
-  - [ ] 3.1 Create `FoodSearchUiState.kt` with query, results, loading, and error states
-  - [ ] 3.2 Create `FoodSearchViewModel.kt` with Hilt injection and StateFlow
-  - [ ] 3.3 Implement debounced search using `debounce()` and `flatMapLatest()` operators
-  - [ ] 3.4 Create `SearchBar.kt` composable with text field and clear button
-  - [ ] 3.5 Create `FoodSearchResultItem.kt` displaying name, brand, serving, and macros
-  - [ ] 3.6 Create `FoodSearchScreen.kt` with Scaffold, search bar, and LazyColumn results
-  - [ ] 3.7 Add `FoodSearch` route to `NavRoutes.kt` with mealType and date parameters
-  - [ ] 3.8 Add `FoodSearchScreen` composable to `CalTrackNavHost.kt`
-  - [ ] 3.9 Update `AddFoodOptionsSheet.kt` to include "Search Foods" navigation option
+- [x] 3.0 Implement Food Search screen with search bar and results list
+  - [x] 3.1 Create `FoodSearchUiState.kt` with query, results, loading, and error states
+  - [x] 3.2 Create `FoodSearchViewModel.kt` with Hilt injection and StateFlow
+  - [x] 3.3 Implement debounced search using `debounce()` and `flatMapLatest()` operators
+  - [x] 3.4 Create `SearchBar.kt` composable with text field and clear button
+  - [x] 3.5 Create `FoodSearchResultItem.kt` displaying name, brand, serving, and macros
+  - [x] 3.6 Create `FoodSearchScreen.kt` with Scaffold, search bar, and LazyColumn results
+  - [x] 3.7 Add `FoodSearch` route to `NavRoutes.kt` with mealType and date parameters
+  - [x] 3.8 Add `FoodSearchScreen` composable to `CalTrackNavHost.kt`
+  - [x] 3.9 Update `AddFoodOptionsSheet.kt` to include "Search Foods" navigation option
 
 - [ ] 4.0 Implement Food Detail screen with serving selection and add-to-diary flow
   - [ ] 4.1 Create `FoodDetailUiState.kt` with food, selected measure, quantity, and calculated nutrition

@@ -114,13 +114,13 @@
   - [x] 5.5 Create `EditEntryScreen.kt` reusing ManualEntry components with pre-populated data
   - [x] 5.6 Handle save action in ViewModel - insert new or update existing entry
 
-- [ ] 6.0 Set up navigation and integrate all screens
-  - [ ] 6.1 Create `NavRoutes.kt` sealed class defining all routes (Diary, ManualEntry, EditEntry)
-  - [ ] 6.2 Create `CalTrackNavHost.kt` with NavHost and composable destinations
-  - [ ] 6.3 Update `MainActivity.kt` to use CalTrackNavHost as content
-  - [ ] 6.4 Wire up navigation from DiaryScreen FAB → ManualEntryScreen with mealType argument
-  - [ ] 6.5 Wire up navigation from FoodEntryItem tap → EditEntryScreen with entryId argument
-  - [ ] 6.6 Handle back navigation and save/cancel flows
+- [x] 6.0 Set up navigation and integrate all screens
+  - [x] 6.1 Create `NavRoutes.kt` sealed class defining all routes (Diary, ManualEntry, EditEntry)
+  - [x] 6.2 Create `CalTrackNavHost.kt` with NavHost and composable destinations
+  - [x] 6.3 Update `MainActivity.kt` to use CalTrackNavHost as content
+  - [x] 6.4 Wire up navigation from DiaryScreen FAB → ManualEntryScreen with mealType argument
+  - [x] 6.5 Wire up navigation from FoodEntryItem tap → EditEntryScreen with entryId argument
+  - [x] 6.6 Handle back navigation and save/cancel flows
 
 - [ ] 7.0 Implement entry actions (duplicate, delete with confirmation)
   - [ ] 7.1 Add long-press context menu to FoodEntryItem (Edit, Duplicate, Delete options)

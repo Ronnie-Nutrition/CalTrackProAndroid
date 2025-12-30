@@ -101,17 +101,17 @@
   - [x] 3.8 Add `FoodSearchScreen` composable to `CalTrackNavHost.kt`
   - [x] 3.9 Update `AddFoodOptionsSheet.kt` to include "Search Foods" navigation option
 
-- [ ] 4.0 Implement Food Detail screen with serving selection and add-to-diary flow
-  - [ ] 4.1 Create `FoodDetailUiState.kt` with food, selected measure, quantity, and calculated nutrition
-  - [ ] 4.2 Create `FoodDetailViewModel.kt` with serving calculation logic
-  - [ ] 4.3 Create `ServingSelector.kt` composable with measure dropdown and quantity stepper (+/- buttons)
-  - [ ] 4.4 Create `NutritionSummaryCard.kt` displaying calories, protein, carbs, fat, fiber, sugar, sodium
-  - [ ] 4.5 Create `MealTypeSelector.kt` composable with horizontal chip group
-  - [ ] 4.6 Create `FoodDetailScreen.kt` with full layout and "Add to Diary" button
-  - [ ] 4.7 Add `FoodDetail` route to `NavRoutes.kt` with foodId parameter
-  - [ ] 4.8 Add `FoodDetailScreen` composable to `CalTrackNavHost.kt`
-  - [ ] 4.9 Implement add-to-diary logic: create FoodEntryEntity and save via FoodEntryRepository
-  - [ ] 4.10 Add success snackbar and navigate back to diary after adding
+- [x] 4.0 Implement Food Detail screen with serving selection and add-to-diary flow
+  - [x] 4.1 Create `FoodDetailUiState.kt` with food, selected measure, quantity, and calculated nutrition
+  - [x] 4.2 Create `FoodDetailViewModel.kt` with serving calculation logic
+  - [x] 4.3 Create `ServingSelector.kt` composable with measure dropdown and quantity stepper (+/- buttons)
+  - [x] 4.4 Create `NutritionSummaryCard.kt` displaying calories, protein, carbs, fat, fiber, sugar, sodium
+  - [x] 4.5 Create `MealTypeSelector.kt` composable with horizontal chip group
+  - [x] 4.6 Create `FoodDetailScreen.kt` with full layout and "Add to Diary" button
+  - [x] 4.7 Add `FoodDetail` route to `NavRoutes.kt` with foodId parameter
+  - [x] 4.8 Add `FoodDetailScreen` composable to `CalTrackNavHost.kt`
+  - [x] 4.9 Implement add-to-diary logic: create FoodEntryEntity and save via FoodEntryRepository
+  - [x] 4.10 Add success snackbar and navigate back to diary after adding
 
 - [ ] 5.0 Implement Recent Searches and Favorites with local persistence
   - [ ] 5.1 Create `RecentSearchEntity.kt` Room entity with food data and timestamp

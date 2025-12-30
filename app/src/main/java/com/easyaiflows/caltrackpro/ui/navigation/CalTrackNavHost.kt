@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.ui.diary.DiaryScreen
 import com.easyaiflows.caltrackpro.ui.entry.ManualEntryScreen
+import com.easyaiflows.caltrackpro.ui.search.FoodDetailScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodSearchScreen
 import java.time.LocalDate
 
@@ -100,6 +101,34 @@ fun CalTrackNavHost(
                     navController.navigate(
                         NavRoutes.FoodDetail.createRoute(food.foodId, mealType, date.toString())
                     )
+                }
+            )
+        }
+
+        // Food Detail Screen
+        composable(
+            route = NavRoutes.FoodDetail.route,
+            arguments = listOf(
+                navArgument(NavRoutes.FoodDetail.ARG_FOOD_ID) {
+                    type = NavType.StringType
+                },
+                navArgument(NavRoutes.FoodDetail.ARG_MEAL_TYPE) {
+                    type = NavType.StringType
+                    defaultValue = MealType.SNACK.name
+                },
+                navArgument(NavRoutes.FoodDetail.ARG_DATE) {
+                    type = NavType.StringType
+                    defaultValue = LocalDate.now().toString()
+                }
+            )
+        ) {
+            FoodDetailScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onAddSuccess = {
+                    // Pop back to diary after adding food
+                    navController.popBackStack(NavRoutes.Diary.route, inclusive = false)
                 }
             )
         }

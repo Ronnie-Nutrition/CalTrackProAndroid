@@ -1,8 +1,8 @@
 package com.easyaiflows.caltrackpro.domain.model
 
-enum class MealType {
-    BREAKFAST,
-    LUNCH,
-    DINNER,
-    SNACK
+enum class MealType(val displayName: String) {
+    BREAKFAST("Breakfast"),
+    LUNCH("Lunch"),
+    DINNER("Dinner"),
+    SNACK("Snack")
 }

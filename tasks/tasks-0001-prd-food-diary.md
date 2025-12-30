@@ -89,11 +89,11 @@
   - [x] 2.8 Create `DatabaseModule.kt` Hilt module providing Database and DAO
   - [x] 2.9 Create `RepositoryModule.kt` Hilt module binding repository implementation
 
-- [ ] 3.0 Create domain layer (models and mappers)
-  - [ ] 3.1 Create `FoodEntry.kt` domain model with computed properties (totalCalories, etc.)
-  - [ ] 3.2 Create `NutritionGoals.kt` data class with default values (2000 cal, 150g protein, etc.)
-  - [ ] 3.3 Add mapper extension functions to convert between Entity and Domain models
-  - [ ] 3.4 Add helper extension for grouping entries by MealType
+- [x] 3.0 Create domain layer (models and mappers)
+  - [x] 3.1 Create `FoodEntry.kt` domain model with computed properties (totalCalories, etc.)
+  - [x] 3.2 Create `NutritionGoals.kt` data class with default values (2000 cal, 150g protein, etc.)
+  - [x] 3.3 Add mapper extension functions to convert between Entity and Domain models
+  - [x] 3.4 Add helper extension for grouping entries by MealType
 
 - [ ] 4.0 Build Diary Screen UI with daily summary and meal sections
   - [ ] 4.1 Create `DiaryUiState.kt` data class for screen state (date, entries, goals, loading, error)

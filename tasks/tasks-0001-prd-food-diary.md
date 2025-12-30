@@ -95,16 +95,16 @@
   - [x] 3.3 Add mapper extension functions to convert between Entity and Domain models
   - [x] 3.4 Add helper extension for grouping entries by MealType
 
-- [ ] 4.0 Build Diary Screen UI with daily summary and meal sections
-  - [ ] 4.1 Create `DiaryUiState.kt` data class for screen state (date, entries, goals, loading, error)
-  - [ ] 4.2 Create `DiaryViewModel.kt` with date selection, entry loading, and state management
-  - [ ] 4.3 Create `DateSelector.kt` component with date picker dialog
-  - [ ] 4.4 Create `DailySummaryCard.kt` component showing calories and macro progress bars
-  - [ ] 4.5 Create `FoodEntryItem.kt` component displaying entry name, serving, and calories
-  - [ ] 4.6 Create `MealSection.kt` component with header, calorie subtotal, and entry list
-  - [ ] 4.7 Create `DiaryScreen.kt` composable assembling all components with LazyColumn
-  - [ ] 4.8 Add FAB to DiaryScreen that triggers AddFoodOptionsSheet
-  - [ ] 4.9 Create `AddFoodOptionsSheet.kt` bottom sheet with Search/Scan/Manual options
+- [x] 4.0 Build Diary Screen UI with daily summary and meal sections
+  - [x] 4.1 Create `DiaryUiState.kt` data class for screen state (date, entries, goals, loading, error)
+  - [x] 4.2 Create `DiaryViewModel.kt` with date selection, entry loading, and state management
+  - [x] 4.3 Create `DateSelector.kt` component with date picker dialog
+  - [x] 4.4 Create `DailySummaryCard.kt` component showing calories and macro progress bars
+  - [x] 4.5 Create `FoodEntryItem.kt` component displaying entry name, serving, and calories
+  - [x] 4.6 Create `MealSection.kt` component with header, calorie subtotal, and entry list
+  - [x] 4.7 Create `DiaryScreen.kt` composable assembling all components with LazyColumn
+  - [x] 4.8 Add FAB to DiaryScreen that triggers AddFoodOptionsSheet
+  - [x] 4.9 Create `AddFoodOptionsSheet.kt` bottom sheet with Search/Scan/Manual options
 
 - [ ] 5.0 Implement Manual Entry / Edit Entry screens
   - [ ] 5.1 Create `ManualEntryViewModel.kt` with form state and validation logic

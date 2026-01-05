@@ -122,22 +122,22 @@
   - [x] 5.21 Implement save logic: validate, calculate final nutrition, call repository insert, navigate back on success
   - [x] 5.22 Add edit mode support: accept optional recipeId parameter, load existing recipe, use update instead of insert
 
-- [ ] 6.0 Build Recipe Detail screen with serving scaler and diary integration
-  - [ ] 6.1 Create `RecipeDetailUiState` data class with recipe, servingMultiplier (default 1.0), scaledNutrition, isDeleting flag
-  - [ ] 6.2 Create `RecipeDetailViewModel` with @HiltViewModel, inject RecipeRepository and FoodEntryRepository
-  - [ ] 6.3 Implement recipe loading by ID with error handling for not found
-  - [ ] 6.4 Implement serving multiplier logic (0.5 to 5.0 in 0.5 increments) with scaled nutrition calculation
-  - [ ] 6.5 Build hero section with full-width recipe image or category placeholder with icon
-  - [ ] 6.6 Build recipe info card with name, description, and metadata row (cook time, servings, difficulty)
-  - [ ] 6.7 Build serving size adjuster with - button, multiplier display (e.g., "1.5×"), + button, and "Original serves X" label
-  - [ ] 6.8 Build ingredients section showing list with scaled quantities based on multiplier
-  - [ ] 6.9 Build instructions section with numbered step-by-step list
-  - [ ] 6.10 Build nutrition section with "Per Adjusted Serving" header and scaled calories, protein, carbs, fat values
-  - [ ] 6.11 Build "Add to Food Diary" button that creates FoodEntry from scaled recipe
-  - [ ] 6.12 Implement add to diary: create FoodEntry with recipe name, scaled nutrition, servingUnit="serving", mealType based on current time
-  - [ ] 6.13 Build "Delete Recipe" button with red styling
-  - [ ] 6.14 Implement delete with confirmation AlertDialog, call repository delete, navigate back on confirm
-  - [ ] 6.15 Add "Edit Recipe" button that navigates to RecipeBuilderScreen with recipeId parameter
+- [x] 6.0 Build Recipe Detail screen with serving scaler and diary integration
+  - [x] 6.1 Create `RecipeDetailUiState` data class with recipe, servingMultiplier (default 1.0), scaledNutrition, isDeleting flag
+  - [x] 6.2 Create `RecipeDetailViewModel` with @HiltViewModel, inject RecipeRepository and FoodEntryRepository
+  - [x] 6.3 Implement recipe loading by ID with error handling for not found
+  - [x] 6.4 Implement serving multiplier logic (0.5 to 5.0 in 0.5 increments) with scaled nutrition calculation
+  - [x] 6.5 Build hero section with full-width recipe image or category placeholder with icon
+  - [x] 6.6 Build recipe info card with name, description, and metadata row (cook time, servings, difficulty)
+  - [x] 6.7 Build serving size adjuster with - button, multiplier display (e.g., "1.5×"), + button, and "Original serves X" label
+  - [x] 6.8 Build ingredients section showing list with scaled quantities based on multiplier
+  - [x] 6.9 Build instructions section with numbered step-by-step list
+  - [x] 6.10 Build nutrition section with "Per Adjusted Serving" header and scaled calories, protein, carbs, fat values
+  - [x] 6.11 Build "Add to Food Diary" button that creates FoodEntry from scaled recipe
+  - [x] 6.12 Implement add to diary: create FoodEntry with recipe name, scaled nutrition, servingUnit="serving", mealType based on current time
+  - [x] 6.13 Build "Delete Recipe" button with red styling
+  - [x] 6.14 Implement delete with confirmation AlertDialog, call repository delete, navigate back on confirm
+  - [x] 6.15 Add "Edit Recipe" button that navigates to RecipeBuilderScreen with recipeId parameter
 
 - [ ] 7.0 Integrate recipes into app navigation (bottom nav tab + routes)
   - [ ] 7.1 Add NavRoutes: `RecipeLibrary`, `RecipeDetail(recipeId)`, `RecipeBuilder(recipeId?)` to NavRoutes.kt

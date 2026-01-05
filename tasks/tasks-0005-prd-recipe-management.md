@@ -52,7 +52,7 @@
 
 ## Tasks
 
-- [ ] 1.0 Create domain models and enums for recipes
+- [x] 1.0 Create domain models and enums for recipes
   - [x] 1.1 Create `RecipeDifficulty` enum with Easy, Medium, Hard values and display names
   - [x] 1.2 Create `RecipeCategory` enum with Breakfast, Lunch, Dinner, Snack, Dessert, Main, Side, Drink values plus icon resource mappings
   - [x] 1.3 Create `SimpleFoodItem` data class with name, brand, barcode, calories, protein, carbs, fat, servingSize, servingUnit fields
@@ -61,17 +61,17 @@
   - [x] 1.6 Add computed properties to Recipe: totalCalories, totalProtein, totalCarbs, totalFat (summing ingredients)
   - [x] 1.7 Add computed properties to Recipe: caloriesPerServing, proteinPerServing, carbsPerServing, fatPerServing (total / servings)
 
-- [ ] 2.0 Set up Room database entities and DAO for recipes
-  - [ ] 2.1 Create `RecipeEntity` with @Entity annotation, all fields matching domain model, using String for JSON fields (ingredients, instructions)
-  - [ ] 2.2 Create `RecipeConverters` TypeConverter class with Gson serialization for List<RecipeIngredient> and List<String>
-  - [ ] 2.3 Add ByteArray TypeConverter for imageData field (if not already in existing Converters)
-  - [ ] 2.4 Create `RecipeDao` interface with @Insert, @Update, @Delete operations
-  - [ ] 2.5 Add RecipeDao query: `getAllRecipes(): Flow<List<RecipeEntity>>` for observing recipe list
-  - [ ] 2.6 Add RecipeDao query: `getRecipeById(id: String): Flow<RecipeEntity?>` for detail screen
-  - [ ] 2.7 Add RecipeDao query: `searchRecipes(query: String): Flow<List<RecipeEntity>>` for search functionality
-  - [ ] 2.8 Update `CalTrackDatabase` to include RecipeEntity in entities array, add RecipeConverters to TypeConverters, bump version to 4
-  - [ ] 2.9 Add migration strategy (fallbackToDestructiveMigration or Migration(3, 4)) for database version update
-  - [ ] 2.10 Update `DatabaseModule.kt` to provide RecipeDao from database instance
+- [x] 2.0 Set up Room database entities and DAO for recipes
+  - [x] 2.1 Create `RecipeEntity` with @Entity annotation, all fields matching domain model, using String for JSON fields (ingredients, instructions)
+  - [x] 2.2 Create `RecipeConverters` TypeConverter class with Moshi serialization for List<RecipeIngredient> and List<String>
+  - [x] 2.3 ByteArray handled natively by Room - no additional converter needed
+  - [x] 2.4 Create `RecipeDao` interface with @Insert, @Update, @Delete operations
+  - [x] 2.5 Add RecipeDao query: `getAllRecipes(): Flow<List<RecipeEntity>>` for observing recipe list
+  - [x] 2.6 Add RecipeDao query: `getRecipeById(id: String): Flow<RecipeEntity?>` for detail screen
+  - [x] 2.7 Add RecipeDao query: `searchRecipes(query: String): Flow<List<RecipeEntity>>` for search functionality
+  - [x] 2.8 Update `CalTrackDatabase` to include RecipeEntity in entities array, add RecipeConverters to TypeConverters, bump version to 5
+  - [x] 2.9 Add MIGRATION_4_5 to create recipes table
+  - [x] 2.10 Update `DatabaseModule.kt` to provide RecipeDao from database instance
 
 - [ ] 3.0 Create RecipeRepository with CRUD operations
   - [ ] 3.1 Create `RecipeRepository` interface with getAllRecipes(), getRecipeById(), searchRecipes(), insertRecipe(), updateRecipe(), deleteRecipe() methods

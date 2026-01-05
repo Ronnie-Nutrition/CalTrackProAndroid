@@ -9,6 +9,7 @@ import com.easyaiflows.caltrackpro.data.local.dao.CachedSearchDao
 import com.easyaiflows.caltrackpro.data.local.dao.FavoriteFoodDao
 import com.easyaiflows.caltrackpro.data.local.dao.FoodEntryDao
 import com.easyaiflows.caltrackpro.data.local.dao.RecentSearchDao
+import com.easyaiflows.caltrackpro.data.local.dao.RecipeDao
 import com.easyaiflows.caltrackpro.data.local.dao.ScannedBarcodeDao
 import dagger.Module
 import dagger.Provides
@@ -118,6 +119,31 @@ object DatabaseModule {
         }
     }
 
+    private val MIGRATION_4_5 = object : Migration(4, 5) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            // Create recipes table for recipe management
+            db.execSQL("""
+                CREATE TABLE IF NOT EXISTS recipes (
+                    id TEXT PRIMARY KEY NOT NULL,
+                    name TEXT NOT NULL,
+                    description TEXT NOT NULL,
+                    ingredients TEXT NOT NULL,
+                    instructions TEXT NOT NULL,
+                    servings INTEGER NOT NULL,
+                    cookingTimeMinutes INTEGER NOT NULL,
+                    difficulty TEXT NOT NULL,
+                    category TEXT NOT NULL,
+                    imageData BLOB,
+                    createdAt INTEGER NOT NULL,
+                    caloriesPerServing REAL NOT NULL,
+                    proteinPerServing REAL NOT NULL,
+                    carbsPerServing REAL NOT NULL,
+                    fatPerServing REAL NOT NULL
+                )
+            """)
+        }
+    }
+
     @Provides
     @Singleton
     fun provideDatabase(
@@ -128,7 +154,7 @@ object DatabaseModule {
             CalTrackDatabase::class.java,
             CalTrackDatabase.DATABASE_NAME
         )
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
             .build()
     }
 
@@ -160,5 +186,11 @@ object DatabaseModule {
     @Singleton
     fun provideScannedBarcodeDao(database: CalTrackDatabase): ScannedBarcodeDao {
         return database.scannedBarcodeDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRecipeDao(database: CalTrackDatabase): RecipeDao {
+        return database.recipeDao()
     }
 }

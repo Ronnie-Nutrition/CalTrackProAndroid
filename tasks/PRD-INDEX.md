@@ -12,10 +12,10 @@ Create an Android version of CalTrackPro with feature parity to the iOS app.
 ### To Be Implemented
 - [x] `0001-prd-food-diary.md` - Food Diary Core Functionality ✅ Complete
 - [x] `0002-prd-food-search.md` - Edamam API Food Search ✅ Complete
-- [ ] `0003-prd-barcode-scanning.md` - Barcode Scanning with ML Kit
-- [ ] `0004-prd-recipe-management.md` - Recipe Management System
-- [ ] `0005-prd-nutrition-insights.md` - Nutrition Insights & Charts
-- [ ] `0006-prd-user-profile.md` - User Profile & Goals
+- [x] `0003-prd-barcode-scanning.md` - Barcode Scanning with ML Kit ✅ Complete
+- [x] `0004-prd-user-profile.md` - User Profile & Goals ✅ Complete
+- [ ] `0005-prd-recipe-management.md` - Recipe Management System
+- [ ] `0006-prd-nutrition-insights.md` - Nutrition Insights & Charts
 
 ## Phase 2: Enhanced Features
 
@@ -34,6 +34,17 @@ Create an Android version of CalTrackPro with feature parity to the iOS app.
 - [ ] `0013-prd-offline-mode.md` - Offline Support & Caching
 - [ ] `0014-prd-security.md` - Security Hardening
 - [ ] `0015-prd-crash-reporting.md` - Firebase Crashlytics
+
+---
+
+## Completed PRDs
+
+| PRD | Feature | Status | Date |
+|-----|---------|--------|------|
+| 0001 | Food Diary | ✅ Complete | Dec 2024 |
+| 0002 | Food Search | ✅ Complete | Dec 2024 |
+| 0003 | Barcode Scanning | ✅ Complete | Jan 2025 |
+| 0004 | User Profile & Goals | ✅ Complete | Jan 2025 |
 
 ---
 

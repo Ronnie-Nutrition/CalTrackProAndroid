@@ -1,7 +1,7 @@
 # Task List: Food Search (Edamam API Integration)
 
 **PRD:** [0002-prd-food-search.md](./0002-prd-food-search.md)
-**Status:** In Progress
+**Status:** Complete
 **Created:** 2025-12-29
 
 ---
@@ -125,13 +125,13 @@
   - [x] 5.9 Implement favorite toggle (heart icon) in `FoodSearchResultItem.kt` and `FoodDetailScreen.kt`
   - [x] 5.10 Implement automatic cleanup to limit recent searches to 20 items
 
-- [ ] 6.0 Add offline support, error handling, and connectivity monitoring
-  - [ ] 6.1 Create `NetworkMonitor.kt` utility using ConnectivityManager for network state
-  - [ ] 6.2 Add network state observation to `FoodSearchViewModel`
-  - [ ] 6.3 Cache recent search API results in Room for offline access
-  - [ ] 6.4 Display offline indicator banner when no network connectivity
-  - [ ] 6.5 Show cached results when offline with "Offline - showing cached results" message
-  - [ ] 6.6 Implement user-friendly error messages for API failures
-  - [ ] 6.7 Handle API rate limits with "Too many requests, please try again later" message
-  - [ ] 6.8 Add retry button for failed searches
+- [x] 6.0 Add offline support, error handling, and connectivity monitoring
+  - [x] 6.1 Create `NetworkMonitor.kt` utility using ConnectivityManager for network state
+  - [x] 6.2 Add network state observation to `FoodSearchViewModel`
+  - [x] 6.3 Cache recent search API results in Room for offline access
+  - [x] 6.4 Display offline indicator banner when no network connectivity
+  - [x] 6.5 Show cached results when offline with "Offline - showing cached results" message
+  - [x] 6.6 Implement user-friendly error messages for API failures
+  - [x] 6.7 Handle API rate limits with "Too many requests, please try again later" message
+  - [x] 6.8 Add retry button for failed searches
 

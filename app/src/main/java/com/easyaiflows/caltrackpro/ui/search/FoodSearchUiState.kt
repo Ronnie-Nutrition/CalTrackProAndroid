@@ -22,7 +22,9 @@ data class FoodSearchUiState(
     val selectedTab: SearchTab = SearchTab.SEARCH,
     val isLoading: Boolean = false,
     val error: String? = null,
-    val hasSearched: Boolean = false
+    val hasSearched: Boolean = false,
+    val isOnline: Boolean = true,
+    val isShowingCachedResults: Boolean = false
 ) {
     /**
      * Check if results are empty after a search

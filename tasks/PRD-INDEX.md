@@ -10,8 +10,8 @@ Create an Android version of CalTrackPro with feature parity to the iOS app.
 ## Phase 1: Core Features
 
 ### To Be Implemented
-- [x] `0001-prd-food-diary.md` - Food Diary Core Functionality ✅ Created
-- [ ] `0002-prd-food-search.md` - Edamam API Food Search
+- [x] `0001-prd-food-diary.md` - Food Diary Core Functionality ✅ Complete
+- [x] `0002-prd-food-search.md` - Edamam API Food Search ✅ Complete
 - [ ] `0003-prd-barcode-scanning.md` - Barcode Scanning with ML Kit
 - [ ] `0004-prd-recipe-management.md` - Recipe Management System
 - [ ] `0005-prd-nutrition-insights.md` - Nutrition Insights & Charts

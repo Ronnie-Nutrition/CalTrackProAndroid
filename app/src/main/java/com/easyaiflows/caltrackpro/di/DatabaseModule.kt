@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.easyaiflows.caltrackpro.data.local.CalTrackDatabase
+import com.easyaiflows.caltrackpro.data.local.dao.CachedSearchDao
 import com.easyaiflows.caltrackpro.data.local.dao.FavoriteFoodDao
 import com.easyaiflows.caltrackpro.data.local.dao.FoodEntryDao
 import com.easyaiflows.caltrackpro.data.local.dao.RecentSearchDao
@@ -63,6 +64,34 @@ object DatabaseModule {
         }
     }
 
+    private val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            // Create cached_searches table for offline search results
+            db.execSQL("""
+                CREATE TABLE IF NOT EXISTS cached_searches (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    query TEXT NOT NULL,
+                    foodId TEXT NOT NULL,
+                    name TEXT NOT NULL,
+                    brand TEXT,
+                    category TEXT,
+                    imageUrl TEXT,
+                    caloriesPer100g REAL NOT NULL,
+                    proteinPer100g REAL NOT NULL,
+                    carbsPer100g REAL NOT NULL,
+                    fatPer100g REAL NOT NULL,
+                    fiberPer100g REAL NOT NULL,
+                    sugarPer100g REAL NOT NULL,
+                    sodiumPer100g REAL NOT NULL,
+                    measuresJson TEXT NOT NULL,
+                    timestamp INTEGER NOT NULL
+                )
+            """)
+            // Create index on query column for faster lookups
+            db.execSQL("CREATE INDEX IF NOT EXISTS index_cached_searches_query ON cached_searches(query)")
+        }
+    }
+
     @Provides
     @Singleton
     fun provideDatabase(
@@ -73,7 +102,7 @@ object DatabaseModule {
             CalTrackDatabase::class.java,
             CalTrackDatabase.DATABASE_NAME
         )
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
 
@@ -93,5 +122,11 @@ object DatabaseModule {
     @Singleton
     fun provideFavoriteFoodDao(database: CalTrackDatabase): FavoriteFoodDao {
         return database.favoriteFoodDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCachedSearchDao(database: CalTrackDatabase): CachedSearchDao {
+        return database.cachedSearchDao()
     }
 }

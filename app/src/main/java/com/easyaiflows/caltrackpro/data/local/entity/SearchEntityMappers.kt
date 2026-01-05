@@ -135,3 +135,60 @@ fun List<RecentSearchEntity>.toRecentDomainModels(): List<SearchedFood> {
 fun List<FavoriteFoodEntity>.toFavoriteDomainModels(): List<SearchedFood> {
     return map { it.toDomainModel() }
 }
+
+/**
+ * Convert SearchedFood to CachedSearchEntity.
+ */
+fun SearchedFood.toCachedSearchEntity(query: String): CachedSearchEntity {
+    val measuresJsonList = measures.map {
+        ServingMeasureJson(it.uri, it.label, it.weightGrams)
+    }
+    return CachedSearchEntity(
+        query = query.lowercase(),
+        foodId = foodId,
+        name = name,
+        brand = brand,
+        category = category,
+        imageUrl = imageUrl,
+        caloriesPer100g = caloriesPer100g,
+        proteinPer100g = proteinPer100g,
+        carbsPer100g = carbsPer100g,
+        fatPer100g = fatPer100g,
+        fiberPer100g = fiberPer100g,
+        sugarPer100g = sugarPer100g,
+        sodiumPer100g = sodiumPer100g,
+        measuresJson = measuresAdapter.toJson(measuresJsonList)
+    )
+}
+
+/**
+ * Convert CachedSearchEntity to SearchedFood domain model.
+ */
+fun CachedSearchEntity.toDomainModel(): SearchedFood {
+    val measuresJsonList = measuresAdapter.fromJson(measuresJson) ?: emptyList()
+    val measures = measuresJsonList.map {
+        ServingMeasure(it.uri, it.label, it.weightGrams)
+    }
+    return SearchedFood(
+        foodId = foodId,
+        name = name,
+        brand = brand,
+        category = category,
+        imageUrl = imageUrl,
+        caloriesPer100g = caloriesPer100g,
+        proteinPer100g = proteinPer100g,
+        carbsPer100g = carbsPer100g,
+        fatPer100g = fatPer100g,
+        fiberPer100g = fiberPer100g,
+        sugarPer100g = sugarPer100g,
+        sodiumPer100g = sodiumPer100g,
+        measures = measures
+    )
+}
+
+/**
+ * Convert a list of CachedSearchEntity to domain models.
+ */
+fun List<CachedSearchEntity>.toCachedDomainModels(): List<SearchedFood> {
+    return map { it.toDomainModel() }
+}

@@ -74,4 +74,16 @@ interface FoodSearchRepository {
      * Toggle favorite status for a food.
      */
     suspend fun toggleFavorite(food: SearchedFood)
+
+    // Search Result Caching
+
+    /**
+     * Cache search results for offline access.
+     */
+    suspend fun cacheSearchResults(query: String, foods: List<SearchedFood>)
+
+    /**
+     * Get cached search results for a query.
+     */
+    suspend fun getCachedSearchResults(query: String): List<SearchedFood>
 }

@@ -1,7 +1,10 @@
 package com.easyaiflows.caltrackpro.data.repository
 
+import com.easyaiflows.caltrackpro.data.local.dao.CachedSearchDao
 import com.easyaiflows.caltrackpro.data.local.dao.FavoriteFoodDao
 import com.easyaiflows.caltrackpro.data.local.dao.RecentSearchDao
+import com.easyaiflows.caltrackpro.data.local.entity.toCachedDomainModels
+import com.easyaiflows.caltrackpro.data.local.entity.toCachedSearchEntity
 import com.easyaiflows.caltrackpro.data.local.entity.toDomainModel
 import com.easyaiflows.caltrackpro.data.local.entity.toFavoriteDomainModels
 import com.easyaiflows.caltrackpro.data.local.entity.toFavoriteFoodEntity
@@ -22,11 +25,13 @@ import javax.inject.Singleton
 class FoodSearchRepositoryImpl @Inject constructor(
     private val apiService: EdamamApiService,
     private val recentSearchDao: RecentSearchDao,
-    private val favoriteFoodDao: FavoriteFoodDao
+    private val favoriteFoodDao: FavoriteFoodDao,
+    private val cachedSearchDao: CachedSearchDao
 ) : FoodSearchRepository {
 
     companion object {
         private const val MAX_RECENT_SEARCHES = 20
+        private const val CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000L // 24 hours
     }
 
     // In-memory cache for recent search results (for getFoodById lookups)
@@ -133,6 +138,26 @@ class FoodSearchRepositoryImpl @Inject constructor(
         } else {
             addToFavorites(food)
         }
+    }
+
+    // Search Result Caching
+
+    override suspend fun cacheSearchResults(query: String, foods: List<SearchedFood>) {
+        // Delete old cache for this query first
+        cachedSearchDao.deleteByQuery(query)
+
+        // Cache new results
+        val entities = foods.map { it.toCachedSearchEntity(query) }
+        cachedSearchDao.insertAll(entities)
+
+        // Cleanup old cached entries (older than 24 hours)
+        val expiryTime = System.currentTimeMillis() - CACHE_EXPIRY_MS
+        cachedSearchDao.deleteOlderThan(expiryTime)
+    }
+
+    override suspend fun getCachedSearchResults(query: String): List<SearchedFood> {
+        val cached = cachedSearchDao.getByQuery(query)
+        return cached.toCachedDomainModels()
     }
 
     /**

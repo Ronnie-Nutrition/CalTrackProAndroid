@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.domain.model.SearchedFood
+import com.easyaiflows.caltrackpro.util.NetworkMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -26,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FoodSearchViewModel @Inject constructor(
     private val repository: FoodSearchRepository,
+    private val networkMonitor: NetworkMonitor,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -51,7 +53,8 @@ class FoodSearchViewModel @Inject constructor(
         val results: List<SearchedFood> = emptyList(),
         val isLoading: Boolean = false,
         val error: String? = null,
-        val hasSearched: Boolean = false
+        val hasSearched: Boolean = false,
+        val isFromCache: Boolean = false
     )
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
@@ -65,10 +68,33 @@ class FoodSearchViewModel @Inject constructor(
                 } else {
                     emit(SearchState(isLoading = true))
 
+                    // Check if online before making API call
+                    if (!networkMonitor.isConnected) {
+                        // Offline - try to use cached results
+                        val cachedResults = repository.getCachedSearchResults(query)
+                        if (cachedResults.isNotEmpty()) {
+                            emit(SearchState(
+                                results = cachedResults,
+                                isLoading = false,
+                                hasSearched = true,
+                                isFromCache = true
+                            ))
+                        } else {
+                            emit(SearchState(
+                                isLoading = false,
+                                error = "No internet connection. Please check your network.",
+                                hasSearched = true
+                            ))
+                        }
+                        return@flow
+                    }
+
                     val result = repository.searchFoods(query)
 
                     result.fold(
                         onSuccess = { foods ->
+                            // Cache the search results for offline use
+                            repository.cacheSearchResults(query, foods)
                             emit(SearchState(
                                 results = foods,
                                 isLoading = false,
@@ -76,11 +102,23 @@ class FoodSearchViewModel @Inject constructor(
                             ))
                         },
                         onFailure = { error ->
-                            emit(SearchState(
-                                isLoading = false,
-                                error = error.message ?: "Search failed",
-                                hasSearched = true
-                            ))
+                            // Try cached results on failure
+                            val cachedResults = repository.getCachedSearchResults(query)
+                            if (cachedResults.isNotEmpty()) {
+                                emit(SearchState(
+                                    results = cachedResults,
+                                    isLoading = false,
+                                    hasSearched = true,
+                                    isFromCache = true
+                                ))
+                            } else {
+                                val errorMessage = parseErrorMessage(error)
+                                emit(SearchState(
+                                    isLoading = false,
+                                    error = errorMessage,
+                                    hasSearched = true
+                                ))
+                            }
                         }
                     )
                 }
@@ -92,8 +130,18 @@ class FoodSearchViewModel @Inject constructor(
         _selectedTab,
         searchResults,
         repository.getRecentSearches(),
-        repository.getFavorites()
-    ) { query, tab, searchState, recentSearches, favorites ->
+        repository.getFavorites(),
+        networkMonitor.isConnectedFlow
+    ) { values ->
+        val query = values[0] as String
+        val tab = values[1] as SearchTab
+        val searchState = values[2] as SearchState
+        @Suppress("UNCHECKED_CAST")
+        val recentSearches = values[3] as List<SearchedFood>
+        @Suppress("UNCHECKED_CAST")
+        val favorites = values[4] as List<SearchedFood>
+        val isOnline = values[5] as Boolean
+
         FoodSearchUiState(
             query = query,
             results = searchState.results,
@@ -102,7 +150,9 @@ class FoodSearchViewModel @Inject constructor(
             selectedTab = tab,
             isLoading = searchState.isLoading,
             error = searchState.error,
-            hasSearched = searchState.hasSearched
+            hasSearched = searchState.hasSearched,
+            isOnline = isOnline,
+            isShowingCachedResults = searchState.isFromCache
         )
     }.stateIn(
         scope = viewModelScope,
@@ -172,6 +222,35 @@ class FoodSearchViewModel @Inject constructor(
             // Force a re-emission by setting a slightly modified value then back
             _query.value = ""
             _query.value = currentQuery
+        }
+    }
+
+    /**
+     * Parse error into user-friendly message.
+     */
+    private fun parseErrorMessage(error: Throwable): String {
+        return when {
+            error.message?.contains("429") == true ||
+            error.message?.contains("Too Many Requests", ignoreCase = true) == true ->
+                "Too many requests. Please try again later."
+
+            error.message?.contains("401") == true ||
+            error.message?.contains("Unauthorized", ignoreCase = true) == true ->
+                "API authentication error. Please check configuration."
+
+            error.message?.contains("timeout", ignoreCase = true) == true ||
+            error.message?.contains("timed out", ignoreCase = true) == true ->
+                "Request timed out. Please check your connection."
+
+            error.message?.contains("Unable to resolve host", ignoreCase = true) == true ||
+            error.message?.contains("No address associated", ignoreCase = true) == true ->
+                "No internet connection. Please check your network."
+
+            error.message?.contains("500") == true ||
+            error.message?.contains("Internal Server Error", ignoreCase = true) == true ->
+                "Server error. Please try again later."
+
+            else -> error.message ?: "Search failed. Please try again."
         }
     }
 }

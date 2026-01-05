@@ -11,11 +11,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.ui.diary.DiaryScreen
 import com.easyaiflows.caltrackpro.ui.entry.ManualEntryScreen
 import com.easyaiflows.caltrackpro.ui.onboarding.OnboardingScreen
 import com.easyaiflows.caltrackpro.ui.profile.ProfileScreen
+import com.easyaiflows.caltrackpro.ui.recipe.RecipeBuilderScreen
+import com.easyaiflows.caltrackpro.ui.recipe.RecipeDetailScreen
+import com.easyaiflows.caltrackpro.ui.recipe.RecipeLibraryScreen
 import com.easyaiflows.caltrackpro.ui.scanner.BarcodeScannerScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodDetailScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodSearchScreen
@@ -26,7 +30,8 @@ fun CalTrackNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: String = NavRoutes.Diary.route,
-    isOnboardingCompleted: Boolean = true
+    isOnboardingCompleted: Boolean = true,
+    foodSearchRepository: FoodSearchRepository? = null
 ) {
     val effectiveStartDestination = if (isOnboardingCompleted) {
         startDestination
@@ -76,6 +81,9 @@ fun CalTrackNavHost(
                 },
                 onNavigateToProfile = {
                     navController.navigate(NavRoutes.Profile.route)
+                },
+                onNavigateToRecipes = {
+                    navController.navigate(NavRoutes.RecipeLibrary.route)
                 }
             )
         }
@@ -207,6 +215,58 @@ fun CalTrackNavHost(
                     )
                 }
             )
+        }
+
+        // Recipe Library Screen
+        composable(route = NavRoutes.RecipeLibrary.route) {
+            RecipeLibraryScreen(
+                onRecipeClick = { recipeId ->
+                    navController.navigate(NavRoutes.RecipeDetail.createRoute(recipeId))
+                },
+                onCreateRecipe = {
+                    navController.navigate(NavRoutes.RecipeBuilder.createRoute())
+                }
+            )
+        }
+
+        // Recipe Detail Screen
+        composable(
+            route = NavRoutes.RecipeDetail.route,
+            arguments = listOf(
+                navArgument(NavRoutes.RecipeDetail.ARG_RECIPE_ID) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            RecipeDetailScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onEditRecipe = { recipeId ->
+                    navController.navigate(NavRoutes.RecipeBuilder.createRoute(recipeId))
+                }
+            )
+        }
+
+        // Recipe Builder Screen (create or edit)
+        composable(
+            route = NavRoutes.RecipeBuilder.route,
+            arguments = listOf(
+                navArgument(NavRoutes.RecipeBuilder.ARG_RECIPE_ID) {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                }
+            )
+        ) {
+            if (foodSearchRepository != null) {
+                RecipeBuilderScreen(
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
+                    foodSearchRepository = foodSearchRepository
+                )
+            }
         }
     }
 }

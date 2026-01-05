@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +51,7 @@ fun DiaryScreen(
     onNavigateToSearch: (MealType, LocalDate) -> Unit,
     onNavigateToScan: (MealType, LocalDate) -> Unit,
     onNavigateToProfile: () -> Unit,
+    onNavigateToRecipes: () -> Unit = {},
     viewModel: DiaryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -67,6 +69,12 @@ fun DiaryScreen(
             TopAppBar(
                 title = { Text("Food Diary") },
                 actions = {
+                    IconButton(onClick = onNavigateToRecipes) {
+                        Icon(
+                            imageVector = Icons.Default.MenuBook,
+                            contentDescription = "Recipes"
+                        )
+                    }
                     IconButton(onClick = onNavigateToProfile) {
                         Icon(
                             imageVector = Icons.Default.Settings,

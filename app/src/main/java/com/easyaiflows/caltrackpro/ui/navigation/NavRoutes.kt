@@ -89,4 +89,37 @@ sealed class NavRoutes(val route: String) {
             return "barcode_scanner/${mealType.name}/$date"
         }
     }
+
+    /**
+     * Recipe Library screen - main screen showing all saved recipes
+     */
+    data object RecipeLibrary : NavRoutes("recipe_library")
+
+    /**
+     * Recipe Detail screen for viewing a specific recipe
+     * @param recipeId The ID of the recipe to view
+     */
+    data object RecipeDetail : NavRoutes("recipe_detail/{recipeId}") {
+        const val ARG_RECIPE_ID = "recipeId"
+
+        fun createRoute(recipeId: String): String {
+            return "recipe_detail/$recipeId"
+        }
+    }
+
+    /**
+     * Recipe Builder screen for creating or editing recipes
+     * @param recipeId Optional ID for editing an existing recipe (null for create)
+     */
+    data object RecipeBuilder : NavRoutes("recipe_builder?recipeId={recipeId}") {
+        const val ARG_RECIPE_ID = "recipeId"
+
+        fun createRoute(recipeId: String? = null): String {
+            return if (recipeId != null) {
+                "recipe_builder?recipeId=$recipeId"
+            } else {
+                "recipe_builder"
+            }
+        }
+    }
 }

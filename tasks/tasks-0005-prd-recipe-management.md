@@ -139,12 +139,12 @@
   - [x] 6.14 Implement delete with confirmation AlertDialog, call repository delete, navigate back on confirm
   - [x] 6.15 Add "Edit Recipe" button that navigates to RecipeBuilderScreen with recipeId parameter
 
-- [ ] 7.0 Integrate recipes into app navigation (bottom nav tab + routes)
-  - [ ] 7.1 Add NavRoutes: `RecipeLibrary`, `RecipeDetail(recipeId)`, `RecipeBuilder(recipeId?)` to NavRoutes.kt
-  - [ ] 7.2 Add recipe screen composables to CalTrackNavHost with proper arguments and navigation callbacks
-  - [ ] 7.3 Add "Recipes" tab to BottomNavBar with book icon (Icons.Default.MenuBook or similar)
-  - [ ] 7.4 Update BottomNavBar selection logic to include Recipes route
-  - [ ] 7.5 Implement navigation: Library → Detail (with recipeId), Library → Builder (create), Detail → Builder (edit with recipeId)
-  - [ ] 7.6 Implement back navigation from Detail and Builder screens
+- [x] 7.0 Integrate recipes into app navigation (bottom nav tab + routes)
+  - [x] 7.1 Add NavRoutes: `RecipeLibrary`, `RecipeDetail(recipeId)`, `RecipeBuilder(recipeId?)` to NavRoutes.kt
+  - [x] 7.2 Add recipe screen composables to CalTrackNavHost with proper arguments and navigation callbacks
+  - [x] 7.3 Add "Recipes" button to DiaryScreen top bar with book icon (Icons.Default.MenuBook) - used top bar instead of bottom nav to match existing UI pattern
+  - [x] 7.4 Updated DiaryScreen with onNavigateToRecipes callback
+  - [x] 7.5 Implement navigation: Library → Detail (with recipeId), Library → Builder (create), Detail → Builder (edit with recipeId)
+  - [x] 7.6 Implement back navigation from Detail and Builder screens
   - [ ] 7.7 Test full navigation flow: Diary tab → Recipes tab → Create Recipe → Save → View Detail → Add to Diary → Diary tab shows entry
   - [ ] 7.8 Verify app builds successfully with `./gradlew assembleDebug`

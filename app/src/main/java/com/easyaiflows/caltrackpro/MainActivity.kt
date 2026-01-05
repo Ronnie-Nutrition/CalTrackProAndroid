@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
 import com.easyaiflows.caltrackpro.data.repository.UserProfileRepository
 import com.easyaiflows.caltrackpro.ui.navigation.CalTrackNavHost
 import com.easyaiflows.caltrackpro.ui.theme.CalTrackProTheme
@@ -22,6 +23,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var userProfileRepository: UserProfileRepository
+
+    @Inject
+    lateinit var foodSearchRepository: FoodSearchRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +46,8 @@ class MainActivity : ComponentActivity() {
                     }
                     else -> {
                         CalTrackNavHost(
-                            isOnboardingCompleted = isOnboardingCompleted ?: false
+                            isOnboardingCompleted = isOnboardingCompleted ?: false,
+                            foodSearchRepository = foodSearchRepository
                         )
                     }
                 }

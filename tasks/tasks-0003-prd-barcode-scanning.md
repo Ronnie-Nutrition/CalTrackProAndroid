@@ -58,12 +58,12 @@
   - [x] 1.6 Add VIBRATE permission to `AndroidManifest.xml` for haptic feedback
   - [x] 1.7 Add `<uses-feature android:name="android.hardware.camera" android:required="false"/>` to manifest
 
-- [ ] 2.0 Add barcode lookup endpoint to Edamam API service
-  - [ ] 2.1 Add `searchByBarcode(upc: String)` method to `EdamamApiService.kt` interface
-  - [ ] 2.2 Configure the endpoint with `@Query("upc")` parameter for barcode lookup
-  - [ ] 2.3 Add `lookupByBarcode(barcode: String)` method to `FoodSearchRepository` interface
-  - [ ] 2.4 Implement `lookupByBarcode()` in `FoodSearchRepositoryImpl` calling the API
-  - [ ] 2.5 Handle empty/null response when barcode is not found in database
+- [x] 2.0 Add barcode lookup endpoint to Edamam API service
+  - [x] 2.1 Add `searchByBarcode(upc: String)` method to `EdamamApiService.kt` interface
+  - [x] 2.2 Configure the endpoint with `@Query("upc")` parameter for barcode lookup
+  - [x] 2.3 Add `lookupByBarcode(barcode: String)` method to `FoodSearchRepository` interface
+  - [x] 2.4 Implement `lookupByBarcode()` in `FoodSearchRepositoryImpl` calling the API
+  - [x] 2.5 Handle empty/null response when barcode is not found in database
 
 - [ ] 3.0 Create barcode caching infrastructure in Room database
   - [ ] 3.1 Create `ScannedBarcodeEntity.kt` with barcode, foodId, and all nutrition fields

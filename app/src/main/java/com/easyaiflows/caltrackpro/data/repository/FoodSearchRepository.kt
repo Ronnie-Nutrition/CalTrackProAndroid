@@ -86,4 +86,14 @@ interface FoodSearchRepository {
      * Get cached search results for a query.
      */
     suspend fun getCachedSearchResults(query: String): List<SearchedFood>
+
+    // Barcode Lookup
+
+    /**
+     * Look up a food by barcode (UPC/EAN).
+     *
+     * @param barcode The barcode string (UPC-A, UPC-E, EAN-13, EAN-8, etc.)
+     * @return Result containing SearchedFood if found, null if not in database, or error
+     */
+    suspend fun lookupByBarcode(barcode: String): Result<SearchedFood?>
 }

@@ -39,4 +39,17 @@ interface EdamamApiService {
         @Query("nutrition-type") nutritionType: String = "logging",
         @Query("session") session: String
     ): FoodSearchResponseDto
+
+    /**
+     * Search for a food by barcode (UPC/EAN).
+     *
+     * @param upc The barcode string (UPC-A, UPC-E, EAN-13, EAN-8, etc.)
+     * @param nutritionType Type of nutrition data ("logging" for food logging apps)
+     * @return FoodSearchResponseDto containing the matched food or empty if not found
+     */
+    @GET("parser")
+    suspend fun searchByBarcode(
+        @Query("upc") upc: String,
+        @Query("nutrition-type") nutritionType: String = "logging"
+    ): FoodSearchResponseDto
 }

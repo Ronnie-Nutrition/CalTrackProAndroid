@@ -166,4 +166,29 @@ class FoodSearchRepositoryImpl @Inject constructor(
     fun clearCache() {
         searchCache.clear()
     }
+
+    // Barcode Lookup
+
+    override suspend fun lookupByBarcode(barcode: String): Result<SearchedFood?> {
+        return try {
+            if (barcode.isBlank()) {
+                return Result.success(null)
+            }
+
+            val response = apiService.searchByBarcode(barcode)
+            val foods = response.toDomainModels()
+
+            // Barcode lookup returns at most one result
+            val food = foods.firstOrNull()
+
+            // Cache result if found
+            if (food != null) {
+                searchCache[food.foodId] = food
+            }
+
+            Result.success(food)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

@@ -84,19 +84,19 @@
   - [x] 3.8 Implement deleteRecipe() suspend function
   - [x] 3.9 Update `RepositoryModule.kt` to bind RecipeRepository to RecipeRepositoryImpl with @Singleton scope
 
-- [ ] 4.0 Build Recipe Library screen with search, filter, and sort
-  - [ ] 4.1 Create `RecipeLibraryUiState` data class with recipes list, searchQuery, selectedCategory, sortOrder, isLoading, and filteredRecipes computed property
-  - [ ] 4.2 Create `RecipeSortOrder` enum with Newest, Oldest, NameAZ, NameZA, CookTime, Difficulty options
-  - [ ] 4.3 Create `RecipeLibraryViewModel` with @HiltViewModel, inject RecipeRepository
-  - [ ] 4.4 Implement recipe loading, filtering by category, sorting, and search logic in ViewModel
-  - [ ] 4.5 Create `RecipeCard` composable showing image/placeholder, name, description, cook time, servings, difficulty badge, nutrition preview
-  - [ ] 4.6 Create difficulty color helper: green for Easy, orange for Medium, red for Hard
-  - [ ] 4.7 Create category icon helper mapping each RecipeCategory to appropriate Material icon
-  - [ ] 4.8 Build RecipeLibraryScreen header section with title, recipe count, and "+" FAB button
-  - [ ] 4.9 Build search bar component with text input and clear button
-  - [ ] 4.10 Build filter controls row with category dropdown and sort dropdown
-  - [ ] 4.11 Build scrollable LazyColumn of RecipeCards with click navigation to detail
-  - [ ] 4.12 Implement empty states: "No Recipes Yet" with create button, and "No Results" for empty search
+- [x] 4.0 Build Recipe Library screen with search, filter, and sort
+  - [x] 4.1 Create `RecipeLibraryUiState` data class with recipes list, searchQuery, selectedCategory, sortOrder, isLoading, and filteredRecipes computed property
+  - [x] 4.2 Create `RecipeSortOrder` enum with Newest, Oldest, NameAZ, NameZA, CookTime, Difficulty options
+  - [x] 4.3 Create `RecipeLibraryViewModel` with @HiltViewModel, inject RecipeRepository
+  - [x] 4.4 Implement recipe loading, filtering by category, sorting, and search logic in ViewModel
+  - [x] 4.5 Create `RecipeCard` composable showing image/placeholder, name, description, cook time, servings, difficulty badge, nutrition preview
+  - [x] 4.6 Create difficulty color helper: green for Easy, orange for Medium, red for Hard
+  - [x] 4.7 Create category icon helper mapping each RecipeCategory to appropriate Material icon
+  - [x] 4.8 Build RecipeLibraryScreen header section with title, recipe count, and "+" FAB button
+  - [x] 4.9 Build search bar component with text input and clear button
+  - [x] 4.10 Build filter controls row with category dropdown and sort dropdown
+  - [x] 4.11 Build scrollable LazyColumn of RecipeCards with click navigation to detail
+  - [x] 4.12 Implement empty states: "No Recipes Yet" with create button, and "No Results" for empty search
 
 - [ ] 5.0 Build Recipe Builder screen with ingredient management
   - [ ] 5.1 Create `RecipeBuilderUiState` data class with all form fields, ingredients list, instructions list, selectedImage, validation errors, and isSaving flag

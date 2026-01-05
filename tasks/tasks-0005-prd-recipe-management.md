@@ -98,29 +98,29 @@
   - [x] 4.11 Build scrollable LazyColumn of RecipeCards with click navigation to detail
   - [x] 4.12 Implement empty states: "No Recipes Yet" with create button, and "No Results" for empty search
 
-- [ ] 5.0 Build Recipe Builder screen with ingredient management
-  - [ ] 5.1 Create `RecipeBuilderUiState` data class with all form fields, ingredients list, instructions list, selectedImage, validation errors, and isSaving flag
-  - [ ] 5.2 Create `RecipeBuilderViewModel` with form field update methods, ingredient add/remove/update, instruction add/remove, and save logic
-  - [ ] 5.3 Implement nutrition calculation in ViewModel: compute total and per-serving nutrition from ingredients list
-  - [ ] 5.4 Build header section with title, nutrition preview button, and image picker area
-  - [ ] 5.5 Implement image picker using ActivityResultContracts.PickVisualMedia() with JPEG compression to ByteArray
-  - [ ] 5.6 Build basic info section: recipe name TextField, description TextField
-  - [ ] 5.7 Build servings selector with - and + buttons (1-100 range)
-  - [ ] 5.8 Build cooking time slider (5-180 minutes, 5-minute increments) with time display
-  - [ ] 5.9 Build difficulty picker using SegmentedButtons (Easy, Medium, Hard)
-  - [ ] 5.10 Build category picker using ExposedDropdownMenu
-  - [ ] 5.11 Build ingredients section with "Add Ingredient" button and list of IngredientRows
-  - [ ] 5.12 Create `IngredientRow` composable showing name, quantity, unit, calories, and remove button
-  - [ ] 5.13 Implement quantity edit dialog that opens on tap with TextField and Save/Cancel buttons
-  - [ ] 5.14 Create `IngredientSearchSheet` ModalBottomSheet that reuses FoodSearchRepository for Edamam API search
-  - [ ] 5.15 Implement converting SearchResult to SimpleFoodItem when adding ingredient
-  - [ ] 5.16 Build instructions section with "Add Step" button and numbered TextFields for each step
-  - [ ] 5.17 Implement instruction step add/remove with minimum 1 step and remove button when >1
-  - [ ] 5.18 Build nutrition preview section (visible when ingredients exist) showing per-serving calories, protein, carbs, fat with NutritionBadge components
-  - [ ] 5.19 Create `NutritionBadge` composable with icon, value, unit, and color-coded background
-  - [ ] 5.20 Build "Save Recipe" button at bottom, disabled until name and ≥1 ingredient provided
-  - [ ] 5.21 Implement save logic: validate, calculate final nutrition, call repository insert, navigate back on success
-  - [ ] 5.22 Add edit mode support: accept optional recipeId parameter, load existing recipe, use update instead of insert
+- [x] 5.0 Build Recipe Builder screen with ingredient management
+  - [x] 5.1 Create `RecipeBuilderUiState` data class with all form fields, ingredients list, instructions list, selectedImage, validation errors, and isSaving flag
+  - [x] 5.2 Create `RecipeBuilderViewModel` with form field update methods, ingredient add/remove/update, instruction add/remove, and save logic
+  - [x] 5.3 Implement nutrition calculation in ViewModel: compute total and per-serving nutrition from ingredients list
+  - [x] 5.4 Build header section with title, nutrition preview button, and image picker area
+  - [x] 5.5 Implement image picker using ActivityResultContracts.PickVisualMedia() with JPEG compression to ByteArray
+  - [x] 5.6 Build basic info section: recipe name TextField, description TextField
+  - [x] 5.7 Build servings selector with - and + buttons (1-100 range)
+  - [x] 5.8 Build cooking time slider (5-180 minutes, 5-minute increments) with time display
+  - [x] 5.9 Build difficulty picker using SegmentedButtons (Easy, Medium, Hard)
+  - [x] 5.10 Build category picker using ExposedDropdownMenu
+  - [x] 5.11 Build ingredients section with "Add Ingredient" button and list of IngredientRows
+  - [x] 5.12 Create `IngredientRow` composable showing name, quantity, unit, calories, and remove button
+  - [x] 5.13 Implement quantity edit dialog that opens on tap with TextField and Save/Cancel buttons
+  - [x] 5.14 Create `IngredientSearchSheet` ModalBottomSheet that reuses FoodSearchRepository for Edamam API search
+  - [x] 5.15 Implement converting SearchResult to SimpleFoodItem when adding ingredient
+  - [x] 5.16 Build instructions section with "Add Step" button and numbered TextFields for each step
+  - [x] 5.17 Implement instruction step add/remove with minimum 1 step and remove button when >1
+  - [x] 5.18 Build nutrition preview section (visible when ingredients exist) showing per-serving calories, protein, carbs, fat with NutritionBadge components
+  - [x] 5.19 Create `NutritionBadge` composable with icon, value, unit, and color-coded background
+  - [x] 5.20 Build "Save Recipe" button at bottom, disabled until name and ≥1 ingredient provided
+  - [x] 5.21 Implement save logic: validate, calculate final nutrition, call repository insert, navigate back on success
+  - [x] 5.22 Add edit mode support: accept optional recipeId parameter, load existing recipe, use update instead of insert
 
 - [ ] 6.0 Build Recipe Detail screen with serving scaler and diary integration
   - [ ] 6.1 Create `RecipeDetailUiState` data class with recipe, servingMultiplier (default 1.0), scaledNutrition, isDeleting flag

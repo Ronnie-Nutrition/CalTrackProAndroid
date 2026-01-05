@@ -1,7 +1,10 @@
 package com.easyaiflows.caltrackpro.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,6 +14,8 @@ import androidx.navigation.navArgument
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.ui.diary.DiaryScreen
 import com.easyaiflows.caltrackpro.ui.entry.ManualEntryScreen
+import com.easyaiflows.caltrackpro.ui.onboarding.OnboardingScreen
+import com.easyaiflows.caltrackpro.ui.profile.ProfileScreen
 import com.easyaiflows.caltrackpro.ui.scanner.BarcodeScannerScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodDetailScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodSearchScreen
@@ -20,13 +25,40 @@ import java.time.LocalDate
 fun CalTrackNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = NavRoutes.Diary.route
+    startDestination: String = NavRoutes.Diary.route,
+    isOnboardingCompleted: Boolean = true
 ) {
+    val effectiveStartDestination = if (isOnboardingCompleted) {
+        startDestination
+    } else {
+        NavRoutes.Onboarding.route
+    }
+
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = effectiveStartDestination,
         modifier = modifier
     ) {
+        // Onboarding Screen
+        composable(route = NavRoutes.Onboarding.route) {
+            OnboardingScreen(
+                onComplete = {
+                    navController.navigate(NavRoutes.Diary.route) {
+                        popUpTo(NavRoutes.Onboarding.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        // Profile/Settings Screen
+        composable(route = NavRoutes.Profile.route) {
+            ProfileScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
         // Diary Screen
         composable(route = NavRoutes.Diary.route) {
             DiaryScreen(
@@ -41,6 +73,9 @@ fun CalTrackNavHost(
                 },
                 onNavigateToScan = { mealType, date ->
                     navController.navigate(NavRoutes.BarcodeScanner.createRoute(mealType, date.toString()))
+                },
+                onNavigateToProfile = {
+                    navController.navigate(NavRoutes.Profile.route)
                 }
             )
         }

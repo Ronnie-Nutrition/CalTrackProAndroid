@@ -3,7 +3,9 @@ package com.easyaiflows.caltrackpro.ui.diary
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.easyaiflows.caltrackpro.data.repository.FoodEntryRepository
+import com.easyaiflows.caltrackpro.data.repository.UserProfileRepository
 import com.easyaiflows.caltrackpro.domain.model.FoodEntry
+import com.easyaiflows.caltrackpro.domain.model.NutritionGoals
 import com.easyaiflows.caltrackpro.domain.model.groupByMealType
 import com.easyaiflows.caltrackpro.domain.model.toDomainModels
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -23,31 +26,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DiaryViewModel @Inject constructor(
-    private val repository: FoodEntryRepository
+    private val repository: FoodEntryRepository,
+    private val userProfileRepository: UserProfileRepository
 ) : ViewModel() {
 
     private val _selectedDate = MutableStateFlow(LocalDate.now())
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val uiState: StateFlow<DiaryUiState> = _selectedDate
-        .flatMapLatest { date ->
+    val uiState: StateFlow<DiaryUiState> = combine(
+        _selectedDate.flatMapLatest { date ->
             val (startOfDay, endOfDay) = getDateRange(date)
             repository.getEntriesForDay(startOfDay, endOfDay)
-                .map { entities ->
-                    val entries = entities.toDomainModels()
-                    DiaryUiState(
-                        selectedDate = date,
-                        entries = entries,
-                        entriesByMeal = entries.groupByMealType(),
-                        isLoading = false
-                    )
-                }
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = DiaryUiState(isLoading = true)
+                .map { entities -> date to entities.toDomainModels() }
+        },
+        userProfileRepository.userProfile
+    ) { (date, entries), profile ->
+        val goals = NutritionGoals.fromUserProfile(profile)
+        DiaryUiState(
+            selectedDate = date,
+            entries = entries,
+            entriesByMeal = entries.groupByMealType(),
+            goals = goals,
+            isLoading = false
         )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = DiaryUiState(isLoading = true)
+    )
 
     /**
      * Select a new date to view entries for

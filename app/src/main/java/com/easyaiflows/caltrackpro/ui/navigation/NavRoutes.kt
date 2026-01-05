@@ -8,6 +8,16 @@ import com.easyaiflows.caltrackpro.domain.model.MealType
 sealed class NavRoutes(val route: String) {
 
     /**
+     * Onboarding screen - multi-page wizard for new users
+     */
+    data object Onboarding : NavRoutes("onboarding")
+
+    /**
+     * Profile/Settings screen - edit user profile and goals
+     */
+    data object Profile : NavRoutes("profile")
+
+    /**
      * Food Diary screen - main screen showing daily entries
      */
     data object Diary : NavRoutes("diary")

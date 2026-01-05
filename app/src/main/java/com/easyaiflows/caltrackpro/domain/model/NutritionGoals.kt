@@ -1,5 +1,7 @@
 package com.easyaiflows.caltrackpro.domain.model
 
+import com.easyaiflows.caltrackpro.util.NutritionCalculator
+
 /**
  * Represents daily nutrition goals for the user.
  * Default values are based on general dietary recommendations.
@@ -26,6 +28,23 @@ data class NutritionGoals(
          * Default nutrition goals based on general dietary recommendations
          */
         val Default = NutritionGoals()
+
+        /**
+         * Create nutrition goals from a user profile.
+         * Uses calculated values or overrides if set.
+         */
+        fun fromUserProfile(profile: UserProfile): NutritionGoals {
+            val targets = NutritionCalculator.calculateAllTargets(profile)
+            return NutritionGoals(
+                calories = targets.calories,
+                protein = targets.proteinGrams,
+                carbs = targets.carbsGrams,
+                fat = targets.fatGrams,
+                fiber = DEFAULT_FIBER,
+                sugar = DEFAULT_SUGAR,
+                sodium = DEFAULT_SODIUM
+            )
+        }
     }
 
     /**

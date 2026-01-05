@@ -1,12 +1,12 @@
 # CalTrackPro Android - MVP Roadmap
 
-## Current Status: 2 of 6 Phase 1 Features Complete
+## Current Status: 3 of 6 Phase 1 Features Complete
 
 | Feature | Status | Priority |
 |---------|--------|----------|
 | Food Diary | ✅ Complete | - |
 | Food Search (Edamam API) | ✅ Complete | - |
-| Barcode Scanning | ❌ Not Started | **HIGH** |
+| Barcode Scanning | ✅ Complete | - |
 | Recipe Management | ❌ Not Started | Medium |
 | Nutrition Insights | ❌ Not Started | Medium |
 | User Profile & Goals | ❌ Not Started | **HIGH** |
@@ -20,8 +20,8 @@ A **Minimum Viable Product** for CalTrackPro Android should include:
 ### Must-Have (MVP Core)
 1. ✅ **Food Diary** - Track daily food intake
 2. ✅ **Food Search** - Search Edamam API for foods
-3. **Barcode Scanning** - Quick food entry via barcode
-4. **User Profile** - Set calorie/macro goals
+3. ✅ **Barcode Scanning** - Quick food entry via barcode
+4. **User Profile** - Set calorie/macro goals ← **NEXT**
 
 ### Nice-to-Have (Post-MVP)
 5. Recipe Management - Custom recipes

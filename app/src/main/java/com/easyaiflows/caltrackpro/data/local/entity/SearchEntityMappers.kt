@@ -192,3 +192,54 @@ fun CachedSearchEntity.toDomainModel(): SearchedFood {
 fun List<CachedSearchEntity>.toCachedDomainModels(): List<SearchedFood> {
     return map { it.toDomainModel() }
 }
+
+/**
+ * Convert SearchedFood to ScannedBarcodeEntity for caching barcode lookups.
+ */
+fun SearchedFood.toScannedBarcodeEntity(barcode: String): ScannedBarcodeEntity {
+    val measuresJsonList = measures.map {
+        ServingMeasureJson(it.uri, it.label, it.weightGrams)
+    }
+    return ScannedBarcodeEntity(
+        barcode = barcode,
+        foodId = foodId,
+        name = name,
+        brand = brand,
+        category = category,
+        imageUrl = imageUrl,
+        caloriesPer100g = caloriesPer100g,
+        proteinPer100g = proteinPer100g,
+        carbsPer100g = carbsPer100g,
+        fatPer100g = fatPer100g,
+        fiberPer100g = fiberPer100g,
+        sugarPer100g = sugarPer100g,
+        sodiumPer100g = sodiumPer100g,
+        measuresJson = measuresAdapter.toJson(measuresJsonList),
+        cachedAt = System.currentTimeMillis()
+    )
+}
+
+/**
+ * Convert ScannedBarcodeEntity to SearchedFood domain model.
+ */
+fun ScannedBarcodeEntity.toDomainModel(): SearchedFood {
+    val measuresJsonList = measuresAdapter.fromJson(measuresJson) ?: emptyList()
+    val measures = measuresJsonList.map {
+        ServingMeasure(it.uri, it.label, it.weightGrams)
+    }
+    return SearchedFood(
+        foodId = foodId,
+        name = name,
+        brand = brand,
+        category = category,
+        imageUrl = imageUrl,
+        caloriesPer100g = caloriesPer100g,
+        proteinPer100g = proteinPer100g,
+        carbsPer100g = carbsPer100g,
+        fatPer100g = fatPer100g,
+        fiberPer100g = fiberPer100g,
+        sugarPer100g = sugarPer100g,
+        sodiumPer100g = sodiumPer100g,
+        measures = measures
+    )
+}

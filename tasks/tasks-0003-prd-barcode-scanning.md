@@ -65,15 +65,15 @@
   - [x] 2.4 Implement `lookupByBarcode()` in `FoodSearchRepositoryImpl` calling the API
   - [x] 2.5 Handle empty/null response when barcode is not found in database
 
-- [ ] 3.0 Create barcode caching infrastructure in Room database
-  - [ ] 3.1 Create `ScannedBarcodeEntity.kt` with barcode, foodId, and all nutrition fields
-  - [ ] 3.2 Create `ScannedBarcodeDao.kt` with insert, getByBarcode, and delete operations
-  - [ ] 3.3 Create `BarcodeEntityMappers.kt` with SearchedFood ↔ ScannedBarcodeEntity conversions
-  - [ ] 3.4 Update `CalTrackDatabase.kt` to include ScannedBarcodeEntity (increment to version 4)
-  - [ ] 3.5 Add MIGRATION_3_4 to `DatabaseModule.kt` creating scanned_barcodes table
-  - [ ] 3.6 Add `provideScannedBarcodeDao()` to `DatabaseModule.kt`
-  - [ ] 3.7 Inject `ScannedBarcodeDao` into `FoodSearchRepositoryImpl`
-  - [ ] 3.8 Add `cacheBarcodeResult()` and `getCachedBarcode()` methods to repository
+- [x] 3.0 Create barcode caching infrastructure in Room database
+  - [x] 3.1 Create `ScannedBarcodeEntity.kt` with barcode, foodId, and all nutrition fields
+  - [x] 3.2 Create `ScannedBarcodeDao.kt` with insert, getByBarcode, and delete operations
+  - [x] 3.3 Add barcode mappers to `SearchEntityMappers.kt` (SearchedFood ↔ ScannedBarcodeEntity)
+  - [x] 3.4 Update `CalTrackDatabase.kt` to include ScannedBarcodeEntity (increment to version 4)
+  - [x] 3.5 Add MIGRATION_3_4 to `DatabaseModule.kt` creating scanned_barcodes table
+  - [x] 3.6 Add `provideScannedBarcodeDao()` to `DatabaseModule.kt`
+  - [x] 3.7 Inject `ScannedBarcodeDao` into `FoodSearchRepositoryImpl`
+  - [x] 3.8 Add `cacheBarcodeResult()` and `getCachedBarcode()` methods to repository
 
 - [ ] 4.0 Implement barcode scanner screen with CameraX and ML Kit
   - [ ] 4.1 Create `BarcodeScannerUiState.kt` with scanning, loading, success, error, permission states

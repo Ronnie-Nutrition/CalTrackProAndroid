@@ -96,4 +96,14 @@ interface FoodSearchRepository {
      * @return Result containing SearchedFood if found, null if not in database, or error
      */
     suspend fun lookupByBarcode(barcode: String): Result<SearchedFood?>
+
+    /**
+     * Cache a barcode lookup result for offline access.
+     */
+    suspend fun cacheBarcodeResult(barcode: String, food: SearchedFood)
+
+    /**
+     * Get a cached barcode lookup result.
+     */
+    suspend fun getCachedBarcode(barcode: String): SearchedFood?
 }

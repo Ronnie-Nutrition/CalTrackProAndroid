@@ -3,10 +3,12 @@ package com.easyaiflows.caltrackpro.data.repository
 import com.easyaiflows.caltrackpro.data.local.dao.CachedSearchDao
 import com.easyaiflows.caltrackpro.data.local.dao.FavoriteFoodDao
 import com.easyaiflows.caltrackpro.data.local.dao.RecentSearchDao
+import com.easyaiflows.caltrackpro.data.local.dao.ScannedBarcodeDao
 import com.easyaiflows.caltrackpro.data.local.entity.toCachedDomainModels
 import com.easyaiflows.caltrackpro.data.local.entity.toCachedSearchEntity
 import com.easyaiflows.caltrackpro.data.local.entity.toDomainModel
 import com.easyaiflows.caltrackpro.data.local.entity.toFavoriteDomainModels
+import com.easyaiflows.caltrackpro.data.local.entity.toScannedBarcodeEntity
 import com.easyaiflows.caltrackpro.data.local.entity.toFavoriteFoodEntity
 import com.easyaiflows.caltrackpro.data.local.entity.toRecentDomainModels
 import com.easyaiflows.caltrackpro.data.local.entity.toRecentSearchEntity
@@ -26,7 +28,8 @@ class FoodSearchRepositoryImpl @Inject constructor(
     private val apiService: EdamamApiService,
     private val recentSearchDao: RecentSearchDao,
     private val favoriteFoodDao: FavoriteFoodDao,
-    private val cachedSearchDao: CachedSearchDao
+    private val cachedSearchDao: CachedSearchDao,
+    private val scannedBarcodeDao: ScannedBarcodeDao
 ) : FoodSearchRepository {
 
     companion object {
@@ -190,5 +193,22 @@ class FoodSearchRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    override suspend fun cacheBarcodeResult(barcode: String, food: SearchedFood) {
+        // Add to in-memory cache
+        searchCache[food.foodId] = food
+
+        // Add to database
+        scannedBarcodeDao.insert(food.toScannedBarcodeEntity(barcode))
+
+        // Cleanup old cached entries (older than 30 days for barcodes)
+        val thirtyDaysAgo = System.currentTimeMillis() - (30 * 24 * 60 * 60 * 1000L)
+        scannedBarcodeDao.deleteOlderThan(thirtyDaysAgo)
+    }
+
+    override suspend fun getCachedBarcode(barcode: String): SearchedFood? {
+        val cached = scannedBarcodeDao.getByBarcode(barcode)
+        return cached?.toDomainModel()
     }
 }

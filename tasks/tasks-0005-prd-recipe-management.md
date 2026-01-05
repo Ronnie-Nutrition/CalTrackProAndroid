@@ -73,16 +73,16 @@
   - [x] 2.9 Add MIGRATION_4_5 to create recipes table
   - [x] 2.10 Update `DatabaseModule.kt` to provide RecipeDao from database instance
 
-- [ ] 3.0 Create RecipeRepository with CRUD operations
-  - [ ] 3.1 Create `RecipeRepository` interface with getAllRecipes(), getRecipeById(), searchRecipes(), insertRecipe(), updateRecipe(), deleteRecipe() methods
-  - [ ] 3.2 Create `RecipeRepositoryImpl` class with @Inject constructor taking RecipeDao
-  - [ ] 3.3 Implement entity-to-domain mapping functions (RecipeEntity.toDomain(), Recipe.toEntity())
-  - [ ] 3.4 Implement getAllRecipes() returning Flow<List<Recipe>> with mapping
-  - [ ] 3.5 Implement getRecipeById() returning Flow<Recipe?> with mapping
-  - [ ] 3.6 Implement searchRecipes() for text search by name/description
-  - [ ] 3.7 Implement insertRecipe() and updateRecipe() suspend functions
-  - [ ] 3.8 Implement deleteRecipe() suspend function
-  - [ ] 3.9 Update `RepositoryModule.kt` to bind RecipeRepository to RecipeRepositoryImpl with @Singleton scope
+- [x] 3.0 Create RecipeRepository with CRUD operations
+  - [x] 3.1 Create `RecipeRepository` interface with getAllRecipes(), getRecipeById(), searchRecipes(), insertRecipe(), updateRecipe(), deleteRecipe() methods
+  - [x] 3.2 Create `RecipeRepositoryImpl` class with @Inject constructor taking RecipeDao
+  - [x] 3.3 Implement entity-to-domain mapping functions (RecipeEntity.toDomain(), Recipe.toEntity())
+  - [x] 3.4 Implement getAllRecipes() returning Flow<List<Recipe>> with mapping
+  - [x] 3.5 Implement getRecipeById() returning Flow<Recipe?> with mapping
+  - [x] 3.6 Implement searchRecipes() for text search by name/description
+  - [x] 3.7 Implement insertRecipe() and updateRecipe() suspend functions
+  - [x] 3.8 Implement deleteRecipe() suspend function
+  - [x] 3.9 Update `RepositoryModule.kt` to bind RecipeRepository to RecipeRepositoryImpl with @Singleton scope
 
 - [ ] 4.0 Build Recipe Library screen with search, filter, and sort
   - [ ] 4.1 Create `RecipeLibraryUiState` data class with recipes list, searchQuery, selectedCategory, sortOrder, isLoading, and filteredRecipes computed property

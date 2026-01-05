@@ -4,6 +4,8 @@ import com.easyaiflows.caltrackpro.data.repository.FoodEntryRepository
 import com.easyaiflows.caltrackpro.data.repository.FoodEntryRepositoryImpl
 import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
 import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepositoryImpl
+import com.easyaiflows.caltrackpro.data.repository.RecipeRepository
+import com.easyaiflows.caltrackpro.data.repository.RecipeRepositoryImpl
 import com.easyaiflows.caltrackpro.data.repository.UserProfileRepository
 import com.easyaiflows.caltrackpro.data.repository.UserProfileRepositoryImpl
 import dagger.Binds
@@ -33,4 +35,10 @@ abstract class RepositoryModule {
     abstract fun bindUserProfileRepository(
         userProfileRepositoryImpl: UserProfileRepositoryImpl
     ): UserProfileRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindRecipeRepository(
+        recipeRepositoryImpl: RecipeRepositoryImpl
+    ): RecipeRepository
 }

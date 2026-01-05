@@ -65,4 +65,18 @@ sealed class NavRoutes(val route: String) {
             return "food_detail/$foodId/${mealType.name}/$date"
         }
     }
+
+    /**
+     * Barcode Scanner screen for scanning product barcodes
+     * @param mealType The meal type to add the scanned food to
+     * @param date The date to add the food entry for (ISO format)
+     */
+    data object BarcodeScanner : NavRoutes("barcode_scanner/{mealType}/{date}") {
+        const val ARG_MEAL_TYPE = "mealType"
+        const val ARG_DATE = "date"
+
+        fun createRoute(mealType: MealType, date: String): String {
+            return "barcode_scanner/${mealType.name}/$date"
+        }
+    }
 }

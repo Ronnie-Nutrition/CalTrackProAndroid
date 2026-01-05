@@ -46,6 +46,7 @@ fun DiaryScreen(
     onNavigateToManualEntry: (MealType) -> Unit,
     onNavigateToEditEntry: (String) -> Unit,
     onNavigateToSearch: (MealType, LocalDate) -> Unit,
+    onNavigateToScan: (MealType, LocalDate) -> Unit,
     viewModel: DiaryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -171,7 +172,7 @@ fun DiaryScreen(
                 },
                 onScanClick = {
                     showAddFoodSheet = false
-                    // TODO: Navigate to barcode scanner
+                    onNavigateToScan(selectedMealType ?: MealType.SNACK, uiState.selectedDate)
                 },
                 onManualClick = {
                     showAddFoodSheet = false

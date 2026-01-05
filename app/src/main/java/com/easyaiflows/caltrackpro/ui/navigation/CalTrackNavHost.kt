@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.ui.diary.DiaryScreen
 import com.easyaiflows.caltrackpro.ui.entry.ManualEntryScreen
+import com.easyaiflows.caltrackpro.ui.scanner.BarcodeScannerScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodDetailScreen
 import com.easyaiflows.caltrackpro.ui.search.FoodSearchScreen
 import java.time.LocalDate
@@ -37,6 +38,9 @@ fun CalTrackNavHost(
                 },
                 onNavigateToSearch = { mealType, date ->
                     navController.navigate(NavRoutes.FoodSearch.createRoute(mealType, date.toString()))
+                },
+                onNavigateToScan = { mealType, date ->
+                    navController.navigate(NavRoutes.BarcodeScanner.createRoute(mealType, date.toString()))
                 }
             )
         }
@@ -129,6 +133,43 @@ fun CalTrackNavHost(
                 onAddSuccess = {
                     // Pop back to diary after adding food
                     navController.popBackStack(NavRoutes.Diary.route, inclusive = false)
+                }
+            )
+        }
+
+        // Barcode Scanner Screen
+        composable(
+            route = NavRoutes.BarcodeScanner.route,
+            arguments = listOf(
+                navArgument(NavRoutes.BarcodeScanner.ARG_MEAL_TYPE) {
+                    type = NavType.StringType
+                    defaultValue = MealType.SNACK.name
+                },
+                navArgument(NavRoutes.BarcodeScanner.ARG_DATE) {
+                    type = NavType.StringType
+                    defaultValue = LocalDate.now().toString()
+                }
+            )
+        ) { backStackEntry ->
+            val mealType = backStackEntry.arguments?.getString(NavRoutes.BarcodeScanner.ARG_MEAL_TYPE)
+                ?.let { MealType.valueOf(it) } ?: MealType.SNACK
+            val date = backStackEntry.arguments?.getString(NavRoutes.BarcodeScanner.ARG_DATE)
+                ?.let { LocalDate.parse(it) } ?: LocalDate.now()
+
+            BarcodeScannerScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateToFoodDetail = { foodId ->
+                    navController.navigate(
+                        NavRoutes.FoodDetail.createRoute(foodId, mealType, date.toString())
+                    )
+                },
+                onNavigateToSearch = { query ->
+                    // Navigate to search with the barcode as initial query
+                    navController.navigate(
+                        NavRoutes.FoodSearch.createRoute(mealType, date.toString())
+                    )
                 }
             )
         }

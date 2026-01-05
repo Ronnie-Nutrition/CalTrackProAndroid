@@ -1,7 +1,7 @@
 # Task List: Barcode Scanning with ML Kit
 
 **PRD:** [0003-prd-barcode-scanning.md](./0003-prd-barcode-scanning.md)
-**Status:** In Progress
+**Status:** Complete
 **Created:** 2025-01-04
 
 ---
@@ -89,20 +89,20 @@
   - [x] 4.11 Display loading overlay while looking up barcode in API
   - [x] 4.12 Handle "Product not found" with option to search by text
 
-- [ ] 5.0 Integrate scanner with navigation and add-food flow
-  - [ ] 5.1 Add `BarcodeScanner` route to `NavRoutes.kt` with mealType and date parameters
-  - [ ] 5.2 Add `BarcodeScannerScreen` composable to `CalTrackNavHost.kt`
-  - [ ] 5.3 Update `DiaryScreen.kt` to navigate to scanner when "Scan Barcode" is clicked
-  - [ ] 5.4 Navigate to `FoodDetailScreen` when barcode lookup succeeds
-  - [ ] 5.5 Navigate to `FoodSearchScreen` with pre-filled query on "Search instead" action
-  - [ ] 5.6 Add scanned food to Recent Searches using existing `addToRecentSearches()` method
+- [x] 5.0 Integrate scanner with navigation and add-food flow
+  - [x] 5.1 Add `BarcodeScanner` route to `NavRoutes.kt` with mealType and date parameters
+  - [x] 5.2 Add `BarcodeScannerScreen` composable to `CalTrackNavHost.kt`
+  - [x] 5.3 Update `DiaryScreen.kt` to navigate to scanner when "Scan Barcode" is clicked
+  - [x] 5.4 Navigate to `FoodDetailScreen` when barcode lookup succeeds
+  - [x] 5.5 Navigate to `FoodSearchScreen` with pre-filled query on "Search instead" action
+  - [x] 5.6 Add scanned food to Recent Searches using existing `addToRecentSearches()` method
 
-- [ ] 6.0 Add offline support and error handling for barcode scanning
-  - [ ] 6.1 Check `NetworkMonitor.isConnected` before API call
-  - [ ] 6.2 If offline, check local cache for previously scanned barcode
-  - [ ] 6.3 Display "Offline - using cached data" banner when serving cached result
-  - [ ] 6.4 Display "No internet connection. This product hasn't been scanned before." when offline and not cached
-  - [ ] 6.5 Cache successful barcode lookups in Room via `cacheBarcodeResult()`
-  - [ ] 6.6 Handle API errors with user-friendly messages (timeout, server error, rate limit)
-  - [ ] 6.7 Add retry button for failed lookups
-  - [ ] 6.8 Handle camera initialization errors gracefully
+- [x] 6.0 Add offline support and error handling for barcode scanning
+  - [x] 6.1 Check `NetworkMonitor.isConnected` before API call
+  - [x] 6.2 If offline, check local cache for previously scanned barcode
+  - [x] 6.3 Display "Offline - using cached data" banner when serving cached result
+  - [x] 6.4 Display "No internet connection. This product hasn't been scanned before." when offline and not cached
+  - [x] 6.5 Cache successful barcode lookups in Room via `cacheBarcodeResult()`
+  - [x] 6.6 Handle API errors with user-friendly messages (timeout, server error, rate limit)
+  - [x] 6.7 Add retry button for failed lookups
+  - [x] 6.8 Handle camera initialization errors gracefully

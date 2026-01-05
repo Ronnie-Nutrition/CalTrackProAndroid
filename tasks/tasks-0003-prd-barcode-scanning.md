@@ -49,14 +49,14 @@
 
 ## Tasks
 
-- [ ] 1.0 Set up dependencies and permissions for camera and ML Kit
-  - [ ] 1.1 Add ML Kit Barcode Scanning dependency to `libs.versions.toml` (`com.google.mlkit:barcode-scanning:17.2.0`)
-  - [ ] 1.2 Add CameraX dependencies to `libs.versions.toml` (camera-core, camera-camera2, camera-lifecycle, camera-view)
-  - [ ] 1.3 Add Accompanist Permissions dependency to `libs.versions.toml` (`com.google.accompanist:accompanist-permissions`)
-  - [ ] 1.4 Update `app/build.gradle.kts` to include all new dependencies
-  - [ ] 1.5 Add CAMERA permission to `AndroidManifest.xml`
-  - [ ] 1.6 Add VIBRATE permission to `AndroidManifest.xml` for haptic feedback
-  - [ ] 1.7 Add `<uses-feature android:name="android.hardware.camera" android:required="false"/>` to manifest
+- [x] 1.0 Set up dependencies and permissions for camera and ML Kit
+  - [x] 1.1 Add ML Kit Barcode Scanning dependency to `libs.versions.toml` (`com.google.mlkit:barcode-scanning:17.2.0`)
+  - [x] 1.2 Add CameraX dependencies to `libs.versions.toml` (camera-core, camera-camera2, camera-lifecycle, camera-view)
+  - [x] 1.3 Add Accompanist Permissions dependency to `libs.versions.toml` (`com.google.accompanist:accompanist-permissions`)
+  - [x] 1.4 Update `app/build.gradle.kts` to include all new dependencies
+  - [x] 1.5 Add CAMERA permission to `AndroidManifest.xml`
+  - [x] 1.6 Add VIBRATE permission to `AndroidManifest.xml` for haptic feedback
+  - [x] 1.7 Add `<uses-feature android:name="android.hardware.camera" android:required="false"/>` to manifest
 
 - [ ] 2.0 Add barcode lookup endpoint to Edamam API service
   - [ ] 2.1 Add `searchByBarcode(upc: String)` method to `EdamamApiService.kt` interface

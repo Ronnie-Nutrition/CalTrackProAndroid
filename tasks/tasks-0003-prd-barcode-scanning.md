@@ -75,19 +75,19 @@
   - [x] 3.7 Inject `ScannedBarcodeDao` into `FoodSearchRepositoryImpl`
   - [x] 3.8 Add `cacheBarcodeResult()` and `getCachedBarcode()` methods to repository
 
-- [ ] 4.0 Implement barcode scanner screen with CameraX and ML Kit
-  - [ ] 4.1 Create `BarcodeScannerUiState.kt` with scanning, loading, success, error, permission states
-  - [ ] 4.2 Create `BarcodeScannerViewModel.kt` with Hilt injection and StateFlow
-  - [ ] 4.3 Implement ML Kit BarcodeScanner setup with supported formats (UPC_A, UPC_E, EAN_13, EAN_8, CODE_128, CODE_39)
-  - [ ] 4.4 Create `ViewfinderOverlay.kt` composable with semi-transparent overlay and scan area cutout
-  - [ ] 4.5 Create `BarcodeScannerScreen.kt` with CameraX PreviewView integration
-  - [ ] 4.6 Implement camera permission handling using Accompanist Permissions
-  - [ ] 4.7 Add permission denied state with rationale and settings redirect button
-  - [ ] 4.8 Implement barcode detection callback from ML Kit ImageAnalysis
-  - [ ] 4.9 Add haptic feedback (Vibrator) on successful barcode detection
-  - [ ] 4.10 Add flashlight/torch toggle button in TopAppBar
-  - [ ] 4.11 Display loading overlay while looking up barcode in API
-  - [ ] 4.12 Handle "Product not found" with option to search by text
+- [x] 4.0 Implement barcode scanner screen with CameraX and ML Kit
+  - [x] 4.1 Create `BarcodeScannerUiState.kt` with scanning, loading, success, error, permission states
+  - [x] 4.2 Create `BarcodeScannerViewModel.kt` with Hilt injection and StateFlow
+  - [x] 4.3 Implement ML Kit BarcodeScanner setup with supported formats (UPC_A, UPC_E, EAN_13, EAN_8, CODE_128, CODE_39)
+  - [x] 4.4 Create `ViewfinderOverlay.kt` composable with semi-transparent overlay and scan area cutout
+  - [x] 4.5 Create `BarcodeScannerScreen.kt` with CameraX PreviewView integration
+  - [x] 4.6 Implement camera permission handling using Accompanist Permissions
+  - [x] 4.7 Add permission denied state with rationale and settings redirect button
+  - [x] 4.8 Implement barcode detection callback from ML Kit ImageAnalysis
+  - [x] 4.9 Add haptic feedback (Vibrator) on successful barcode detection
+  - [x] 4.10 Add flashlight/torch toggle button in TopAppBar
+  - [x] 4.11 Display loading overlay while looking up barcode in API
+  - [x] 4.12 Handle "Product not found" with option to search by text
 
 - [ ] 5.0 Integrate scanner with navigation and add-food flow
   - [ ] 5.1 Add `BarcodeScanner` route to `NavRoutes.kt` with mealType and date parameters

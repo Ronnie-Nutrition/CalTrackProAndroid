@@ -22,6 +22,9 @@
     <!-- Boot completed to restart timer after reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Battery optimization exemption request -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <!-- Camera feature - not required since app works without barcode scanning -->
     <uses-feature
         android:name="android.hardware.camera"

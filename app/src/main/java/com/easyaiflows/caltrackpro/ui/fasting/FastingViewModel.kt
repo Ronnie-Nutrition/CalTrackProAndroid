@@ -1,6 +1,7 @@
 package com.easyaiflows.caltrackpro.ui.fasting
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.easyaiflows.caltrackpro.data.repository.FastingRepository
@@ -33,6 +34,10 @@ class FastingViewModel @Inject constructor(
     private val repository: FastingRepository,
     private val application: Application
 ) : ViewModel() {
+
+    companion object {
+        private const val TAG = "FastingAnalytics"
+    }
 
     private val _uiState = MutableStateFlow<FastingUiState>(FastingUiState.Loading)
     val uiState: StateFlow<FastingUiState> = _uiState.asStateFlow()
@@ -123,6 +128,8 @@ class FastingViewModel @Inject constructor(
                 if (elapsedHours > lastMilestoneHours && currentMilestone.hours > 0) {
                     lastMilestoneHours = elapsedHours
                     if (currentMilestone.hours == elapsedHours) {
+                        // Analytics: milestone reached
+                        Log.i(TAG, "milestone_reached: hours=${currentMilestone.hours}, title=${currentMilestone.title}")
                         _events.emit(FastingEvent.ShowMilestoneReached(currentMilestone.title))
                         _events.emit(FastingEvent.TriggerHapticFeedback)
                     }
@@ -232,6 +239,9 @@ class FastingViewModel @Inject constructor(
         // Update widget
         FastingWidgetProvider.updateAllWidgets(application)
 
+        // Analytics: fast completed
+        Log.i(TAG, "fast_completed: duration_hours=${fastDuration.toHours()}, schedule=${schedule.name}")
+
         _events.emit(FastingEvent.ShowFastingComplete)
         _events.emit(FastingEvent.TriggerHapticFeedback)
     }
@@ -254,6 +264,9 @@ class FastingViewModel @Inject constructor(
 
             // Update widget
             FastingWidgetProvider.updateAllWidgets(application)
+
+            // Analytics: fast started
+            Log.i(TAG, "fast_started: schedule=${dataState.selectedSchedule.name}, target_hours=$targetHours")
         }
     }
 
@@ -289,6 +302,9 @@ class FastingViewModel @Inject constructor(
 
             // Update widget
             FastingWidgetProvider.updateAllWidgets(application)
+
+            // Analytics: fast stopped early
+            Log.i(TAG, "fast_stopped_early: saved=$saveSession")
         }
     }
 
@@ -317,12 +333,16 @@ class FastingViewModel @Inject constructor(
     fun incrementWater() {
         viewModelScope.launch {
             repository.incrementWater()
+            // Analytics: water logged
+            Log.i(TAG, "water_logged: action=increment")
         }
     }
 
     fun decrementWater() {
         viewModelScope.launch {
             repository.decrementWater()
+            // Analytics: water logged
+            Log.i(TAG, "water_logged: action=decrement")
         }
     }
 
@@ -335,6 +355,12 @@ class FastingViewModel @Inject constructor(
     fun navigateToSettings() {
         viewModelScope.launch {
             _events.emit(FastingEvent.NavigateToSettings)
+        }
+    }
+
+    fun onPermissionDenied() {
+        viewModelScope.launch {
+            _events.emit(FastingEvent.ShowError("Notification permission required for fasting alerts"))
         }
     }
 

@@ -157,12 +157,12 @@
   - [x] 10.10 Register widget in AndroidManifest.xml with receiver and metadata
   - [x] 10.11 Trigger widget update from ViewModel when state changes
 
-- [ ] 11.0 Add Error Handling and Edge Cases
-  - [ ] 11.1 Handle device reboot: recalculate state from saved startTime
-  - [ ] 11.2 Handle timezone changes during active fast
-  - [ ] 11.3 Handle water reset at midnight (check lastResetDate)
-  - [ ] 11.4 Validate custom hours input (1-23 range)
-  - [ ] 11.5 Handle notification permission denied gracefully
-  - [ ] 11.6 Handle foreground service restrictions (battery optimization)
-  - [ ] 11.7 Add "Don't optimize" battery prompt for reliable background timing
-  - [ ] 11.8 Track analytics: fast_started, fast_completed, fast_stopped_early, milestone_reached, water_logged
+- [x] 11.0 Add Error Handling and Edge Cases
+  - [x] 11.1 Handle device reboot: recalculate state from saved startTime
+  - [x] 11.2 Handle timezone changes during active fast
+  - [x] 11.3 Handle water reset at midnight (check lastResetDate)
+  - [x] 11.4 Validate custom hours input (1-23 range)
+  - [x] 11.5 Handle notification permission denied gracefully
+  - [x] 11.6 Handle foreground service restrictions (battery optimization)
+  - [x] 11.7 Add "Don't optimize" battery prompt for reliable background timing
+  - [x] 11.8 Track analytics: fast_started, fast_completed, fast_stopped_early, milestone_reached, water_logged

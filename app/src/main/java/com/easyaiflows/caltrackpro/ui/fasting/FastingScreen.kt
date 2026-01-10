@@ -1,9 +1,16 @@
 package com.easyaiflows.caltrackpro.ui.fasting
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.os.PowerManager
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -74,6 +81,37 @@ fun FastingScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     var showStopDialog by remember { mutableStateOf(false) }
+    var showBatteryOptimizationDialog by remember { mutableStateOf(false) }
+
+    // Check if notification permission is needed (Android 13+)
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            // Permission granted, start fasting
+            viewModel.startFasting()
+        } else {
+            // Permission denied, show snackbar
+            viewModel.onPermissionDenied()
+        }
+    }
+
+    // Function to start fasting with permission check
+    val startFastingWithPermissionCheck: () -> Unit = {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Check notification permission for Android 13+
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            // No permission needed for older Android versions
+            viewModel.startFasting()
+        }
+
+        // Check battery optimization
+        val powerManager = context.getSystemService(PowerManager::class.java)
+        if (!powerManager.isIgnoringBatteryOptimizations(context.packageName)) {
+            showBatteryOptimizationDialog = true
+        }
+    }
 
     // Handle one-time events
     LaunchedEffect(Unit) {
@@ -133,7 +171,7 @@ fun FastingScreen(
                         state = state,
                         onScheduleSelected = viewModel::selectSchedule,
                         onCustomHoursChanged = viewModel::setCustomFastingHours,
-                        onStartFasting = viewModel::startFasting,
+                        onStartFasting = startFastingWithPermissionCheck,
                         onIncrementWater = viewModel::incrementWater,
                         onDecrementWater = viewModel::decrementWater
                     )
@@ -175,6 +213,20 @@ fun FastingScreen(
             onStopAndDiscard = {
                 viewModel.stopFasting(saveSession = false)
                 showStopDialog = false
+            }
+        )
+    }
+
+    // Battery optimization dialog
+    if (showBatteryOptimizationDialog) {
+        BatteryOptimizationDialog(
+            onDismiss = { showBatteryOptimizationDialog = false },
+            onOpenSettings = {
+                showBatteryOptimizationDialog = false
+                val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                    data = Uri.parse("package:${context.packageName}")
+                }
+                context.startActivity(intent)
             }
         )
     }
@@ -528,4 +580,31 @@ private fun triggerHapticFeedback(context: android.content.Context) {
             vibrator?.vibrate(100)
         }
     }
+}
+
+@Composable
+private fun BatteryOptimizationDialog(
+    onDismiss: () -> Unit,
+    onOpenSettings: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Improve Timer Reliability") },
+        text = {
+            Text(
+                "For the most accurate fasting timer, disable battery optimization for this app. " +
+                "This ensures the timer continues running even when your phone is idle."
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onOpenSettings) {
+                Text("Open Settings")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Not Now")
+            }
+        }
+    )
 }

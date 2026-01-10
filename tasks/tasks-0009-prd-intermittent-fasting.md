@@ -127,14 +127,14 @@
   - [x] 7.9 Implement `calculateLongestStreak()` from all history
   - [x] 7.10 Add navigation to history from main fasting screen (history icon in top bar)
 
-- [ ] 8.0 Implement Fasting Settings Screen
-  - [ ] 8.1 Create `FastingSettingsScreen.kt` composable
-  - [ ] 8.2 Add default schedule selector (saves preference)
-  - [ ] 8.3 Add custom fasting hours input (1-23)
-  - [ ] 8.4 Add water goal setting (glasses per day, default 8)
-  - [ ] 8.5 Add notification toggles: fasting complete, milestones, water reminders, eating window
-  - [ ] 8.6 Save all preferences to DataStore
-  - [ ] 8.7 Add navigation to settings from main fasting screen (settings icon in top bar)
+- [x] 8.0 Implement Fasting Settings Screen
+  - [x] 8.1 Create `FastingSettingsScreen.kt` composable
+  - [x] 8.2 Add default schedule selector (saves preference)
+  - [x] 8.3 Add custom fasting hours input (1-23)
+  - [x] 8.4 Add water goal setting (glasses per day, default 8)
+  - [x] 8.5 Add notification toggles: fasting complete, milestones, water reminders, eating window
+  - [x] 8.6 Save all preferences to DataStore
+  - [x] 8.7 Add navigation to settings from main fasting screen (settings icon in top bar)
 
 - [ ] 9.0 Integrate Navigation
   - [ ] 9.1 Add `Fasting` route to NavRoutes.kt

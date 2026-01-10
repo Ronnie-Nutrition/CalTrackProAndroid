@@ -97,23 +97,23 @@
   - [x] 5.10 Create `ScheduleSelector.kt` dropdown for selecting fasting protocol
   - [x] 5.11 Add custom hours input when CUSTOM schedule selected (1-23 validation)
 
-- [ ] 6.0 Implement Main Fasting Screen and ViewModel
-  - [ ] 6.1 Create `FastingEvent.kt` sealed class for navigation/actions
-  - [ ] 6.2 Create `FastingViewModel.kt` with StateFlow for UI state
-  - [ ] 6.3 Inject FastingRepository and observe fasting state as Flow
-  - [ ] 6.4 Implement `startFasting()` - save state, start service, schedule notifications
-  - [ ] 6.5 Implement `stopFasting(save: Boolean)` - stop service, optionally save session
-  - [ ] 6.6 Implement `endEatingWindow()` - transition to NOT_STARTED
-  - [ ] 6.7 Implement timer tick logic: calculate elapsed, remaining, progress every second
-  - [ ] 6.8 Implement automatic transition from FASTING to EATING when goal reached
-  - [ ] 6.9 Implement `getCurrentMilestone()` and `getNextMilestone()` based on elapsed time
-  - [ ] 6.10 Implement `incrementWater()` and `decrementWater()` with daily reset check
-  - [ ] 6.11 Create `FastingScreen.kt` composable with three state views
-  - [ ] 6.12 Build NOT_STARTED state: schedule selector + "Start Fast" button + stats cards
-  - [ ] 6.13 Build FASTING state: progress ring + timer + milestones + water tracker + stop button
-  - [ ] 6.14 Build EATING state: eating window timer + green theme + end window button
-  - [ ] 6.15 Add confirmation dialog for stopping fast early
-  - [ ] 6.16 Add celebration animation when milestone reached (pulse + haptic)
+- [x] 6.0 Implement Main Fasting Screen and ViewModel
+  - [x] 6.1 Create `FastingEvent.kt` sealed class for navigation/actions
+  - [x] 6.2 Create `FastingViewModel.kt` with StateFlow for UI state
+  - [x] 6.3 Inject FastingRepository and observe fasting state as Flow
+  - [x] 6.4 Implement `startFasting()` - save state, start service, schedule notifications
+  - [x] 6.5 Implement `stopFasting(save: Boolean)` - stop service, optionally save session
+  - [x] 6.6 Implement `endEatingWindow()` - transition to NOT_STARTED
+  - [x] 6.7 Implement timer tick logic: calculate elapsed, remaining, progress every second
+  - [x] 6.8 Implement automatic transition from FASTING to EATING when goal reached
+  - [x] 6.9 Implement `getCurrentMilestone()` and `getNextMilestone()` based on elapsed time
+  - [x] 6.10 Implement `incrementWater()` and `decrementWater()` with daily reset check
+  - [x] 6.11 Create `FastingScreen.kt` composable with three state views
+  - [x] 6.12 Build NOT_STARTED state: schedule selector + "Start Fast" button + stats cards
+  - [x] 6.13 Build FASTING state: progress ring + timer + milestones + water tracker + stop button
+  - [x] 6.14 Build EATING state: eating window timer + green theme + end window button
+  - [x] 6.15 Add confirmation dialog for stopping fast early
+  - [x] 6.16 Add celebration animation when milestone reached (pulse + haptic)
 
 - [ ] 7.0 Implement Fasting History Screen
   - [ ] 7.1 Create `FastingHistoryScreen.kt` composable

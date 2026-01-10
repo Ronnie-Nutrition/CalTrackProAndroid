@@ -144,18 +144,18 @@
   - [x] 9.5 Add "Fasting" tab/icon to bottom navigation or top bar
   - [x] 9.6 Handle deep link from notification tap to FastingScreen
 
-- [ ] 10.0 Implement Home Screen Widget
-  - [ ] 10.1 Create `widget_fasting_timer.xml` layout with RemoteViews
-  - [ ] 10.2 Create `fasting_widget_info.xml` with widget metadata (sizes, preview, etc.)
-  - [ ] 10.3 Create `FastingWidgetProvider.kt` extending AppWidgetProvider
-  - [ ] 10.4 Implement `onUpdate()` to refresh widget with current fasting state
-  - [ ] 10.5 Read fasting state from DataStore in widget provider
-  - [ ] 10.6 Display different layouts for NOT_STARTED, FASTING, EATING states
-  - [ ] 10.7 Show elapsed/remaining time and progress in FASTING state
-  - [ ] 10.8 Add tap action to open FastingScreen via PendingIntent
-  - [ ] 10.9 Schedule widget updates every minute during active fasting
-  - [ ] 10.10 Register widget in AndroidManifest.xml with receiver and metadata
-  - [ ] 10.11 Trigger widget update from ViewModel when state changes
+- [x] 10.0 Implement Home Screen Widget
+  - [x] 10.1 Create `widget_fasting_timer.xml` layout with RemoteViews
+  - [x] 10.2 Create `fasting_widget_info.xml` with widget metadata (sizes, preview, etc.)
+  - [x] 10.3 Create `FastingWidgetProvider.kt` extending AppWidgetProvider
+  - [x] 10.4 Implement `onUpdate()` to refresh widget with current fasting state
+  - [x] 10.5 Read fasting state from DataStore in widget provider
+  - [x] 10.6 Display different layouts for NOT_STARTED, FASTING, EATING states
+  - [x] 10.7 Show elapsed/remaining time and progress in FASTING state
+  - [x] 10.8 Add tap action to open FastingScreen via PendingIntent
+  - [x] 10.9 Schedule widget updates every minute during active fasting
+  - [x] 10.10 Register widget in AndroidManifest.xml with receiver and metadata
+  - [x] 10.11 Trigger widget update from ViewModel when state changes
 
 - [ ] 11.0 Add Error Handling and Edge Cases
   - [ ] 11.1 Handle device reboot: recalculate state from saved startTime

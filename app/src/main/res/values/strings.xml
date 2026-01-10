@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CalTrackPro</string>
+    <string name="widget_description">Track your fasting timer on your home screen</string>
+    <string name="widget_name">Fasting Timer</string>
 </resources>

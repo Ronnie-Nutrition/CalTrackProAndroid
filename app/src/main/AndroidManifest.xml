@@ -47,6 +47,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- Deep link for fasting screen -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="caltrackpro" android:host="fasting" />
+            </intent-filter>
         </activity>
 
         <!-- Fasting Timer Foreground Service -->
@@ -74,6 +81,20 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
+        </receiver>
+
+        <!-- Fasting Widget Provider -->
+        <receiver
+            android:name=".widget.FastingWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.easyaiflows.caltrackpro.UPDATE_FASTING_WIDGET" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/fasting_widget_info" />
         </receiver>
     </application>
 

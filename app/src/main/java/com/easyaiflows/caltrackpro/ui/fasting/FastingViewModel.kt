@@ -11,6 +11,7 @@ import com.easyaiflows.caltrackpro.domain.model.FastingStats
 import com.easyaiflows.caltrackpro.domain.model.getCurrentMilestone
 import com.easyaiflows.caltrackpro.domain.model.getNextMilestone
 import com.easyaiflows.caltrackpro.service.FastingTimerService
+import com.easyaiflows.caltrackpro.widget.FastingWidgetProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -228,6 +229,9 @@ class FastingViewModel @Inject constructor(
         // Stop the foreground service
         FastingTimerService.stopService(application)
 
+        // Update widget
+        FastingWidgetProvider.updateAllWidgets(application)
+
         _events.emit(FastingEvent.ShowFastingComplete)
         _events.emit(FastingEvent.TriggerHapticFeedback)
     }
@@ -247,6 +251,9 @@ class FastingViewModel @Inject constructor(
 
             // Start foreground service
             FastingTimerService.startService(application, targetHours)
+
+            // Update widget
+            FastingWidgetProvider.updateAllWidgets(application)
         }
     }
 
@@ -279,6 +286,9 @@ class FastingViewModel @Inject constructor(
             repository.saveEatingWindowStartTime(null)
             FastingTimerService.stopService(application)
             lastMilestoneHours = 0
+
+            // Update widget
+            FastingWidgetProvider.updateAllWidgets(application)
         }
     }
 
@@ -286,6 +296,9 @@ class FastingViewModel @Inject constructor(
         viewModelScope.launch {
             repository.saveFastingState(FastingState.NOT_STARTED, null)
             repository.saveEatingWindowStartTime(null)
+
+            // Update widget
+            FastingWidgetProvider.updateAllWidgets(application)
         }
     }
 

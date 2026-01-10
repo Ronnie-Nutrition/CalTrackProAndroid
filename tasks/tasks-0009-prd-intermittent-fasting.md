@@ -48,17 +48,17 @@
   - [x] 1.7 Create `FastingStats.kt` data class with currentStreak, longestStreak, totalFastsCompleted, fastsThisWeek
   - [x] 1.8 Create `FastingPreferences.kt` data class with selectedSchedule, customFastingHours, waterGoalGlasses, remindersEnabled
 
-- [ ] 2.0 Implement Fasting Data Persistence
-  - [ ] 2.1 Create `FastingDataStore.kt` using DataStore preferences
-  - [ ] 2.2 Implement keys for: currentState, fastingStartTime, eatingWindowStartTime, selectedSchedule, customHours, waterIntake, lastWaterResetDate
-  - [ ] 2.3 Implement `saveFastingState(state, startTime)` function
-  - [ ] 2.4 Implement `getFastingState(): Flow<FastingDataState>` reactive getter
-  - [ ] 2.5 Implement `saveSession(session)` to persist completed sessions
-  - [ ] 2.6 Implement `getSessions(lastNDays: Int): List<FastingSession>` for history
-  - [ ] 2.7 Implement water tracking: `incrementWater()`, `decrementWater()`, `resetWaterIfNewDay()`
-  - [ ] 2.8 Create `FastingRepository.kt` interface abstracting DataStore
-  - [ ] 2.9 Create `FastingRepositoryImpl.kt` implementation
-  - [ ] 2.10 Add `@Binds` entry in RepositoryModule for FastingRepository
+- [x] 2.0 Implement Fasting Data Persistence
+  - [x] 2.1 Create `FastingDataStore.kt` using DataStore preferences
+  - [x] 2.2 Implement keys for: currentState, fastingStartTime, eatingWindowStartTime, selectedSchedule, customHours, waterIntake, lastWaterResetDate
+  - [x] 2.3 Implement `saveFastingState(state, startTime)` function
+  - [x] 2.4 Implement `getFastingState(): Flow<FastingDataState>` reactive getter
+  - [x] 2.5 Implement `saveSession(session)` to persist completed sessions
+  - [x] 2.6 Implement `getSessions(lastNDays: Int): List<FastingSession>` for history
+  - [x] 2.7 Implement water tracking: `incrementWater()`, `decrementWater()`, `resetWaterIfNewDay()`
+  - [x] 2.8 Create `FastingRepository.kt` interface abstracting DataStore
+  - [x] 2.9 Create `FastingRepositoryImpl.kt` implementation
+  - [x] 2.10 Add `@Binds` entry in RepositoryModule for FastingRepository
 
 - [ ] 3.0 Implement Fasting Timer Service
   - [ ] 3.1 Create `FastingTimerService.kt` extending Service

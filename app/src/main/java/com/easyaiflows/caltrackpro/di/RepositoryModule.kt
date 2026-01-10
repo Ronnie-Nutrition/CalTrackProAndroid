@@ -1,5 +1,7 @@
 package com.easyaiflows.caltrackpro.di
 
+import com.easyaiflows.caltrackpro.data.repository.FastingRepository
+import com.easyaiflows.caltrackpro.data.repository.FastingRepositoryImpl
 import com.easyaiflows.caltrackpro.data.repository.FoodEntryRepository
 import com.easyaiflows.caltrackpro.data.repository.FoodEntryRepositoryImpl
 import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
@@ -41,4 +43,10 @@ abstract class RepositoryModule {
     abstract fun bindRecipeRepository(
         recipeRepositoryImpl: RecipeRepositoryImpl
     ): RecipeRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFastingRepository(
+        fastingRepositoryImpl: FastingRepositoryImpl
+    ): FastingRepository
 }

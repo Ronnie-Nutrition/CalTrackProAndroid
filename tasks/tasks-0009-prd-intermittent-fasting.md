@@ -60,27 +60,27 @@
   - [x] 2.9 Create `FastingRepositoryImpl.kt` implementation
   - [x] 2.10 Add `@Binds` entry in RepositoryModule for FastingRepository
 
-- [ ] 3.0 Implement Fasting Timer Service
-  - [ ] 3.1 Create `FastingTimerService.kt` extending Service
-  - [ ] 3.2 Create notification channel "fasting_timer" for ongoing timer notification
-  - [ ] 3.3 Implement `startForeground()` with persistent notification showing elapsed time
-  - [ ] 3.4 Implement notification update every minute showing current progress
-  - [ ] 3.5 Handle `ACTION_START` and `ACTION_STOP` intents
-  - [ ] 3.6 Recalculate elapsed time from saved startTime on service start (handles reboot)
-  - [ ] 3.7 Schedule milestone notifications using AlarmManager
-  - [ ] 3.8 Schedule water reminder alarms (every 2 hours during fasting)
-  - [ ] 3.9 Add service declaration to AndroidManifest.xml with FOREGROUND_SERVICE permission
-  - [ ] 3.10 Create `FastingAlarmReceiver.kt` BroadcastReceiver for scheduled alarms
+- [x] 3.0 Implement Fasting Timer Service
+  - [x] 3.1 Create `FastingTimerService.kt` extending Service
+  - [x] 3.2 Create notification channel "fasting_timer" for ongoing timer notification
+  - [x] 3.3 Implement `startForeground()` with persistent notification showing elapsed time
+  - [x] 3.4 Implement notification update every minute showing current progress
+  - [x] 3.5 Handle `ACTION_START` and `ACTION_STOP` intents
+  - [x] 3.6 Recalculate elapsed time from saved startTime on service start (handles reboot)
+  - [x] 3.7 Schedule milestone notifications using AlarmManager
+  - [x] 3.8 Schedule water reminder alarms (every 2 hours during fasting)
+  - [x] 3.9 Add service declaration to AndroidManifest.xml with FOREGROUND_SERVICE permission
+  - [x] 3.10 Create `FastingAlarmReceiver.kt` BroadcastReceiver for scheduled alarms
 
-- [ ] 4.0 Implement Notification System
-  - [ ] 4.1 Create notification channel "fasting_alerts" for milestone/completion alerts
-  - [ ] 4.2 Create notification channel "water_reminders" for hydration reminders
-  - [ ] 4.3 Implement `showFastingCompleteNotification()` with congratulations message
-  - [ ] 4.4 Implement `showMilestoneNotification(milestone)` with benefit description
-  - [ ] 4.5 Implement `showWaterReminderNotification(hoursElapsed)` with hydration prompt
-  - [ ] 4.6 Implement `showEatingWindowWarningNotification()` (1 hour before closing)
-  - [ ] 4.7 Implement `showEatingWindowClosedNotification()`
-  - [ ] 4.8 Add PendingIntent to all notifications to open FastingScreen on tap
+- [x] 4.0 Implement Notification System
+  - [x] 4.1 Create notification channel "fasting_alerts" for milestone/completion alerts
+  - [x] 4.2 Create notification channel "water_reminders" for hydration reminders
+  - [x] 4.3 Implement `showFastingCompleteNotification()` with congratulations message
+  - [x] 4.4 Implement `showMilestoneNotification(milestone)` with benefit description
+  - [x] 4.5 Implement `showWaterReminderNotification(hoursElapsed)` with hydration prompt
+  - [x] 4.6 Implement `showEatingWindowWarningNotification()` (1 hour before closing)
+  - [x] 4.7 Implement `showEatingWindowClosedNotification()`
+  - [x] 4.8 Add PendingIntent to all notifications to open FastingScreen on tap
   - [ ] 4.9 Handle notification permission request (Android 13+)
   - [ ] 4.10 Allow users to toggle notification types in settings
 

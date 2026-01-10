@@ -8,6 +8,20 @@
     <!-- Vibrate permission for haptic feedback on successful scan -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!-- Foreground service permission for fasting timer -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- Notification permission for Android 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Alarm permissions for scheduled notifications -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <!-- Boot completed to restart timer after reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <!-- Camera feature - not required since app works without barcode scanning -->
     <uses-feature
         android:name="android.hardware.camera"
@@ -34,6 +48,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Fasting Timer Foreground Service -->
+        <service
+            android:name=".service.FastingTimerService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="fasting_timer" />
+        </service>
+
+        <!-- Fasting Alarm Receiver for scheduled notifications -->
+        <receiver
+            android:name=".receiver.FastingAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Boot Completed Receiver to restart timer after reboot -->
+        <receiver
+            android:name=".receiver.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

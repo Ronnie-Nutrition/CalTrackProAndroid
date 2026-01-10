@@ -84,18 +84,18 @@
   - [ ] 4.9 Handle notification permission request (Android 13+)
   - [ ] 4.10 Allow users to toggle notification types in settings
 
-- [ ] 5.0 Create Fasting UI Components
-  - [ ] 5.1 Create `FastingUiState.kt` sealed class: NotStarted, Fasting, Eating, Loading
-  - [ ] 5.2 Create `FastingProgressRing.kt` using Canvas with gradient fill (blue → purple)
-  - [ ] 5.3 Add milestone marker dots around progress ring at 4h, 8h, 12h, 14h, 16h, 18h, 24h positions
-  - [ ] 5.4 Add glow effect at current progress point on ring
-  - [ ] 5.5 Implement smooth animation for progress updates (animateFloatAsState)
-  - [ ] 5.6 Create `MilestoneCard.kt` showing current milestone icon, title, description
-  - [ ] 5.7 Add next milestone preview with "X hours until [milestone]" countdown
-  - [ ] 5.8 Create `WaterTracker.kt` with glass icons (filled/empty), increment/decrement buttons
-  - [ ] 5.9 Create `FastingStatsCard.kt` showing streak, total fasts, this week's count
-  - [ ] 5.10 Create `ScheduleSelector.kt` dropdown for selecting fasting protocol
-  - [ ] 5.11 Add custom hours input when CUSTOM schedule selected (1-23 validation)
+- [x] 5.0 Create Fasting UI Components
+  - [x] 5.1 Create `FastingUiState.kt` sealed class: NotStarted, Fasting, Eating, Loading
+  - [x] 5.2 Create `FastingProgressRing.kt` using Canvas with gradient fill (blue → purple)
+  - [x] 5.3 Add milestone marker dots around progress ring at 4h, 8h, 12h, 14h, 16h, 18h, 24h positions
+  - [x] 5.4 Add glow effect at current progress point on ring
+  - [x] 5.5 Implement smooth animation for progress updates (animateFloatAsState)
+  - [x] 5.6 Create `MilestoneCard.kt` showing current milestone icon, title, description
+  - [x] 5.7 Add next milestone preview with "X hours until [milestone]" countdown
+  - [x] 5.8 Create `WaterTracker.kt` with glass icons (filled/empty), increment/decrement buttons
+  - [x] 5.9 Create `FastingStatsCard.kt` showing streak, total fasts, this week's count
+  - [x] 5.10 Create `ScheduleSelector.kt` dropdown for selecting fasting protocol
+  - [x] 5.11 Add custom hours input when CUSTOM schedule selected (1-23 validation)
 
 - [ ] 6.0 Implement Main Fasting Screen and ViewModel
   - [ ] 6.1 Create `FastingEvent.kt` sealed class for navigation/actions

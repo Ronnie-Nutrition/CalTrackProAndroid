@@ -115,17 +115,17 @@
   - [x] 6.15 Add confirmation dialog for stopping fast early
   - [x] 6.16 Add celebration animation when milestone reached (pulse + haptic)
 
-- [ ] 7.0 Implement Fasting History Screen
-  - [ ] 7.1 Create `FastingHistoryScreen.kt` composable
-  - [ ] 7.2 Implement calendar month view using LazyVerticalGrid
-  - [ ] 7.3 Add colored dots on calendar: green = completed, yellow = partial
-  - [ ] 7.4 Implement day selection to show session details
-  - [ ] 7.5 Create `FastingSessionCard.kt` showing date, duration, schedule, completed status
-  - [ ] 7.6 Implement list view toggle (calendar vs. list)
-  - [ ] 7.7 Calculate and display streak information at top
-  - [ ] 7.8 Implement `calculateCurrentStreak()` logic counting consecutive completed fasts
-  - [ ] 7.9 Implement `calculateLongestStreak()` from all history
-  - [ ] 7.10 Add navigation to history from main fasting screen (history icon in top bar)
+- [x] 7.0 Implement Fasting History Screen
+  - [x] 7.1 Create `FastingHistoryScreen.kt` composable
+  - [x] 7.2 Implement calendar month view using LazyVerticalGrid
+  - [x] 7.3 Add colored dots on calendar: green = completed, yellow = partial
+  - [x] 7.4 Implement day selection to show session details
+  - [x] 7.5 Create `FastingSessionCard.kt` showing date, duration, schedule, completed status
+  - [x] 7.6 Implement list view toggle (calendar vs. list)
+  - [x] 7.7 Calculate and display streak information at top
+  - [x] 7.8 Implement `calculateCurrentStreak()` logic counting consecutive completed fasts
+  - [x] 7.9 Implement `calculateLongestStreak()` from all history
+  - [x] 7.10 Add navigation to history from main fasting screen (history icon in top bar)
 
 - [ ] 8.0 Implement Fasting Settings Screen
   - [ ] 8.1 Create `FastingSettingsScreen.kt` composable

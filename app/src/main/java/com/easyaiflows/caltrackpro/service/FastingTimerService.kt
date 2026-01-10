@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import android.os.SystemClock
@@ -199,7 +200,9 @@ class FastingTimerService : Service() {
         val contentIntent = PendingIntent.getActivity(
             this,
             0,
-            Intent(this, MainActivity::class.java),
+            Intent(Intent.ACTION_VIEW, Uri.parse(FastingAlarmReceiver.DEEP_LINK_FASTING)).apply {
+                setClass(this@FastingTimerService, MainActivity::class.java)
+            },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.core.app.NotificationCompat
 import com.easyaiflows.caltrackpro.MainActivity
 import com.easyaiflows.caltrackpro.R
@@ -23,6 +24,8 @@ class FastingAlarmReceiver : BroadcastReceiver() {
         const val EXTRA_MILESTONE_TITLE = "extra_milestone_title"
         const val EXTRA_MILESTONE_DESCRIPTION = "extra_milestone_description"
         const val EXTRA_HOURS_ELAPSED = "extra_hours_elapsed"
+
+        const val DEEP_LINK_FASTING = "caltrackpro://fasting"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -127,7 +130,8 @@ class FastingAlarmReceiver : BroadcastReceiver() {
     }
 
     private fun createMainActivityIntent(context: Context): PendingIntent {
-        val intent = Intent(context, MainActivity::class.java).apply {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DEEP_LINK_FASTING)).apply {
+            setClass(context, MainActivity::class.java)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         return PendingIntent.getActivity(

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -52,6 +53,7 @@ fun DiaryScreen(
     onNavigateToScan: (MealType, LocalDate) -> Unit,
     onNavigateToProfile: () -> Unit,
     onNavigateToRecipes: () -> Unit = {},
+    onNavigateToFasting: () -> Unit = {},
     viewModel: DiaryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -69,6 +71,12 @@ fun DiaryScreen(
             TopAppBar(
                 title = { Text("Food Diary") },
                 actions = {
+                    IconButton(onClick = onNavigateToFasting) {
+                        Icon(
+                            imageVector = Icons.Default.Timer,
+                            contentDescription = "Fasting"
+                        )
+                    }
                     IconButton(onClick = onNavigateToRecipes) {
                         Icon(
                             imageVector = Icons.Default.MenuBook,

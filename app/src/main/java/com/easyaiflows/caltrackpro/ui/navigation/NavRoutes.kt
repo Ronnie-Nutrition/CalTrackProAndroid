@@ -122,4 +122,19 @@ sealed class NavRoutes(val route: String) {
             }
         }
     }
+
+    /**
+     * Fasting screen - main intermittent fasting timer and controls
+     */
+    data object Fasting : NavRoutes("fasting")
+
+    /**
+     * Fasting History screen - calendar and list view of past fasting sessions
+     */
+    data object FastingHistory : NavRoutes("fasting_history")
+
+    /**
+     * Fasting Settings screen - configure fasting preferences and notifications
+     */
+    data object FastingSettings : NavRoutes("fasting_settings")
 }

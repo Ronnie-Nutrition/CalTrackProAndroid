@@ -11,12 +11,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
 import com.easyaiflows.caltrackpro.domain.model.MealType
 import com.easyaiflows.caltrackpro.ui.diary.DiaryScreen
 import com.easyaiflows.caltrackpro.ui.entry.ManualEntryScreen
 import com.easyaiflows.caltrackpro.ui.onboarding.OnboardingScreen
 import com.easyaiflows.caltrackpro.ui.profile.ProfileScreen
+import com.easyaiflows.caltrackpro.ui.fasting.FastingHistoryScreen
+import com.easyaiflows.caltrackpro.ui.fasting.FastingScreen
+import com.easyaiflows.caltrackpro.ui.fasting.FastingSettingsScreen
 import com.easyaiflows.caltrackpro.ui.recipe.RecipeBuilderScreen
 import com.easyaiflows.caltrackpro.ui.recipe.RecipeDetailScreen
 import com.easyaiflows.caltrackpro.ui.recipe.RecipeLibraryScreen
@@ -84,6 +88,9 @@ fun CalTrackNavHost(
                 },
                 onNavigateToRecipes = {
                     navController.navigate(NavRoutes.RecipeLibrary.route)
+                },
+                onNavigateToFasting = {
+                    navController.navigate(NavRoutes.Fasting.route)
                 }
             )
         }
@@ -267,6 +274,41 @@ fun CalTrackNavHost(
                     foodSearchRepository = foodSearchRepository
                 )
             }
+        }
+
+        // Fasting Screen - main timer and controls
+        composable(
+            route = NavRoutes.Fasting.route,
+            deepLinks = listOf(
+                navDeepLink { uriPattern = "caltrackpro://fasting" }
+            )
+        ) {
+            FastingScreen(
+                onNavigateToHistory = {
+                    navController.navigate(NavRoutes.FastingHistory.route)
+                },
+                onNavigateToSettings = {
+                    navController.navigate(NavRoutes.FastingSettings.route)
+                }
+            )
+        }
+
+        // Fasting History Screen
+        composable(route = NavRoutes.FastingHistory.route) {
+            FastingHistoryScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        // Fasting Settings Screen
+        composable(route = NavRoutes.FastingSettings.route) {
+            FastingSettingsScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

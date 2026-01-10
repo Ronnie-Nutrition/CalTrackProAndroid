@@ -136,13 +136,13 @@
   - [x] 8.6 Save all preferences to DataStore
   - [x] 8.7 Add navigation to settings from main fasting screen (settings icon in top bar)
 
-- [ ] 9.0 Integrate Navigation
-  - [ ] 9.1 Add `Fasting` route to NavRoutes.kt
-  - [ ] 9.2 Add `FastingHistory` route to NavRoutes.kt
-  - [ ] 9.3 Add `FastingSettings` route to NavRoutes.kt
-  - [ ] 9.4 Add composable entries in CalTrackNavHost.kt for all three screens
-  - [ ] 9.5 Add "Fasting" tab/icon to bottom navigation or top bar
-  - [ ] 9.6 Handle deep link from notification tap to FastingScreen
+- [x] 9.0 Integrate Navigation
+  - [x] 9.1 Add `Fasting` route to NavRoutes.kt
+  - [x] 9.2 Add `FastingHistory` route to NavRoutes.kt
+  - [x] 9.3 Add `FastingSettings` route to NavRoutes.kt
+  - [x] 9.4 Add composable entries in CalTrackNavHost.kt for all three screens
+  - [x] 9.5 Add "Fasting" tab/icon to bottom navigation or top bar
+  - [x] 9.6 Handle deep link from notification tap to FastingScreen
 
 - [ ] 10.0 Implement Home Screen Widget
   - [ ] 10.1 Create `widget_fasting_timer.xml` layout with RemoteViews

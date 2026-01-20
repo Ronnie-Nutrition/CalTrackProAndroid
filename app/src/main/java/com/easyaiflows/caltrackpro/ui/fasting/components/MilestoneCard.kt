@@ -26,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.FastingMilestone
 
 /**
@@ -70,7 +72,7 @@ fun MilestoneCard(
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "${currentMilestone.hours}h - ${currentMilestone.title}",
+                        text = stringResource(R.string.fasting_milestone_title, currentMilestone.hours, currentMilestone.title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -112,14 +114,14 @@ fun MilestoneCard(
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = "Next: ${nextMilestone.title}",
+                            text = stringResource(R.string.fasting_milestone_next, nextMilestone.title),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
                     Text(
-                        text = "${hoursUntilNextMilestone}h to go",
+                        text = stringResource(R.string.fasting_milestone_hours_to_go, hoursUntilNextMilestone),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.primary

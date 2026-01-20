@@ -47,10 +47,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.easyaiflows.caltrackpro.domain.model.ActivityLevel
 import com.easyaiflows.caltrackpro.domain.model.MacroPreset
@@ -68,10 +70,13 @@ fun ProfileScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    // Pre-capture string for coroutine use
+    val changesSavedMessage = stringResource(R.string.profile_changes_saved)
+
     // Show save success/error
     LaunchedEffect(uiState.saveSuccess, uiState.saveError) {
         when {
-            uiState.saveSuccess -> snackbarHostState.showSnackbar("Changes saved")
+            uiState.saveSuccess -> snackbarHostState.showSnackbar(changesSavedMessage)
             uiState.saveError != null -> {
                 snackbarHostState.showSnackbar(uiState.saveError!!)
                 viewModel.clearError()
@@ -82,12 +87,12 @@ fun ProfileScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Profile & Goals") },
+                title = { Text(stringResource(R.string.profile_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -100,7 +105,7 @@ fun ProfileScreen(
                     } else if (uiState.saveSuccess) {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = "Saved",
+                            contentDescription = null,
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(end = 16.dp)
                         )
@@ -143,7 +148,7 @@ fun ProfileScreen(
 
                 // Personal Info Section
                 ExpandableSection(
-                    title = "Personal Info",
+                    title = stringResource(R.string.profile_section_personal),
                     expanded = uiState.personalInfoExpanded,
                     onToggle = viewModel::togglePersonalInfoExpanded
                 ) {
@@ -158,7 +163,7 @@ fun ProfileScreen(
 
                 // Body Metrics Section
                 ExpandableSection(
-                    title = "Body Metrics",
+                    title = stringResource(R.string.profile_section_body),
                     expanded = uiState.bodyMetricsExpanded,
                     onToggle = viewModel::toggleBodyMetricsExpanded
                 ) {
@@ -177,7 +182,7 @@ fun ProfileScreen(
 
                 // Goals Section
                 ExpandableSection(
-                    title = "Goals",
+                    title = stringResource(R.string.profile_section_goals),
                     expanded = uiState.goalsExpanded,
                     onToggle = viewModel::toggleGoalsExpanded
                 ) {
@@ -197,7 +202,7 @@ fun ProfileScreen(
 
                 // Preferences Section
                 ExpandableSection(
-                    title = "Preferences",
+                    title = stringResource(R.string.profile_section_preferences),
                     expanded = uiState.preferencesExpanded,
                     onToggle = viewModel::togglePreferencesExpanded
                 ) {
@@ -233,7 +238,7 @@ private fun CalorieSummaryCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Daily Target",
+                text = stringResource(R.string.profile_daily_target),
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
@@ -243,13 +248,13 @@ private fun CalorieSummaryCard(
                 color = MaterialTheme.colorScheme.primary
             )
             Text(
-                text = "calories",
+                text = stringResource(R.string.unit_calories),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (hasOverride) {
                 Text(
-                    text = "(Custom override, calculated: $calculatedCalories)",
+                    text = stringResource(R.string.profile_custom_override, calculatedCalories),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -259,9 +264,9 @@ private fun CalorieSummaryCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                MacroChip("Protein", "${protein}g")
-                MacroChip("Carbs", "${carbs}g")
-                MacroChip("Fat", "${fat}g")
+                MacroChip(stringResource(R.string.nutrient_protein), "${protein}g")
+                MacroChip(stringResource(R.string.nutrient_carbs), "${carbs}g")
+                MacroChip(stringResource(R.string.nutrient_fat), "${fat}g")
             }
         }
     }
@@ -301,7 +306,7 @@ private fun ExpandableSection(
                 )
                 Icon(
                     imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                    contentDescription = if (expanded) "Collapse" else "Expand"
+                    contentDescription = if (expanded) stringResource(R.string.profile_collapse) else stringResource(R.string.profile_expand)
                 )
             }
             AnimatedVisibility(
@@ -329,14 +334,14 @@ private fun PersonalInfoContent(
         OutlinedTextField(
             value = age.toString(),
             onValueChange = { it.toIntOrNull()?.let(onAgeChange) },
-            label = { Text("Age") },
+            label = { Text(stringResource(R.string.profile_age)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             isError = ageError != null,
             supportingText = ageError?.let { { Text(it) } },
             modifier = Modifier.fillMaxWidth()
         )
 
-        Text("Sex", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.profile_sex), style = MaterialTheme.typography.labelLarge)
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             Sex.entries.forEachIndexed { index, sexOption ->
                 SegmentedButton(
@@ -380,7 +385,7 @@ private fun BodyMetricsContent(
                     onWeightChange(kg)
                 }
             },
-            label = { Text("Weight (${unitSystem.weightUnit})") },
+            label = { Text(stringResource(R.string.profile_weight, unitSystem.weightUnit)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             isError = weightError != null,
             supportingText = weightError?.let { { Text(it) } },
@@ -392,7 +397,7 @@ private fun BodyMetricsContent(
                 OutlinedTextField(
                     value = heightCm.roundToInt().toString(),
                     onValueChange = { it.toDoubleOrNull()?.let(onHeightChange) },
-                    label = { Text("Height (cm)") },
+                    label = { Text(stringResource(R.string.profile_height_cm)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     isError = heightError != null,
                     supportingText = heightError?.let { { Text(it) } },
@@ -410,7 +415,7 @@ private fun BodyMetricsContent(
                         onValueChange = { ft ->
                             ft.toIntOrNull()?.let { onHeightFeetInchesChange(it, inches) }
                         },
-                        label = { Text("Feet") },
+                        label = { Text(stringResource(R.string.profile_height_feet)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.weight(1f)
                     )
@@ -419,7 +424,7 @@ private fun BodyMetricsContent(
                         onValueChange = { inch ->
                             inch.toIntOrNull()?.let { onHeightFeetInchesChange(feet, it) }
                         },
-                        label = { Text("Inches") },
+                        label = { Text(stringResource(R.string.profile_height_inches)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         isError = heightError != null,
                         modifier = Modifier.weight(1f)
@@ -445,7 +450,7 @@ private fun GoalsContent(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         // Activity Level
-        Text("Activity Level", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.profile_activity_level), style = MaterialTheme.typography.labelLarge)
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             ActivityLevel.entries.forEachIndexed { index, level ->
                 SegmentedButton(
@@ -459,7 +464,7 @@ private fun GoalsContent(
         }
 
         // Weight Goal
-        Text("Weight Goal", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.profile_weight_goal), style = MaterialTheme.typography.labelLarge)
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             WeightGoal.entries.forEachIndexed { index, goal ->
                 SegmentedButton(
@@ -473,7 +478,7 @@ private fun GoalsContent(
         }
 
         // Macro Preset
-        Text("Diet Style", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.profile_diet_style), style = MaterialTheme.typography.labelLarge)
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             MacroPreset.entries.filter { it != MacroPreset.CUSTOM }.forEachIndexed { index, preset ->
                 SegmentedButton(
@@ -487,7 +492,7 @@ private fun GoalsContent(
         }
 
         // Calorie Override
-        Text("Calorie Target", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.profile_calorie_target), style = MaterialTheme.typography.labelLarge)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -496,19 +501,19 @@ private fun GoalsContent(
             OutlinedTextField(
                 value = (calorieOverride ?: calculatedCalories).toString(),
                 onValueChange = { it.toIntOrNull()?.let(onCalorieOverrideChange) },
-                label = { Text("Daily calories") },
+                label = { Text(stringResource(R.string.profile_daily_calories)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.weight(1f)
             )
             if (calorieOverride != null) {
                 TextButton(onClick = onResetToCalculated) {
-                    Text("Reset")
+                    Text(stringResource(R.string.action_reset))
                 }
             }
         }
         if (calorieOverride == null) {
             Text(
-                text = "Calculated based on your profile",
+                text = stringResource(R.string.profile_calculated_info),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -522,7 +527,7 @@ private fun PreferencesContent(
     onUnitSystemChange: (UnitSystem) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("Unit System", style = MaterialTheme.typography.labelLarge)
+        Text(stringResource(R.string.profile_unit_system), style = MaterialTheme.typography.labelLarge)
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             UnitSystem.entries.forEachIndexed { index, system ->
                 SegmentedButton(

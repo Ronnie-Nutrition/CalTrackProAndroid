@@ -30,9 +30,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.easyaiflows.caltrackpro.ui.search.components.MealTypeSelector
 import com.easyaiflows.caltrackpro.ui.search.components.NutritionSummaryCard
@@ -48,10 +50,13 @@ fun FoodDetailScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    // Pre-capture string for coroutine
+    val addedToDiaryMessage = stringResource(R.string.food_detail_added)
+
     // Handle save success
     LaunchedEffect(uiState.saveSuccess) {
         if (uiState.saveSuccess) {
-            snackbarHostState.showSnackbar("Added to diary")
+            snackbarHostState.showSnackbar(addedToDiaryMessage)
             viewModel.clearSaveSuccess()
             onAddSuccess()
         }
@@ -69,7 +74,7 @@ fun FoodDetailScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = uiState.food?.name ?: "Food Details",
+                        text = uiState.food?.name ?: stringResource(R.string.food_detail_title),
                         maxLines = 1
                     )
                 },
@@ -77,7 +82,7 @@ fun FoodDetailScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -186,7 +191,7 @@ fun FoodDetailScreen(
                             )
                         } else {
                             Text(
-                                text = "Add to Diary",
+                                text = stringResource(R.string.food_detail_add_to_diary),
                                 style = MaterialTheme.typography.titleMedium
                             )
                         }

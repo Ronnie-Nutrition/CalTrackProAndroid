@@ -21,7 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.MealType
 
 @Composable
@@ -33,6 +35,12 @@ fun AddFoodOptionsSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val headerText = if (mealType != null) {
+        stringResource(R.string.add_food_to_meal, mealType.getDisplayName())
+    } else {
+        stringResource(R.string.add_food_title)
+    }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -40,11 +48,7 @@ fun AddFoodOptionsSheet(
     ) {
         // Header
         Text(
-            text = if (mealType != null) {
-                "Add to ${mealType.displayName}"
-            } else {
-                "Add Food"
-            },
+            text = headerText,
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
         )
@@ -54,22 +58,22 @@ fun AddFoodOptionsSheet(
         // Options
         AddFoodOption(
             icon = Icons.Default.Search,
-            title = "Search Foods",
-            description = "Find foods in our database",
+            title = stringResource(R.string.add_food_search_title),
+            description = stringResource(R.string.add_food_search_description),
             onClick = onSearchClick
         )
 
         AddFoodOption(
             icon = Icons.Default.CameraAlt,
-            title = "Scan Barcode",
-            description = "Scan product barcode",
+            title = stringResource(R.string.add_food_scan_title),
+            description = stringResource(R.string.add_food_scan_description),
             onClick = onScanClick
         )
 
         AddFoodOption(
             icon = Icons.Default.Edit,
-            title = "Manual Entry",
-            description = "Enter nutrition info manually",
+            title = stringResource(R.string.add_food_manual_title),
+            description = stringResource(R.string.add_food_manual_description),
             onClick = onManualClick
         )
 
@@ -116,12 +120,14 @@ private fun AddFoodOption(
 }
 
 /**
- * Extension property to get display name for MealType
+ * Extension function to get display name for MealType using string resources
  */
-private val MealType.displayName: String
-    get() = when (this) {
-        MealType.BREAKFAST -> "Breakfast"
-        MealType.LUNCH -> "Lunch"
-        MealType.DINNER -> "Dinner"
-        MealType.SNACK -> "Snacks"
+@Composable
+private fun MealType.getDisplayName(): String {
+    return when (this) {
+        MealType.BREAKFAST -> stringResource(R.string.meal_breakfast)
+        MealType.LUNCH -> stringResource(R.string.meal_lunch)
+        MealType.DINNER -> stringResource(R.string.meal_dinner)
+        MealType.SNACK -> stringResource(R.string.meal_snacks)
     }
+}

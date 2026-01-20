@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.easyaiflows.caltrackpro.R
@@ -67,7 +68,7 @@ fun WaterTracker(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_droplet),
-                        contentDescription = "Water",
+                        contentDescription = null,
                         modifier = Modifier.size(24.dp),
                         tint = waterColor
                     )
@@ -75,14 +76,14 @@ fun WaterTracker(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = "Water Intake",
+                        text = stringResource(R.string.water_tracker_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Medium
                     )
                 }
 
                 Text(
-                    text = "$waterIntake / $waterGoal glasses",
+                    text = stringResource(R.string.water_tracker_progress, waterIntake, waterGoal),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -112,7 +113,7 @@ fun WaterTracker(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Remove,
-                        contentDescription = "Decrease water",
+                        contentDescription = stringResource(R.string.water_tracker_decrease),
                         tint = if (waterIntake > 0)
                             MaterialTheme.colorScheme.onErrorContainer
                         else
@@ -124,6 +125,8 @@ fun WaterTracker(
 
                 // Glass icons (show up to 8)
                 val displayCount = minOf(waterGoal, 8)
+                val filledGlassDesc = stringResource(R.string.water_tracker_filled)
+                val emptyGlassDesc = stringResource(R.string.water_tracker_empty)
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
@@ -137,7 +140,7 @@ fun WaterTracker(
 
                         Icon(
                             painter = painterResource(id = R.drawable.ic_droplet),
-                            contentDescription = if (isFilled) "Filled glass" else "Empty glass",
+                            contentDescription = if (isFilled) filledGlassDesc else emptyGlassDesc,
                             modifier = Modifier.size(24.dp),
                             tint = color
                         )
@@ -146,7 +149,7 @@ fun WaterTracker(
                     // Show "+X" if goal is more than 8
                     if (waterGoal > 8) {
                         Text(
-                            text = "+${waterGoal - 8}",
+                            text = stringResource(R.string.water_tracker_overflow, waterGoal - 8),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.align(Alignment.CenterVertically)
@@ -166,7 +169,7 @@ fun WaterTracker(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Increase water",
+                        contentDescription = stringResource(R.string.water_tracker_increase),
                         tint = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
@@ -176,7 +179,7 @@ fun WaterTracker(
             if (waterIntake >= waterGoal) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Daily goal reached!",
+                    text = stringResource(R.string.water_tracker_goal_reached),
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFF27AE60),
                     fontWeight = FontWeight.Medium,

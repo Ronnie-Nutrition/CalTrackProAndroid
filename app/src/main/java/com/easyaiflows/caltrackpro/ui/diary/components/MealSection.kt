@@ -16,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.FoodEntry
 import com.easyaiflows.caltrackpro.domain.model.MealType
 
@@ -67,6 +69,8 @@ private fun MealHeader(
     totalCalories: Double,
     onAddClick: () -> Unit
 ) {
+    val displayName = mealType.getDisplayName()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,14 +83,14 @@ private fun MealHeader(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = mealType.displayName,
+                text = displayName,
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (totalCalories > 0) {
                 Text(
-                    text = " • ${totalCalories.toInt()} cal",
+                    text = " • ${stringResource(R.string.meal_cal, totalCalories.toInt())}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -96,7 +100,7 @@ private fun MealHeader(
         IconButton(onClick = onAddClick) {
             Icon(
                 imageVector = Icons.Default.Add,
-                contentDescription = "Add food to ${mealType.displayName}",
+                contentDescription = stringResource(R.string.meal_add_food_to, displayName),
                 tint = MaterialTheme.colorScheme.primary
             )
         }
@@ -108,6 +112,8 @@ private fun EmptyMealPlaceholder(
     mealType: MealType,
     onClick: () -> Unit
 ) {
+    val displayName = mealType.getDisplayName()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,7 +128,7 @@ private fun EmptyMealPlaceholder(
             tint = MaterialTheme.colorScheme.outline
         )
         Text(
-            text = "Add ${mealType.displayName.lowercase()}",
+            text = stringResource(R.string.meal_add_placeholder, displayName.lowercase()),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.outline,
             modifier = Modifier.padding(start = 8.dp)
@@ -131,12 +137,14 @@ private fun EmptyMealPlaceholder(
 }
 
 /**
- * Extension property to get display name for MealType
+ * Extension function to get display name for MealType using string resources
  */
-private val MealType.displayName: String
-    get() = when (this) {
-        MealType.BREAKFAST -> "Breakfast"
-        MealType.LUNCH -> "Lunch"
-        MealType.DINNER -> "Dinner"
-        MealType.SNACK -> "Snacks"
+@Composable
+private fun MealType.getDisplayName(): String {
+    return when (this) {
+        MealType.BREAKFAST -> stringResource(R.string.meal_breakfast)
+        MealType.LUNCH -> stringResource(R.string.meal_lunch)
+        MealType.DINNER -> stringResource(R.string.meal_dinner)
+        MealType.SNACK -> stringResource(R.string.meal_snacks)
     }
+}

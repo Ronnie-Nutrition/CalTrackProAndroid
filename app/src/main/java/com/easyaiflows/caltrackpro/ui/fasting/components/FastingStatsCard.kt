@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +51,7 @@ fun FastingStatsCard(
             // Current Streak
             StatItem(
                 value = stats.currentStreak,
-                label = "Current\nStreak",
+                label = stringResource(R.string.fasting_stats_current_streak),
                 icon = R.drawable.ic_flame,
                 iconTint = Color(0xFFE74C3C),
                 modifier = Modifier.weight(1f)
@@ -59,7 +60,7 @@ fun FastingStatsCard(
             // Longest Streak
             StatItem(
                 value = stats.longestStreak,
-                label = "Longest\nStreak",
+                label = stringResource(R.string.fasting_stats_longest_streak),
                 icon = R.drawable.ic_sparkles,
                 iconTint = Color(0xFFF39C12),
                 modifier = Modifier.weight(1f)
@@ -68,7 +69,7 @@ fun FastingStatsCard(
             // Total Fasts
             StatItem(
                 value = stats.totalFastsCompleted,
-                label = "Total\nFasts",
+                label = stringResource(R.string.fasting_stats_total_fasts),
                 icon = R.drawable.ic_check_circle,
                 iconTint = Color(0xFF27AE60),
                 modifier = Modifier.weight(1f)
@@ -77,7 +78,7 @@ fun FastingStatsCard(
             // This Week
             StatItem(
                 value = stats.fastsThisWeek,
-                label = "This\nWeek",
+                label = stringResource(R.string.fasting_stats_this_week),
                 icon = R.drawable.ic_clock,
                 iconTint = Color(0xFF3498DB),
                 modifier = Modifier.weight(1f)

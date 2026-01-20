@@ -26,8 +26,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.FoodEntry
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -98,7 +100,7 @@ fun FoodEntryItem(
                 onDismissRequest = { showContextMenu = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Edit") },
+                    text = { Text(stringResource(R.string.action_edit)) },
                     onClick = {
                         showContextMenu = false
                         onEdit()
@@ -111,7 +113,7 @@ fun FoodEntryItem(
                     }
                 )
                 DropdownMenuItem(
-                    text = { Text("Duplicate") },
+                    text = { Text(stringResource(R.string.diary_duplicate)) },
                     onClick = {
                         showContextMenu = false
                         onDuplicate()
@@ -124,7 +126,7 @@ fun FoodEntryItem(
                     }
                 )
                 DropdownMenuItem(
-                    text = { Text("Delete") },
+                    text = { Text(stringResource(R.string.action_delete)) },
                     onClick = {
                         showContextMenu = false
                         onDelete()

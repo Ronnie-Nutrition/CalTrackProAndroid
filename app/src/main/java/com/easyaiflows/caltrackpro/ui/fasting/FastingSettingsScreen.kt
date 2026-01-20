@@ -41,9 +41,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.FastingSchedule
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,10 +59,10 @@ fun FastingSettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Fasting Settings") },
+                title = { Text(stringResource(R.string.fasting_settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
                     }
                 }
             )
@@ -85,7 +87,7 @@ fun FastingSettingsScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 // Schedule Settings
-                SettingsSection(title = "Fasting Schedule") {
+                SettingsSection(title = stringResource(R.string.fasting_settings_schedule)) {
                     ScheduleSettingItem(
                         selectedSchedule = uiState.selectedSchedule,
                         onScheduleSelected = viewModel::setSelectedSchedule
@@ -101,7 +103,7 @@ fun FastingSettingsScreen(
                 }
 
                 // Water Settings
-                SettingsSection(title = "Water Tracking") {
+                SettingsSection(title = stringResource(R.string.fasting_settings_water_tracking)) {
                     WaterGoalSettingItem(
                         glasses = uiState.waterGoalGlasses,
                         onGlassesChanged = viewModel::setWaterGoalGlasses
@@ -109,10 +111,10 @@ fun FastingSettingsScreen(
                 }
 
                 // Notification Settings
-                SettingsSection(title = "Notifications") {
+                SettingsSection(title = stringResource(R.string.fasting_settings_notifications)) {
                     SwitchSettingItem(
-                        title = "Enable All Reminders",
-                        description = "Master toggle for all fasting notifications",
+                        title = stringResource(R.string.fasting_settings_enable_all),
+                        description = stringResource(R.string.fasting_settings_enable_all_desc),
                         checked = uiState.remindersEnabled,
                         onCheckedChange = viewModel::setRemindersEnabled
                     )
@@ -121,29 +123,29 @@ fun FastingSettingsScreen(
                         Spacer(modifier = Modifier.height(8.dp))
 
                         SwitchSettingItem(
-                            title = "Fasting Complete",
-                            description = "Notify when you reach your fasting goal",
+                            title = stringResource(R.string.fasting_settings_complete),
+                            description = stringResource(R.string.fasting_settings_complete_desc),
                             checked = uiState.fastingCompleteNotification,
                             onCheckedChange = viewModel::setFastingCompleteNotification
                         )
 
                         SwitchSettingItem(
-                            title = "Milestone Alerts",
-                            description = "Celebrate when you hit fasting milestones",
+                            title = stringResource(R.string.fasting_settings_milestone),
+                            description = stringResource(R.string.fasting_settings_milestone_desc),
                             checked = uiState.milestoneNotifications,
                             onCheckedChange = viewModel::setMilestoneNotifications
                         )
 
                         SwitchSettingItem(
-                            title = "Water Reminders",
-                            description = "Remind to drink water every 2 hours",
+                            title = stringResource(R.string.fasting_settings_water),
+                            description = stringResource(R.string.fasting_settings_water_desc),
                             checked = uiState.waterReminderNotifications,
                             onCheckedChange = viewModel::setWaterReminderNotifications
                         )
 
                         SwitchSettingItem(
-                            title = "Eating Window Alerts",
-                            description = "Notify when eating window is closing",
+                            title = stringResource(R.string.fasting_settings_eating_alerts),
+                            description = stringResource(R.string.fasting_settings_eating_alerts_desc),
                             checked = uiState.eatingWindowNotifications,
                             onCheckedChange = viewModel::setEatingWindowNotifications
                         )
@@ -196,22 +198,25 @@ private fun ScheduleSettingItem(
 
     Column {
         Text(
-            text = "Default Schedule",
+            text = stringResource(R.string.fasting_settings_default_schedule),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        val scheduleText = if (selectedSchedule == FastingSchedule.CUSTOM) {
+            stringResource(R.string.fasting_settings_custom_hours, selectedSchedule.displayName)
+        } else {
+            "${selectedSchedule.displayName} - ${stringResource(R.string.fasting_settings_hours_fasting, selectedSchedule.fastingHours)}"
+        }
+
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = { expanded = it }
         ) {
             OutlinedTextField(
-                value = "${selectedSchedule.displayName} - ${
-                    if (selectedSchedule == FastingSchedule.CUSTOM) "Custom"
-                    else "${selectedSchedule.fastingHours}h fasting"
-                }",
+                value = scheduleText,
                 onValueChange = {},
                 readOnly = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -236,7 +241,11 @@ private fun ScheduleSettingItem(
                                 )
                                 if (schedule != FastingSchedule.CUSTOM) {
                                     Text(
-                                        text = "${schedule.fastingHours}h fasting, ${schedule.eatingHours}h eating",
+                                        text = stringResource(
+                                            R.string.fasting_schedule_description,
+                                            schedule.fastingHours,
+                                            schedule.eatingHours
+                                        ),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -267,12 +276,12 @@ private fun CustomHoursSettingItem(
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "Custom Fasting Hours",
+                text = stringResource(R.string.fasting_settings_custom_hours_label),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = "Eating window: ${24 - hours} hours",
+                text = stringResource(R.string.fasting_settings_eating_window, 24 - hours),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -309,13 +318,13 @@ private fun WaterGoalSettingItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Daily Water Goal",
+                text = stringResource(R.string.fasting_settings_water_goal),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium
             )
 
             Text(
-                text = "$glasses glasses",
+                text = stringResource(R.string.fasting_settings_glasses_count, glasses),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
@@ -333,7 +342,7 @@ private fun WaterGoalSettingItem(
         )
 
         Text(
-            text = "Recommended: 8 glasses per day",
+            text = stringResource(R.string.fasting_settings_water_recommendation),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

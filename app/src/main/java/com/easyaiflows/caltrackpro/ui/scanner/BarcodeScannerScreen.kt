@@ -55,11 +55,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.easyaiflows.caltrackpro.ui.scanner.components.ViewfinderOverlay
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -118,15 +120,18 @@ fun BarcodeScannerScreen(
         }
     }
 
+    val flashOffDesc = stringResource(R.string.scanner_flash_off)
+    val flashOnDesc = stringResource(R.string.scanner_flash_on)
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Scan Barcode") },
+                title = { Text(stringResource(R.string.scanner_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -141,7 +146,7 @@ fun BarcodeScannerScreen(
                         IconButton(onClick = { viewModel.toggleTorch() }) {
                             Icon(
                                 imageVector = if (isTorchOn) Icons.Default.FlashOn else Icons.Default.FlashOff,
-                                contentDescription = if (isTorchOn) "Turn off flash" else "Turn on flash"
+                                contentDescription = if (isTorchOn) flashOffDesc else flashOnDesc
                             )
                         }
                     }
@@ -351,7 +356,7 @@ private fun CameraPreviewContent(
 
         // Hint text
         Text(
-            text = "Point camera at barcode",
+            text = stringResource(R.string.scanner_hint),
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier
@@ -379,7 +384,7 @@ private fun LoadingOverlay(barcode: String) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Looking up product...",
+                text = stringResource(R.string.scanner_looking_up),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.White
             )
@@ -406,20 +411,20 @@ private fun PermissionRequestingContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Camera Permission Required",
+            text = stringResource(R.string.scanner_permission_required_title),
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "To scan barcodes, CalTrackPro needs access to your camera.",
+            text = stringResource(R.string.scanner_permission_required_message),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onRequestPermission) {
-            Text("Grant Permission")
+            Text(stringResource(R.string.action_grant_permission))
         }
     }
 }
@@ -439,16 +444,16 @@ private fun PermissionDeniedContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Camera Permission Denied",
+            text = stringResource(R.string.scanner_permission_denied_title),
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = if (isPermanentlyDenied) {
-                "Camera permission was denied. Please enable it in Settings to scan barcodes."
+                stringResource(R.string.scanner_permission_denied_message)
             } else {
-                "Camera permission is required to scan barcodes. Please grant permission to continue."
+                stringResource(R.string.scanner_permission_rationale)
             },
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
@@ -457,11 +462,11 @@ private fun PermissionDeniedContent(
         Spacer(modifier = Modifier.height(24.dp))
         if (isPermanentlyDenied) {
             Button(onClick = onOpenSettings) {
-                Text("Open Settings")
+                Text(stringResource(R.string.action_open_settings))
             }
         } else {
             Button(onClick = onRequestPermission) {
-                Text("Grant Permission")
+                Text(stringResource(R.string.action_grant_permission))
             }
         }
     }
@@ -483,13 +488,13 @@ private fun SuccessContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Product Found!",
+            text = stringResource(R.string.scanner_product_found),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.primary
         )
         if (isFromCache) {
             Text(
-                text = "(from cached data)",
+                text = stringResource(R.string.scanner_from_cache),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -505,14 +510,14 @@ private fun SuccessContent(
             onClick = onViewDetails,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("View Details & Add to Diary")
+            Text(stringResource(R.string.scanner_view_details))
         }
         Spacer(modifier = Modifier.height(12.dp))
         OutlinedButton(
             onClick = onScanAnother,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Scan Another")
+            Text(stringResource(R.string.scanner_scan_another))
         }
     }
 }
@@ -532,19 +537,19 @@ private fun NotFoundContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Product Not Found",
+            text = stringResource(R.string.scanner_product_not_found),
             style = MaterialTheme.typography.headlineSmall
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "We couldn't find this product in our database.",
+            text = stringResource(R.string.scanner_product_not_found_message),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Barcode: $barcode",
+            text = stringResource(R.string.scanner_barcode_label, barcode),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -558,14 +563,14 @@ private fun NotFoundContent(
                 contentDescription = null,
                 modifier = Modifier.padding(end = 8.dp)
             )
-            Text("Search by Name Instead")
+            Text(stringResource(R.string.scanner_search_by_name))
         }
         Spacer(modifier = Modifier.height(12.dp))
         OutlinedButton(
             onClick = onScanAnother,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Scan Another")
+            Text(stringResource(R.string.scanner_scan_another))
         }
     }
 }
@@ -586,7 +591,7 @@ private fun ErrorContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = if (isOffline) "No Connection" else "Something Went Wrong",
+            text = if (isOffline) stringResource(R.string.scanner_no_connection) else stringResource(R.string.scanner_error),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.error
         )
@@ -602,14 +607,14 @@ private fun ErrorContent(
             onClick = onRetry,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Retry")
+            Text(stringResource(R.string.action_retry))
         }
         Spacer(modifier = Modifier.height(12.dp))
         OutlinedButton(
             onClick = onScanAnother,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Scan Another")
+            Text(stringResource(R.string.scanner_scan_another))
         }
     }
 }
@@ -628,7 +633,7 @@ private fun CameraErrorContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Camera Error",
+            text = stringResource(R.string.scanner_camera_error),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.error
         )
@@ -641,7 +646,7 @@ private fun CameraErrorContent(
         )
         Spacer(modifier = Modifier.height(32.dp))
         Button(onClick = onGoBack) {
-            Text("Go Back")
+            Text(stringResource(R.string.action_go_back))
         }
     }
 }

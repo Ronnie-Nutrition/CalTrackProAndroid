@@ -24,8 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.easyaiflows.caltrackpro.R
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -43,6 +45,11 @@ fun DateSelector(
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
 
+    // Pre-fetch string resources for formatDate
+    val todayText = stringResource(R.string.date_today)
+    val yesterdayText = stringResource(R.string.date_yesterday)
+    val tomorrowText = stringResource(R.string.date_tomorrow)
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -53,13 +60,13 @@ fun DateSelector(
         IconButton(onClick = onPreviousDay) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                contentDescription = "Previous day",
+                contentDescription = stringResource(R.string.date_previous_day),
                 tint = MaterialTheme.colorScheme.primary
             )
         }
 
         Text(
-            text = formatDate(selectedDate, isToday),
+            text = formatDate(selectedDate, isToday, todayText, yesterdayText, tomorrowText),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -69,7 +76,7 @@ fun DateSelector(
         IconButton(onClick = onNextDay) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = "Next day",
+                contentDescription = stringResource(R.string.date_next_day),
                 tint = MaterialTheme.colorScheme.primary
             )
         }
@@ -97,12 +104,12 @@ fun DateSelector(
                         showDatePicker = false
                     }
                 ) {
-                    Text("OK")
+                    Text(stringResource(R.string.action_ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDatePicker = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         ) {
@@ -111,15 +118,21 @@ fun DateSelector(
     }
 }
 
-private fun formatDate(date: LocalDate, isToday: Boolean): String {
+private fun formatDate(
+    date: LocalDate,
+    isToday: Boolean,
+    todayText: String,
+    yesterdayText: String,
+    tomorrowText: String
+): String {
     return if (isToday) {
-        "Today"
+        todayText
     } else {
         val yesterday = LocalDate.now().minusDays(1)
         val tomorrow = LocalDate.now().plusDays(1)
         when (date) {
-            yesterday -> "Yesterday"
-            tomorrow -> "Tomorrow"
+            yesterday -> yesterdayText
+            tomorrow -> tomorrowText
             else -> date.format(DateTimeFormatter.ofPattern("EEE, MMM d"))
         }
     }

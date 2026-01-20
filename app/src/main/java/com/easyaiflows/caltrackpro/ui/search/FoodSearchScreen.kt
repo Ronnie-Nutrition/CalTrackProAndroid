@@ -32,9 +32,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.easyaiflows.caltrackpro.domain.model.SearchedFood
 import com.easyaiflows.caltrackpro.ui.search.components.FoodSearchResultItem
@@ -52,12 +54,12 @@ fun FoodSearchScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Search Foods") },
+                title = { Text(stringResource(R.string.search_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 },
@@ -89,17 +91,17 @@ fun FoodSearchScreen(
                 Tab(
                     selected = uiState.selectedTab == SearchTab.SEARCH,
                     onClick = { viewModel.selectTab(SearchTab.SEARCH) },
-                    text = { Text("Search") }
+                    text = { Text(stringResource(R.string.search_tab_search)) }
                 )
                 Tab(
                     selected = uiState.selectedTab == SearchTab.RECENT,
                     onClick = { viewModel.selectTab(SearchTab.RECENT) },
-                    text = { Text("Recent") }
+                    text = { Text(stringResource(R.string.search_tab_recent)) }
                 )
                 Tab(
                     selected = uiState.selectedTab == SearchTab.FAVORITES,
                     onClick = { viewModel.selectTab(SearchTab.FAVORITES) },
-                    text = { Text("Favorites") }
+                    text = { Text(stringResource(R.string.search_tab_favorites)) }
                 )
             }
 
@@ -212,7 +214,7 @@ private fun RecentContent(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "No recent searches",
+                text = stringResource(R.string.search_no_recent),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -245,7 +247,7 @@ private fun FavoritesContent(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "No favorite foods yet\nTap the heart icon to add favorites",
+                text = stringResource(R.string.search_no_favorites),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -295,7 +297,7 @@ private fun InitialContent(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Type at least 2 characters to search for foods",
+            text = stringResource(R.string.search_hint),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
@@ -313,7 +315,7 @@ private fun EmptyContent(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "No results found for \"$query\"",
+            text = stringResource(R.string.search_no_results, query),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
@@ -344,7 +346,7 @@ private fun ErrorContent(
                 onClick = onRetry,
                 modifier = Modifier.padding(top = 16.dp)
             ) {
-                Text("Retry")
+                Text(stringResource(R.string.action_retry))
             }
         }
     }
@@ -367,7 +369,7 @@ private fun OfflineBanner() {
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "No internet connection",
+            text = stringResource(R.string.search_no_connection),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onErrorContainer
         )
@@ -391,7 +393,7 @@ private fun CachedResultsBanner() {
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "Showing cached results",
+            text = stringResource(R.string.search_cached_results),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSecondaryContainer
         )

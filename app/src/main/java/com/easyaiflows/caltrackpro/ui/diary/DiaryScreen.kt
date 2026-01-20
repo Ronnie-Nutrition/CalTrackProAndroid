@@ -32,8 +32,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.easyaiflows.caltrackpro.domain.model.FoodEntry
 import com.easyaiflows.caltrackpro.domain.model.MealType
@@ -60,6 +62,10 @@ fun DiaryScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
+    // Pre-capture strings for use in coroutines
+    val entryDuplicatedMessage = stringResource(R.string.diary_entry_duplicated)
+    val entryDeletedMessage = stringResource(R.string.diary_entry_deleted)
+
     var showAddFoodSheet by remember { mutableStateOf(false) }
     var selectedMealType by remember { mutableStateOf<MealType?>(null) }
     var showDeleteConfirmation by remember { mutableStateOf<FoodEntry?>(null) }
@@ -69,24 +75,24 @@ fun DiaryScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Food Diary") },
+                title = { Text(stringResource(R.string.diary_title)) },
                 actions = {
                     IconButton(onClick = onNavigateToFasting) {
                         Icon(
                             imageVector = Icons.Default.Timer,
-                            contentDescription = "Fasting"
+                            contentDescription = stringResource(R.string.nav_fasting)
                         )
                     }
                     IconButton(onClick = onNavigateToRecipes) {
                         Icon(
                             imageVector = Icons.Default.MenuBook,
-                            contentDescription = "Recipes"
+                            contentDescription = stringResource(R.string.nav_recipes)
                         )
                     }
                     IconButton(onClick = onNavigateToProfile) {
                         Icon(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = "Settings"
+                            contentDescription = stringResource(R.string.nav_settings)
                         )
                     }
                 },
@@ -105,7 +111,7 @@ fun DiaryScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add food"
+                    contentDescription = stringResource(R.string.diary_add_food)
                 )
             }
         },
@@ -172,7 +178,7 @@ fun DiaryScreen(
                         onDuplicateEntry = { entry ->
                             viewModel.duplicateEntry(entry)
                             scope.launch {
-                                snackbarHostState.showSnackbar("Entry duplicated")
+                                snackbarHostState.showSnackbar(entryDuplicatedMessage)
                             }
                         },
                         onDeleteEntry = { entry ->
@@ -218,7 +224,7 @@ fun DiaryScreen(
                 viewModel.deleteEntry(entry.id)
                 showDeleteConfirmation = null
                 scope.launch {
-                    snackbarHostState.showSnackbar("Entry deleted")
+                    snackbarHostState.showSnackbar(entryDeletedMessage)
                 }
             },
             onDismiss = { showDeleteConfirmation = null }
@@ -234,21 +240,21 @@ private fun DeleteConfirmationDialog(
 ) {
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Delete Entry") },
-        text = { Text("Are you sure you want to delete \"$entryName\"?") },
+        title = { Text(stringResource(R.string.diary_delete_entry_title)) },
+        text = { Text(stringResource(R.string.diary_delete_entry_message, entryName)) },
         confirmButton = {
             androidx.compose.material3.TextButton(
                 onClick = onConfirm
             ) {
                 Text(
-                    "Delete",
+                    stringResource(R.string.action_delete),
                     color = MaterialTheme.colorScheme.error
                 )
             }
         },
         dismissButton = {
             androidx.compose.material3.TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

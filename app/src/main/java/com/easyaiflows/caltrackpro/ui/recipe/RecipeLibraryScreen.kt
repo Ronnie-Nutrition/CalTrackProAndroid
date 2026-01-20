@@ -42,10 +42,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.RecipeCategory
 import com.easyaiflows.caltrackpro.ui.recipe.components.RecipeCard
 
@@ -71,7 +73,7 @@ fun RecipeLibraryScreen(
                             modifier = Modifier.size(28.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Recipe Library")
+                        Text(stringResource(R.string.recipe_library_title))
                     }
                 }
             )
@@ -83,7 +85,7 @@ fun RecipeLibraryScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Create Recipe"
+                    contentDescription = stringResource(R.string.recipe_create)
                 )
             }
         }
@@ -95,7 +97,7 @@ fun RecipeLibraryScreen(
         ) {
             // Recipe count
             Text(
-                text = "${uiState.recipes.size} recipes saved",
+                text = stringResource(R.string.recipe_count, uiState.recipes.size),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -108,11 +110,11 @@ fun RecipeLibraryScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp),
-                placeholder = { Text("Search recipes...") },
+                placeholder = { Text(stringResource(R.string.recipe_search_placeholder)) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Search"
+                        contentDescription = stringResource(R.string.action_search)
                     )
                 },
                 trailingIcon = {
@@ -120,7 +122,7 @@ fun RecipeLibraryScreen(
                         IconButton(onClick = viewModel::clearSearch) {
                             Icon(
                                 imageVector = Icons.Default.Clear,
-                                contentDescription = "Clear"
+                                contentDescription = stringResource(R.string.action_clear)
                             )
                         }
                     }
@@ -209,10 +211,10 @@ private fun CategoryDropdown(
         modifier = modifier
     ) {
         OutlinedTextField(
-            value = selectedCategory?.displayName ?: "All",
+            value = selectedCategory?.displayName ?: stringResource(R.string.recipe_filter_all),
             onValueChange = {},
             readOnly = true,
-            label = { Text("Category") },
+            label = { Text(stringResource(R.string.recipe_filter_category)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             modifier = Modifier
                 .menuAnchor(MenuAnchorType.PrimaryNotEditable)
@@ -224,7 +226,7 @@ private fun CategoryDropdown(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text("All") },
+                text = { Text(stringResource(R.string.recipe_filter_all)) },
                 onClick = {
                     onCategorySelected(null)
                     expanded = false
@@ -268,7 +270,7 @@ private fun SortDropdown(
             value = selectedSort.displayName,
             onValueChange = {},
             readOnly = true,
-            label = { Text("Sort") },
+            label = { Text(stringResource(R.string.recipe_filter_sort)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             modifier = Modifier
                 .menuAnchor(MenuAnchorType.PrimaryNotEditable)
@@ -311,12 +313,12 @@ private fun EmptyRecipesState(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
             )
             Text(
-                text = "No Recipes Yet",
+                text = stringResource(R.string.recipe_empty_title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Create your first recipe to start\ntracking your home-cooked meals",
+                text = stringResource(R.string.recipe_empty_message),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -328,7 +330,7 @@ private fun EmptyRecipesState(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Create Recipe")
+                Text(stringResource(R.string.recipe_create))
             }
         }
     }
@@ -353,17 +355,17 @@ private fun NoResultsState(
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
             )
             Text(
-                text = "No Results",
+                text = stringResource(R.string.recipe_no_results_title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Try adjusting your search or filters",
+                text = stringResource(R.string.recipe_no_results_message),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             TextButton(onClick = onClearFilters) {
-                Text("Clear Filters")
+                Text(stringResource(R.string.recipe_clear_filters))
             }
         }
     }

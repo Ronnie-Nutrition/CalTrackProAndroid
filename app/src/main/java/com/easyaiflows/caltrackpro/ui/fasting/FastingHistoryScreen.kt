@@ -43,11 +43,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.ui.fasting.components.FastingSessionCard
 import com.easyaiflows.caltrackpro.ui.fasting.components.FastingStatsCard
 import java.time.DayOfWeek
@@ -68,10 +70,10 @@ fun FastingHistoryScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Fasting History") },
+                title = { Text(stringResource(R.string.fasting_history_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
                     }
                 },
                 actions = {
@@ -81,7 +83,10 @@ fun FastingHistoryScreen(
                                 Icons.AutoMirrored.Filled.List
                             else
                                 Icons.Default.CalendarMonth,
-                            contentDescription = if (uiState.isCalendarView) "List view" else "Calendar view"
+                            contentDescription = if (uiState.isCalendarView)
+                                stringResource(R.string.fasting_history_list_view)
+                            else
+                                stringResource(R.string.fasting_history_calendar_view)
                         )
                     }
                 }
@@ -147,7 +152,7 @@ private fun CalendarView(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onPreviousMonth) {
-                Icon(Icons.Default.ChevronLeft, contentDescription = "Previous month")
+                Icon(Icons.Default.ChevronLeft, contentDescription = stringResource(R.string.fasting_history_previous_month))
             }
 
             Text(
@@ -157,7 +162,7 @@ private fun CalendarView(
             )
 
             IconButton(onClick = onNextMonth) {
-                Icon(Icons.Default.ChevronRight, contentDescription = "Next month")
+                Icon(Icons.Default.ChevronRight, contentDescription = stringResource(R.string.fasting_history_next_month))
             }
         }
 
@@ -233,7 +238,7 @@ private fun CalendarView(
                     )
                 ) {
                     Text(
-                        text = "No fasting sessions on this day",
+                        text = stringResource(R.string.fasting_history_no_sessions_day),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(16.dp)
@@ -323,13 +328,13 @@ private fun ListView(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "No fasting history yet",
+                    text = stringResource(R.string.fasting_history_empty_title),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Start your first fast to see your history here",
+                    text = stringResource(R.string.fasting_history_empty_message),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

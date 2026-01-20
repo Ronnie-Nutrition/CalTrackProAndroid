@@ -59,10 +59,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.ui.fasting.components.FastingProgressRing
 import com.easyaiflows.caltrackpro.ui.fasting.components.FastingStatsCard
 import com.easyaiflows.caltrackpro.ui.fasting.components.MilestoneCard
@@ -82,6 +84,12 @@ fun FastingScreen(
     val context = LocalContext.current
     var showStopDialog by remember { mutableStateOf(false) }
     var showBatteryOptimizationDialog by remember { mutableStateOf(false) }
+
+    // Pre-capture strings for coroutine use
+    val milestoneReachedTemplate = stringResource(R.string.fasting_milestone_reached)
+    val fastingCompletedMessage = stringResource(R.string.fasting_completed)
+    val eatingWindowClosingSoon = stringResource(R.string.fasting_eating_closing_soon)
+    val eatingWindowClosed = stringResource(R.string.fasting_eating_closed)
 
     // Check if notification permission is needed (Android 13+)
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
@@ -120,16 +128,16 @@ fun FastingScreen(
                 is FastingEvent.NavigateToHistory -> onNavigateToHistory()
                 is FastingEvent.NavigateToSettings -> onNavigateToSettings()
                 is FastingEvent.ShowMilestoneReached -> {
-                    snackbarHostState.showSnackbar("Milestone reached: ${event.milestoneTitle}!")
+                    snackbarHostState.showSnackbar(milestoneReachedTemplate.format(event.milestoneTitle))
                 }
                 is FastingEvent.ShowFastingComplete -> {
-                    snackbarHostState.showSnackbar("Congratulations! You've completed your fast!")
+                    snackbarHostState.showSnackbar(fastingCompletedMessage)
                 }
                 is FastingEvent.ShowEatingWindowWarning -> {
-                    snackbarHostState.showSnackbar("Your eating window closes in 1 hour")
+                    snackbarHostState.showSnackbar(eatingWindowClosingSoon)
                 }
                 is FastingEvent.ShowEatingWindowClosed -> {
-                    snackbarHostState.showSnackbar("Your eating window has closed")
+                    snackbarHostState.showSnackbar(eatingWindowClosed)
                 }
                 is FastingEvent.ShowError -> {
                     snackbarHostState.showSnackbar(event.message)
@@ -144,13 +152,13 @@ fun FastingScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Intermittent Fasting") },
+                title = { Text(stringResource(R.string.fasting_title)) },
                 actions = {
                     IconButton(onClick = { viewModel.navigateToHistory() }) {
-                        Icon(Icons.Default.History, contentDescription = "History")
+                        Icon(Icons.Default.History, contentDescription = stringResource(R.string.fasting_history))
                     }
                     IconButton(onClick = { viewModel.navigateToSettings() }) {
-                        Icon(Icons.Default.Settings, contentDescription = "Settings")
+                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.fasting_settings))
                     }
                 }
             )
@@ -295,7 +303,7 @@ private fun NotStartedState(
             )
         ) {
             Text(
-                text = "Start Fasting",
+                text = stringResource(R.string.fasting_start),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -303,13 +311,13 @@ private fun NotStartedState(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        val fastingHours = if (state.selectedSchedule == com.easyaiflows.caltrackpro.domain.model.FastingSchedule.CUSTOM)
+            state.customFastingHours
+        else
+            state.selectedSchedule.fastingHours
+
         Text(
-            text = "Your ${state.selectedSchedule.displayName} fast will last ${
-                if (state.selectedSchedule == com.easyaiflows.caltrackpro.domain.model.FastingSchedule.CUSTOM)
-                    state.customFastingHours
-                else
-                    state.selectedSchedule.fastingHours
-            } hours",
+            text = stringResource(R.string.fasting_info, state.selectedSchedule.displayName, fastingHours),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
@@ -385,7 +393,7 @@ private fun FastingState(
             )
         ) {
             Text(
-                text = "Stop Fast",
+                text = stringResource(R.string.fasting_stop),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
@@ -420,7 +428,7 @@ private fun EatingState(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Eating Window",
+                    text = stringResource(R.string.fasting_eating_window),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = greenColor
@@ -429,14 +437,14 @@ private fun EatingState(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "${state.remainingHours}h ${state.remainingMinutes}m",
+                    text = stringResource(R.string.fasting_time_remaining, state.remainingHours, state.remainingMinutes),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
-                    text = "remaining",
+                    text = stringResource(R.string.fasting_remaining),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -447,7 +455,11 @@ private fun EatingState(
 
         // Completed fast info
         Text(
-            text = "Great job! You completed a ${state.completedFastDuration.toHours()}h ${state.completedFastDuration.toMinutes() % 60}m fast!",
+            text = stringResource(
+                R.string.fasting_completed_message,
+                state.completedFastDuration.toHours().toInt(),
+                (state.completedFastDuration.toMinutes() % 60).toInt()
+            ),
             style = MaterialTheme.typography.titleMedium,
             color = greenColor,
             textAlign = TextAlign.Center
@@ -482,7 +494,7 @@ private fun EatingState(
             )
         ) {
             Text(
-                text = "End Eating Window",
+                text = stringResource(R.string.fasting_end_eating_window),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -491,7 +503,7 @@ private fun EatingState(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Or wait for the window to close automatically",
+            text = stringResource(R.string.fasting_wait_for_close),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -512,7 +524,7 @@ private fun ErrorState(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Something went wrong",
+                text = stringResource(R.string.fasting_error_title),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.error
             )
@@ -528,7 +540,7 @@ private fun ErrorState(
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(onClick = onRetry) {
-                Text("Retry")
+                Text(stringResource(R.string.action_retry))
             }
         }
     }
@@ -542,22 +554,22 @@ private fun StopFastingDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Stop Fasting?") },
+        title = { Text(stringResource(R.string.fasting_stop_title)) },
         text = {
-            Text("Are you sure you want to stop your fast early? You can save your progress or discard it.")
+            Text(stringResource(R.string.fasting_stop_message))
         },
         confirmButton = {
             TextButton(onClick = onStopAndSave) {
-                Text("Save & Stop")
+                Text(stringResource(R.string.fasting_save_stop))
             }
         },
         dismissButton = {
             Row {
                 TextButton(onClick = onStopAndDiscard) {
-                    Text("Discard", color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.action_discard), color = MaterialTheme.colorScheme.error)
                 }
                 TextButton(onClick = onDismiss) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         }
@@ -589,21 +601,18 @@ private fun BatteryOptimizationDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Improve Timer Reliability") },
+        title = { Text(stringResource(R.string.fasting_battery_title)) },
         text = {
-            Text(
-                "For the most accurate fasting timer, disable battery optimization for this app. " +
-                "This ensures the timer continues running even when your phone is idle."
-            )
+            Text(stringResource(R.string.fasting_battery_message))
         },
         confirmButton = {
             TextButton(onClick = onOpenSettings) {
-                Text("Open Settings")
+                Text(stringResource(R.string.action_open_settings))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Not Now")
+                Text(stringResource(R.string.action_not_now))
             }
         }
     )

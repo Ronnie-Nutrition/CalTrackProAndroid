@@ -65,10 +65,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.data.repository.FoodSearchRepository
 import com.easyaiflows.caltrackpro.domain.model.RecipeCategory
 import com.easyaiflows.caltrackpro.domain.model.RecipeDifficulty
@@ -111,13 +113,13 @@ fun RecipeBuilderScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(if (uiState.isEditMode) "Edit Recipe" else "Create Recipe")
+                    Text(if (uiState.isEditMode) stringResource(R.string.recipe_builder_title_edit) else stringResource(R.string.recipe_builder_title_create))
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -238,7 +240,7 @@ fun RecipeBuilderScreen(
                             contentDescription = null
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(if (uiState.isEditMode) "Update Recipe" else "Save Recipe")
+                        Text(if (uiState.isEditMode) stringResource(R.string.recipe_builder_update) else stringResource(R.string.recipe_builder_save))
                     }
                 }
 
@@ -280,7 +282,7 @@ private fun ImagePickerSection(
             bitmap?.let {
                 Image(
                     bitmap = it.asImageBitmap(),
-                    contentDescription = "Recipe image",
+                    contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
@@ -299,7 +301,7 @@ private fun ImagePickerSection(
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Remove image"
+                    contentDescription = stringResource(R.string.recipe_builder_remove_image)
                 )
             }
         } else {
@@ -314,7 +316,7 @@ private fun ImagePickerSection(
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Add Photo",
+                    text = stringResource(R.string.recipe_builder_add_photo),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -333,7 +335,7 @@ private fun BasicInfoSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Basic Info",
+            text = stringResource(R.string.recipe_builder_basic_info),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
@@ -342,7 +344,7 @@ private fun BasicInfoSection(
             value = name,
             onValueChange = onNameChange,
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Recipe Name *") },
+            label = { Text(stringResource(R.string.recipe_builder_name)) },
             isError = nameError != null,
             supportingText = nameError?.let { { Text(it) } },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words),
@@ -353,8 +355,8 @@ private fun BasicInfoSection(
             value = description,
             onValueChange = onDescriptionChange,
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Description") },
-            placeholder = { Text("Brief description of your recipe...") },
+            label = { Text(stringResource(R.string.recipe_builder_description)) },
+            placeholder = { Text(stringResource(R.string.recipe_builder_description_hint)) },
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
             minLines = 2,
             maxLines = 4
@@ -370,7 +372,7 @@ private fun ServingsSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "Servings",
+            text = stringResource(R.string.recipe_builder_servings),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
@@ -386,12 +388,12 @@ private fun ServingsSection(
             ) {
                 Icon(
                     imageVector = Icons.Default.Remove,
-                    contentDescription = "Decrease"
+                    contentDescription = stringResource(R.string.recipe_builder_decrease)
                 )
             }
 
             Text(
-                text = "$servings servings",
+                text = stringResource(R.string.recipe_builder_servings_count, servings),
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.weight(1f),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -403,7 +405,7 @@ private fun ServingsSection(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Increase"
+                    contentDescription = stringResource(R.string.recipe_builder_increase)
                 )
             }
         }
@@ -422,7 +424,7 @@ private fun CookingTimeSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Cooking Time",
+                text = stringResource(R.string.recipe_builder_cooking_time),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -449,7 +451,7 @@ private fun DifficultySection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "Difficulty",
+            text = stringResource(R.string.recipe_builder_difficulty),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
@@ -480,7 +482,7 @@ private fun CategorySection(
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "Category",
+            text = stringResource(R.string.recipe_builder_category),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
@@ -550,13 +552,13 @@ private fun IngredientsSection(
         ) {
             Column {
                 Text(
-                    text = "Ingredients",
+                    text = stringResource(R.string.recipe_builder_ingredients),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 if (ingredients.isNotEmpty()) {
                     Text(
-                        text = "${ingredients.size} items",
+                        text = stringResource(R.string.recipe_builder_ingredients_count, ingredients.size),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -570,7 +572,7 @@ private fun IngredientsSection(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Add")
+                Text(stringResource(R.string.action_add))
             }
         }
 
@@ -596,7 +598,7 @@ private fun IngredientsSection(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "No ingredients added yet.\nTap \"Add\" to search for ingredients.",
+                        text = stringResource(R.string.recipe_builder_no_ingredients),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -635,7 +637,7 @@ private fun InstructionsSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Instructions",
+                text = stringResource(R.string.recipe_builder_instructions),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -647,7 +649,7 @@ private fun InstructionsSection(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Add Step")
+                Text(stringResource(R.string.recipe_builder_add_step))
             }
         }
 
@@ -680,7 +682,7 @@ private fun InstructionsSection(
                         value = instruction,
                         onValueChange = { onUpdateInstruction(index, it) },
                         modifier = Modifier.weight(1f),
-                        placeholder = { Text("Describe step ${index + 1}...") },
+                        placeholder = { Text(stringResource(R.string.recipe_builder_step_hint, index + 1)) },
                         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                         minLines = 2,
                         maxLines = 4
@@ -693,7 +695,7 @@ private fun InstructionsSection(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "Remove step",
+                                contentDescription = stringResource(R.string.recipe_builder_remove_step),
                                 modifier = Modifier.size(18.dp),
                                 tint = MaterialTheme.colorScheme.error
                             )
@@ -726,7 +728,7 @@ private fun NutritionPreviewSection(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Nutrition per Serving",
+                text = stringResource(R.string.recipe_builder_nutrition_per_serving),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -736,29 +738,29 @@ private fun NutritionPreviewSection(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 NutritionBadge(
-                    label = "Calories",
+                    label = stringResource(R.string.nutrient_calories),
                     value = "${caloriesPerServing.toInt()}",
                     color = Color(0xFFFF9800)
                 )
                 NutritionBadge(
-                    label = "Protein",
+                    label = stringResource(R.string.nutrient_protein),
                     value = "${proteinPerServing.toInt()}g",
                     color = Color(0xFFF44336)
                 )
                 NutritionBadge(
-                    label = "Carbs",
+                    label = stringResource(R.string.nutrient_carbs),
                     value = "${carbsPerServing.toInt()}g",
                     color = Color(0xFF4CAF50)
                 )
                 NutritionBadge(
-                    label = "Fat",
+                    label = stringResource(R.string.nutrient_fat),
                     value = "${fatPerServing.toInt()}g",
                     color = Color(0xFF2196F3)
                 )
             }
 
             Text(
-                text = "Based on $servings servings",
+                text = stringResource(R.string.recipe_builder_based_on_servings, servings),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

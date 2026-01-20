@@ -41,12 +41,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.MealType
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,14 +80,14 @@ fun ManualEntryScreen(
             TopAppBar(
                 title = {
                     Text(
-                        if (uiState.isEditMode) "Edit Entry" else "Add Food"
+                        if (uiState.isEditMode) stringResource(R.string.manual_entry_title_edit) else stringResource(R.string.manual_entry_title_add)
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.action_back)
                         )
                     }
                 }
@@ -113,7 +115,7 @@ fun ManualEntryScreen(
             OutlinedTextField(
                 value = uiState.name,
                 onValueChange = viewModel::updateName,
-                label = { Text("Food Name *") },
+                label = { Text(stringResource(R.string.manual_entry_food_name)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
@@ -127,7 +129,7 @@ fun ManualEntryScreen(
             OutlinedTextField(
                 value = uiState.brand,
                 onValueChange = viewModel::updateBrand,
-                label = { Text("Brand (optional)") },
+                label = { Text(stringResource(R.string.manual_entry_brand)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
@@ -140,7 +142,7 @@ fun ManualEntryScreen(
 
             // Serving info
             Text(
-                text = "Serving Information",
+                text = stringResource(R.string.manual_entry_serving_info),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -153,7 +155,7 @@ fun ManualEntryScreen(
                 OutlinedTextField(
                     value = uiState.servingSize,
                     onValueChange = viewModel::updateServingSize,
-                    label = { Text("Serving Size *") },
+                    label = { Text(stringResource(R.string.manual_entry_serving_size)) },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
@@ -175,7 +177,7 @@ fun ManualEntryScreen(
             OutlinedTextField(
                 value = uiState.quantity,
                 onValueChange = viewModel::updateQuantity,
-                label = { Text("Number of Servings *") },
+                label = { Text(stringResource(R.string.manual_entry_num_servings)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
@@ -189,7 +191,7 @@ fun ManualEntryScreen(
 
             // Nutrition info
             Text(
-                text = "Nutrition Information (per serving)",
+                text = stringResource(R.string.manual_entry_nutrition_info),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -198,14 +200,14 @@ fun ManualEntryScreen(
             OutlinedTextField(
                 value = uiState.calories,
                 onValueChange = viewModel::updateCalories,
-                label = { Text("Calories *") },
+                label = { Text(stringResource(R.string.nutrient_calories) + " *") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Next
                 ),
-                suffix = { Text("kcal") },
+                suffix = { Text(stringResource(R.string.unit_kcal)) },
                 isError = uiState.calories.toDoubleOrNull() == null && uiState.error != null
             )
 
@@ -217,49 +219,49 @@ fun ManualEntryScreen(
                 OutlinedTextField(
                     value = uiState.protein,
                     onValueChange = viewModel::updateProtein,
-                    label = { Text("Protein *") },
+                    label = { Text(stringResource(R.string.nutrient_protein) + " *") },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Next
                     ),
-                    suffix = { Text("g") },
+                    suffix = { Text(stringResource(R.string.unit_grams)) },
                     isError = uiState.protein.toDoubleOrNull() == null && uiState.error != null
                 )
 
                 OutlinedTextField(
                     value = uiState.carbs,
                     onValueChange = viewModel::updateCarbs,
-                    label = { Text("Carbs *") },
+                    label = { Text(stringResource(R.string.nutrient_carbs) + " *") },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Next
                     ),
-                    suffix = { Text("g") },
+                    suffix = { Text(stringResource(R.string.unit_grams)) },
                     isError = uiState.carbs.toDoubleOrNull() == null && uiState.error != null
                 )
 
                 OutlinedTextField(
                     value = uiState.fat,
                     onValueChange = viewModel::updateFat,
-                    label = { Text("Fat *") },
+                    label = { Text(stringResource(R.string.nutrient_fat) + " *") },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Next
                     ),
-                    suffix = { Text("g") },
+                    suffix = { Text(stringResource(R.string.unit_grams)) },
                     isError = uiState.fat.toDoubleOrNull() == null && uiState.error != null
                 )
             }
 
             // Optional nutrients
             Text(
-                text = "Additional Nutrients (optional)",
+                text = stringResource(R.string.manual_entry_additional_nutrients),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -271,41 +273,41 @@ fun ManualEntryScreen(
                 OutlinedTextField(
                     value = uiState.fiber,
                     onValueChange = viewModel::updateFiber,
-                    label = { Text("Fiber") },
+                    label = { Text(stringResource(R.string.nutrient_fiber)) },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Next
                     ),
-                    suffix = { Text("g") }
+                    suffix = { Text(stringResource(R.string.unit_grams)) }
                 )
 
                 OutlinedTextField(
                     value = uiState.sugar,
                     onValueChange = viewModel::updateSugar,
-                    label = { Text("Sugar") },
+                    label = { Text(stringResource(R.string.nutrient_sugar)) },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Decimal,
                         imeAction = ImeAction.Next
                     ),
-                    suffix = { Text("g") }
+                    suffix = { Text(stringResource(R.string.unit_grams)) }
                 )
             }
 
             OutlinedTextField(
                 value = uiState.sodium,
                 onValueChange = viewModel::updateSodium,
-                label = { Text("Sodium") },
+                label = { Text(stringResource(R.string.nutrient_sodium)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
                 ),
-                suffix = { Text("mg") }
+                suffix = { Text(stringResource(R.string.unit_milligrams)) }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -317,8 +319,8 @@ fun ManualEntryScreen(
                 enabled = uiState.isValid && !uiState.isSaving
             ) {
                 Text(
-                    if (uiState.isSaving) "Saving..." else
-                        if (uiState.isEditMode) "Update Entry" else "Add Entry"
+                    if (uiState.isSaving) stringResource(R.string.manual_entry_saving) else
+                        if (uiState.isEditMode) stringResource(R.string.manual_entry_update) else stringResource(R.string.manual_entry_add)
                 )
             }
         }
@@ -342,9 +344,19 @@ private fun MealTypeSelector(
                     index = index,
                     count = MealType.entries.size
                 ),
-                label = { Text(mealType.displayName) }
+                label = { Text(mealType.getDisplayName()) }
             )
         }
+    }
+}
+
+@Composable
+private fun MealType.getDisplayName(): String {
+    return when (this) {
+        MealType.BREAKFAST -> stringResource(R.string.meal_breakfast)
+        MealType.LUNCH -> stringResource(R.string.meal_lunch)
+        MealType.DINNER -> stringResource(R.string.meal_dinner)
+        MealType.SNACK -> stringResource(R.string.meal_snacks)
     }
 }
 
@@ -392,13 +404,3 @@ private fun ServingUnitPicker(
     }
 }
 
-/**
- * Extension property for meal type display name
- */
-private val MealType.displayName: String
-    get() = when (this) {
-        MealType.BREAKFAST -> "Breakfast"
-        MealType.LUNCH -> "Lunch"
-        MealType.DINNER -> "Dinner"
-        MealType.SNACK -> "Snack"
-    }

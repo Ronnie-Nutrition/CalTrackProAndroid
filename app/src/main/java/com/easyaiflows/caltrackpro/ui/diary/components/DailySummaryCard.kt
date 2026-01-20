@@ -20,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.easyaiflows.caltrackpro.R
 import com.easyaiflows.caltrackpro.domain.model.NutritionGoals
 
 @Composable
@@ -66,7 +68,7 @@ fun DailySummaryCard(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 MacroItem(
-                    label = "Protein",
+                    label = stringResource(R.string.nutrient_protein),
                     consumed = totalProtein,
                     goal = goals.protein,
                     progress = proteinProgress,
@@ -74,7 +76,7 @@ fun DailySummaryCard(
                     modifier = Modifier.weight(1f)
                 )
                 MacroItem(
-                    label = "Carbs",
+                    label = stringResource(R.string.nutrient_carbs),
                     consumed = totalCarbs,
                     goal = goals.carbs,
                     progress = carbsProgress,
@@ -82,7 +84,7 @@ fun DailySummaryCard(
                     modifier = Modifier.weight(1f)
                 )
                 MacroItem(
-                    label = "Fat",
+                    label = stringResource(R.string.nutrient_fat),
                     consumed = totalFat,
                     goal = goals.fat,
                     progress = fatProgress,
@@ -106,6 +108,13 @@ private fun CaloriesSection(
         label = "calories_progress"
     )
 
+    val remaining = goal - consumed.toInt()
+    val remainingText = if (remaining >= 0) {
+        stringResource(R.string.summary_remaining, remaining)
+    } else {
+        stringResource(R.string.summary_over, -remaining)
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -117,7 +126,7 @@ private fun CaloriesSection(
         ) {
             Column {
                 Text(
-                    text = "Calories",
+                    text = stringResource(R.string.nutrient_calories),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -130,7 +139,7 @@ private fun CaloriesSection(
             }
             Column(horizontalAlignment = Alignment.End) {
                 Text(
-                    text = "Goal",
+                    text = stringResource(R.string.summary_goal),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -156,9 +165,8 @@ private fun CaloriesSection(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        val remaining = goal - consumed.toInt()
         Text(
-            text = if (remaining >= 0) "$remaining remaining" else "${-remaining} over",
+            text = remainingText,
             style = MaterialTheme.typography.labelSmall,
             color = if (remaining >= 0) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error
         )
